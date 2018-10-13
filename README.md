@@ -6,6 +6,10 @@ docker build -f DockerfileR -t tonyjward/rstudio .
 
 We only need to do this once
 
+# Start Selenium
+
+docker run -d -p 4445:4444 selenium/standalone-firefox-debug:3.14
+
 # Launch R session
 
 Since we will do this many times I have written a shell script. We first need to make this file 
