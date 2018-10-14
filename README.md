@@ -2,11 +2,17 @@
 The objective of this project is to monitor the trends in data science job opportunities. We achieve this through scraping of the jobserve website. 
 
 # Build Dockerfile with R and required libraries installed
+<<<<<<< HEAD
 
 '''bash
 docker build -f DockerfileR -t tonyjward/rstudio .
 '''
+=======
+>>>>>>> 51b71f40fcf48217f0b7d7626e24798bd611a4a1
 
+'''docker
+docker build -f DockerfileR -t tonyjward/rstudio .
+'''
 We only need to do this once
 
 # Start Selenium
@@ -24,7 +30,10 @@ Run
 '''bash
 $chmod +x launch-R.sh 
 '''
+<<<<<<< HEAD
 
+=======
+>>>>>>> 51b71f40fcf48217f0b7d7626e24798bd611a4a1
 which makes the file executable.
 Then everytime you want to launch an R Studio Server session you can run ./launch-R.sh
 Then navigate to localhost:8787
