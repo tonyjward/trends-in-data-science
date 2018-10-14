@@ -12,7 +12,7 @@ We only need to do this once
 # Start Selenium
 
 ```bash
-docker run -d --name myseleniumserver -p 4445:4444 selenium/standalone-firefox-debug:3.14
+docker run -d --name mychromeserver -p 4445:4444 selenium/standalone-chrome-debug:3.14
 ```
 
 # Launch R session

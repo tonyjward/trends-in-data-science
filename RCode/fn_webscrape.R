@@ -30,15 +30,16 @@
 #  1. Establish Connection
 
 fn_webScrape <- function(searchTerm){
-  
+  # searchTerm <- "'data scientist'"
   library(RSelenium)
   library(rvest)
   library(dplyr)
   library(data.table)
   
   
-  remDr <- remoteDriver(remoteServerAddr = "192.168.99.100",
-                        port = 4445L)
+  remDr <- remoteDriver(remoteServerAddr = "mychromeserver",
+                        port = 4444L,
+                        browser = "chrome")
   
   remDr$open(silent = TRUE)
   
@@ -109,7 +110,8 @@ fn_webScrape <- function(searchTerm){
     gsub(",","",.) %>% # remove commas
     as.numeric()
   
-  for (i in 1:resultNumber-1){
+  for (i in 1:2){
+    # for (i in 1:resultNumber-1){
     # press down arrow key
     remDr$sendKeysToActiveElement(list(key = 'down_arrow', 
                                        key = 'down_arrow', 
