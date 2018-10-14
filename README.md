@@ -3,17 +3,17 @@ The objective of this project is to monitor the trends in data science job oppor
 
 # Build Dockerfile with R and required libraries installed
 
-'''bash
+```bash
 docker build -f DockerfileR -t tonyjward/rstudio .
-'''
+```
 
 We only need to do this once
 
 # Start Selenium
 
-'''bash
+```bash
 docker run -d -p 4445:4444 selenium/standalone-firefox-debug:3.14
-'''
+```
 
 # Launch R session
 
