@@ -8,9 +8,10 @@ library(dplyr)
 ###########################################################################################
 #### 1. Navigating using Selenium
 
-
-remDr <- remoteDriver(remoteServerAddr = "192.168.99.100",
-                      port = 4445L)
+# https://github.com/ropensci/RSelenium/issues/102
+remDr <- remoteDriver(remoteServerAddr = "myseleniumserver",
+                      port = 4444L,
+                      browser = "firefox")
 
 # Connect to remote server (silently)
 remDr$open(silent = TRUE)
