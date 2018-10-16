@@ -4,29 +4,24 @@ The objective of this project is to monitor the trends in data science job oppor
 # Build Dockerfile with R and required libraries installed
 
 ```bash
-docker build -f DockerfileR -t tonyjward/rstudio .
+docker build -t tonyjward/rstudio .
 ```
 
 We only need to do this once
 
-# Start Selenium
+# Docker Compose
+
+We use docker compose to launch our two services (Selenium and RStudio Server)
 
 ```bash
-docker run -d --name mychromeserver -p 4445:4444 selenium/standalone-chrome-debug:3.14
+docker-compose up -d
 ```
 
-# Launch R session
+Then navigate to 
+*localhost:80 to view RStudio or
+*localhost:4445 to view Selenium Browser
 
-Since we will do this many times I have written a shell script. We first need to make this file 
-executable. You only need to run that once.
-Run 
 
-```bash
-$chmod +x launch-R.sh 
-```
 
-which makes the file executable.
-Then everytime you want to launch an R Studio Server session you can run ./launch-R.sh
-Then navigate to localhost:8787
 
 
