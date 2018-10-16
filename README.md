@@ -18,8 +18,8 @@ docker-compose up -d
 ```
 
 Then navigate to 
-*localhost:80 to view RStudio or
-*localhost:4445 to view Selenium Browser
+* localhost:80 to view RStudio or
+* localhost:4445 to view Selenium Browser
 
 
 
