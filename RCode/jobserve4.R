@@ -11,11 +11,11 @@
 
 rm(list=ls())
 
-source('C:/Users/Tony/Dropbox/Statcore/Useful Resources/R/webscraping/selenium/fn_webscrape.R')
+source('RCode/fn_webscrape.R')
 
                    
 searchTerms <- c('"data scientist"',
-                 '"c# developer"',
+                 '"c developer"',
                  '"data science"',
                  '"machine learning"',
                  '"artificial intelligence"',

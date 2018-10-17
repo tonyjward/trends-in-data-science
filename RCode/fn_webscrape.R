@@ -30,14 +30,14 @@
 #  1. Establish Connection
 
 fn_webScrape <- function(searchTerm){
-  # searchTerm <- "'data scientist'"
+  # searchTerm <- '"data scientist"'
   library(RSelenium)
   library(rvest)
   library(dplyr)
   library(data.table)
   
   
-  remDr <- remoteDriver(remoteServerAddr = "mychromeserver",
+  remDr <- remoteDriver(remoteServerAddr = "selenium",
                         port = 4444L,
                         browser = "chrome")
   
@@ -147,7 +147,7 @@ fn_webScrape <- function(searchTerm){
   searchTermFile <- gsub(" ","_", searchTermFile)
   
   write.table(allDataDT,
-              file = file.path(paste0(searchTermFile,Sys.Date(),".txt")),
+              file = file.path('ROutput',paste0(searchTermFile,Sys.Date(),".txt")),
               sep = "\t",
               row.names = FALSE) 
 
