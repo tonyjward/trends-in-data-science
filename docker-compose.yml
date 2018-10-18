@@ -7,8 +7,7 @@ services:
     links:
       - selenium:selenium
     volumes:
-      - "./RCode:/home/rstudio/RCode"
-      - "./ROutput:/home/rstudio/ROutput"
+      - ".:/home/rstudio"
     environment:
       - PASSWORD=letmein 
   selenium:

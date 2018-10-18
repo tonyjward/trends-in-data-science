@@ -8,3 +8,4 @@ RUN R -e 'devtools::install_version("wdman", version = "0.2.2", repos = "https:/
 
 RUN R -e 'devtools::install_version("RSelenium", version = "1.7.1", repos = "https://cran.uni-muenster.de/")'
 
+RUN apt-get update && apt-get install -y nano

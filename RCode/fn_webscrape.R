@@ -45,7 +45,7 @@ fn_webScrape <- function(searchTerm){
   
   remDr$navigate("https://www.jobserve.co.uk")
   
-  remDr$screenshot(display = TRUE)
+  # remDr$screenshot(display = TRUE)
   
   #---------------------------------------------------------------------
   #  1. Search for data scientist
@@ -59,13 +59,13 @@ fn_webScrape <- function(searchTerm){
   webElem <- remDr$findElement(using = "id", value = "txtLoc")
   webElem$clearElement()
   
-  remDr$screenshot(display = TRUE)
+  # remDr$screenshot(display = TRUE)
   
   # send search string to keyword text box
   webElem <- remDr$findElement(using = "id", value = "txtKey")
   webElem$sendKeysToElement(list(searchTerm, key = "enter"))
   Sys.sleep(runif(n=1, min=1, max = 4))
-  remDr$screenshot(display = TRUE)
+  # remDr$screenshot(display = TRUE)
   
   #---------------------------------------------------------------------
   #  2. Parse Output

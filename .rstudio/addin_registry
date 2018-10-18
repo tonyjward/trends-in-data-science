@@ -1,0 +1,50 @@
+{
+    "clipr::clipr_output" : {
+        "binding" : "clipr_output",
+        "description" : "Copies the console output of a selected expression to the system clipboard",
+        "interactive" : false,
+        "name" : "Output to clipboard",
+        "package" : "clipr",
+        "title" : ""
+    },
+    "clipr::clipr_result" : {
+        "binding" : "clipr_result",
+        "description" : "Copies the results of a selected expression to the system clipboard",
+        "interactive" : false,
+        "name" : "Value to clipboard",
+        "package" : "clipr",
+        "title" : ""
+    },
+    "covr::addin_report" : {
+        "binding" : "addin_report",
+        "description" : "Calculates the package test coverage and opens a report, using `covr::report()`",
+        "interactive" : false,
+        "name" : "Calculate package test coverage",
+        "package" : "covr",
+        "title" : ""
+    },
+    "reprex::reprex_addin" : {
+        "binding" : "reprex_addin",
+        "description" : "Run `reprex::reprex()` to prepare a reproducible example for sharing.",
+        "interactive" : true,
+        "name" : "Render reprex...",
+        "package" : "reprex",
+        "title" : ""
+    },
+    "reprex::reprex_selection" : {
+        "binding" : "reprex_selection",
+        "description" : "Prepare reprex from current selection",
+        "interactive" : false,
+        "name" : "Reprex selection",
+        "package" : "reprex",
+        "title" : ""
+    },
+    "testit::insert_identical" : {
+        "binding" : "insert_identical",
+        "description" : "Insert the infix operator %==% from testit.",
+        "interactive" : false,
+        "name" : "Insert %==%",
+        "package" : "testit",
+        "title" : ""
+    }
+}
