@@ -31,6 +31,8 @@ In order to automate the web scraping process we do the following
 Follow instructures here
 https://docs.microsoft.com/en-us/azure/automation/automation-solution-vm-management#modify-the-startup-and-shutdown-schedules
 
+Set the machine to start at 12:00 AM and shutdown at 01:00 AM
+
 ## Configure a cron job on linux host
 
 Bring up the crontab for users with root permissions (so we don't have to prefix commands with sudo)
