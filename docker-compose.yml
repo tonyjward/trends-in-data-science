@@ -1,7 +1,7 @@
 version: '2'
 services:
   rstudio:
-    image: tonyjward/rstudio 
+    image: tonyjward/rstudio:latestbuild 
     ports:
       - "80:8787"
     links:

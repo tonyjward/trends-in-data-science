@@ -15,7 +15,7 @@ source('RCode/fn_webscrape.R')
 
                    
 searchTerms <- c('"data scientist"',
-                 '"c developer"',
+                 '"digital project manager"',
                  '"data science"',
                  '"machine learning"',
                  '"artificial intelligence"',
@@ -23,7 +23,7 @@ searchTerms <- c('"data scientist"',
                  'actuary OR actuarial',
                  'physiotherapist',
                  'teacher',
-                 '"digital project manager"')
+                 '"c developer"')
                  
 sapply(searchTerms, fn_webScrape)
 

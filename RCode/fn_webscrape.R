@@ -110,8 +110,8 @@ fn_webScrape <- function(searchTerm){
     gsub(",","",.) %>% # remove commas
     as.numeric()
   
-  for (i in 1:2){
-    # for (i in 1:resultNumber-1){
+  # for (i in 1:2){
+  for (i in 1:resultNumber-1){
     # press down arrow key
     remDr$sendKeysToActiveElement(list(key = 'down_arrow', 
                                        key = 'down_arrow', 
