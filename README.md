@@ -1,13 +1,26 @@
 # trends-in-data-science
 The objective of this project is to monitor the trends in data science job opportunities. We achieve this through scraping of the jobserve website. 
 
-# Build Dockerfile with R and required libraries installed
+# Build Dockerfile with R and required libraries installed (RSelenium). 
+This container will  run the webscraping on startup
 
 ```bash
 docker build -t tonyjward/rstudio .
 ```
 
 We only need to do this once
+
+We also want a lightweight Rstudio server image so that we can play around with the data and prototype a shiny application
+
+```bash
+sudo docker build -f DockerfileRstudio -t tonyjward/rstudio:latestbuild .
+```
+
+which we launch with the shell script
+
+```bash
+./launch-dev.sh
+```
 
 # Docker Compose
 
