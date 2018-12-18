@@ -1,2 +1,6 @@
 .rstudio/
 # *.txt
+.Rhistory
+.Rproj.user/
+*.Rproj
+

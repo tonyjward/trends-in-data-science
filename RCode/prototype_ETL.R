@@ -3,16 +3,15 @@ library(data.table)
 # identify files
 
 filesToRead <- list.files(path = paste0(getwd(),"/ROutput"),
-          pattern = "actuary_OR_actuarial")
+          pattern = "data_scientist")
 
 pathsToRead <- paste0('ROutput/',filesToRead)
 
 result <- lapply(pathsToRead, fread)
 
-dataAll <- rbindlist(result, fill = TRUE)
+dt_Staging <- rbindlist(result, fill = TRUE)
 
-dataunique <- unique(dataAll, by = setdiff(colnames(dataAll),
+dt <- unique(dt_Staging, by = setdiff(colnames(dt_Staging),
                                            "last_view"))
 
-
-
+save(dt, file = "App/RData/dt.RData")
