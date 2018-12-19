@@ -14,7 +14,6 @@ server <- function(input, output, session) {
   
   callModule(loadData, "id1")
   
-  
 
   #-----------------------------------------------------------------------
   #   3.  Reports

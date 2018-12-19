@@ -6,18 +6,17 @@
 
 loadData <- function(input, output, session){ 
   
-
   #-----------------------------------------------------------------------
   #   2. Output to UI
   
   output$tbl <- DT::renderDataTable({
 
-    datatable(dt[,.(job_type,
-                    jobResultsTitle,
-                    skills,
-                    rate,
-                    jobResultsLoc, # if you want country as well, use location
-                    posted_date)], 
+    datatable(dt[,c( "job_type",
+                     "jobResultsTitle",
+                     "skills",
+                     "rate",
+                     "jobResultsLoc", # if you want country as well, use location
+                     "posted_date"), with = FALSE],
               filter = "top",
               options = list(
                 autoWidth = TRUE,
