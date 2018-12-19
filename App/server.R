@@ -10,7 +10,7 @@ library(ggplot2)
 library(DT)
 
 
-load("RData/dt.RData")
+dt <- readRDS(file = "RData/data_scientist.RData")
 
 server <- function(input, output, session) {
   

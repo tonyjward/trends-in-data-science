@@ -14,4 +14,17 @@ dt_Staging <- rbindlist(result, fill = TRUE)
 dt <- unique(dt_Staging, by = setdiff(colnames(dt_Staging),
                                            "last_view"))
 
-save(dt, file = "App/RData/dt.RData")
+# clean up
+dt[, rate := gsub('Â','',rate)]
+
+saveRDS(dt, file = "App/RData/data_scientist.RData")
+
+data_scientist <- readRDS(file = "App/RData/data_scientist.RData")
+
+
+
+
+dt <- readRDS(file = "App/RData/data_scientist.RData")
+
+
+

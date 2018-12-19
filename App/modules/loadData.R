@@ -4,7 +4,7 @@
 # If they’re strings that go into a SQL query, use sqlInterpolate(). 
 # If it’s something more complicated, make sure you process it in a way such that a SQL injection is impossible.
 
-loadData <- function(input, output, session, combinations){ 
+loadData <- function(input, output, session){ 
   
 
   #-----------------------------------------------------------------------
@@ -12,12 +12,19 @@ loadData <- function(input, output, session, combinations){
   
   output$tbl <- DT::renderDataTable({
 
-    datatable(dt, 
+    datatable(dt[,.(job_type,
+                    jobResultsTitle,
+                    skills,
+                    rate,
+                    jobResultsLoc, # if you want country as well, use location
+                    posted_date)], 
               filter = "top",
               options = list(
                 autoWidth = TRUE,
                 scrollX = TRUE, # required to change column length https://github.com/rstudio/DT/issues/29
-                columnDefs = list(list(width = '2000px', targets = 10)))) 
+                columnDefs = list(list(width = '1000px', targets = 3)))
+                #lengthMenu = c(5,10,15,20))
+              ) 
   } 
 )
 }
