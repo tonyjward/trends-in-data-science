@@ -1,3 +1,10 @@
+library(shiny)
+library(reshape2)
+library(dplyr)
+library(data.table)
+library(ggplot2)
+library(DT)
+
 # run all Modules
 sapply( list.files("modules", full.names=TRUE), source )
 

@@ -1,0 +1,84 @@
+# 02a_ManipulateData.R
+# Author: Tony Ward
+# Date: 21 June 2016
+
+# Purpose: Manipulate data as needed
+
+# Contents:
+#   1. Intial Review of Variable Types
+#   2. Ensure Column Nammes are Valid
+#   3. Add Fold for partitioning 
+#   4. Add 'YYYYQq' e.g. (e.g. '2010Q1' for quarterly data) for googleVis plot 
+#   5. remove 2016Q3 as we only have 96 surveys
+#   6. Create uniuqe string identifier for each row
+#   7. Create overall text field and delete row if they don't tell us anything
+
+#---------------------------------------------------------------------
+#   _. Load data required
+
+dt_all <- readRDS(dt, file = "App/RData/data_scientist.RData")
+
+
+#---------------------------------------------------------------------
+#  2. Ensure Column Nammes are Valid
+#   Change Column Names
+#   https://stackoverflow.com/questions/9283171/named-columns-renaming
+
+
+
+setnames(dt_all,
+         old = c("jobResultsTitle",
+                 "jobResultsSalary",
+                 "jobResultsLoc",
+                 "jobResultsType",
+                 "jobpositionlink",
+                 "skills"),
+         new = c("Title",
+                 "Salary",
+                 "Location",
+                 "Type",
+                 "Link",
+                 "Skills"))
+
+setnames(dt_all,
+         old = 18,
+         new = "Posted Date")
+
+#---------------------------------------------------------------------
+#  3. Add Fold for partitioning 
+
+set.seed(2017)
+
+dt_all[,fold := sample(10, size = nrow(dt_all), replace = TRUE)]
+
+#---------------------------------------------------------------------
+#  4. Add 'YYYYQq' e.g. (e.g. '2010Q1' for quarterly data) for googleVis plot 
+
+# change date_time variable to datetime format
+# https://stackoverflow.com/questions/21571703/format-date-as-year-quarter
+
+dt_all[ ,`Posted Date` :=  as.POSIXct(dt_all$`Posted Date`, format="%d/%m/%Y %T")]
+
+yq <- as.yearqtr(dt_all$`Posted Date`, format = "%Y Q%q")
+
+dt_all[,yearQtr := gsub(" ", "", yq)]
+
+table(dt_all$yearQtr)
+
+#---------------------------------------------------------------------
+#  6. Create uniuqe string identifier for each row
+
+dt_all[,doc_id := 1:nrow(dt_all)]
+
+#---------------------------------------------------------------------
+#  7. Clean up data
+
+dt_all[, rate := gsub('Â','',rate)]
+
+
+#--------------------------------------------------------------
+# DONE. Save results and gc()
+
+save(dt_all, file = file.path(dirRData,'02a_dt_all.RData'))
+cleanUp(functionNames)
+gc()

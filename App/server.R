@@ -2,19 +2,12 @@
 # options(shiny.error = browser)
 # options(shiny.sanitize.errors = TRUE)
 
-library(shiny)
-library(reshape2)
-library(dplyr)
-library(data.table)
-library(ggplot2)
-library(DT)
+
 
 
 dt <- readRDS(file = "RData/data_scientist.RData")
 
 server <- function(input, output, session) {
-  
-  
   
   #-----------------------------------------------------------------------
   #   2.  Load Data
