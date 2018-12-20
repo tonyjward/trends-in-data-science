@@ -10,5 +10,5 @@ cleanUp <- function(functionNames){
   rm(list = removeObjects, envir = .GlobalEnv)
   
   # provides message
-  return(glue::collapse(c("The following objects have been removed from the global environment", removeObjects), sep = " "))
+  return(glue_collapse(c("The following objects have been removed from the global environment", removeObjects), sep = " "))
 }
