@@ -12,7 +12,7 @@ server <- function(input, output, session) {
   #-----------------------------------------------------------------------
   #   2.  Load Data
   
-  callModule(loadData, "id1")
+  callModule(loadData, "id1", jobData = dt)
   
 
   #-----------------------------------------------------------------------

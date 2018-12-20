@@ -4,14 +4,14 @@
 # If they’re strings that go into a SQL query, use sqlInterpolate(). 
 # If it’s something more complicated, make sure you process it in a way such that a SQL injection is impossible.
 
-loadData <- function(input, output, session){ 
+loadData <- function(input, output, session, jobData){ 
   
   #-----------------------------------------------------------------------
   #   2. Output to UI
   
   output$tbl <- DT::renderDataTable({
 
-    datatable(dt[,c( "job_type",
+    datatable(jobData[,c( "job_type",
                      "jobResultsTitle",
                      "skills",
                      "rate",
