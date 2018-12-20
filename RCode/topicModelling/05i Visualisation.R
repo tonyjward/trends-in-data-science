@@ -134,9 +134,9 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   # save as data.frame 
   
   # facet_wrap plot of top words
-  av_CSAT <- outputAll[topWords != "NA - Multiple Topics",list(overall_CSAT_score = mean(overall_CSAT_score, na.rm = TRUE),
-                                                               count = .N),, by = list(topic = gsub("Topic","",topic))][order(overall_CSAT_score)]
-  
+  # av_CSAT <- outputAll[topWords != "NA - Multiple Topics",list(overall_CSAT_score = mean(overall_CSAT_score, na.rm = TRUE),
+  #                                                              count = .N),, by = list(topic = gsub("Topic","",topic))][order(overall_CSAT_score)]
+  # 
   # create data.frame to re-order topics
   topicReorder <- data.frame(topic = x$topic.order,
                              newTopic = 1:topicsizes)
@@ -156,13 +156,13 @@ outputData<- lapply(names(fitted_many_p), function(x) {
     select(-one_of("newTopic"))# swaps names round and gets rid of old topic
   
   # visualise top words per topic
-  plotTopWords <- ap_top_terms %>%
-    mutate(term = reorder(term, beta)) %>%
-    ggplot(aes(term, beta, fill = factor(topic))) +
-    geom_col(show.legend = FALSE) +
-    facet_wrap(~ factor(topic, levels = av_CSAT$topic), scales = "free") +
-    coord_flip()
-  
+  # plotTopWords <- ap_top_terms %>%
+  #   mutate(term = reorder(term, beta)) %>%
+  #   ggplot(aes(term, beta, fill = factor(topic))) +
+  #   geom_col(show.legend = FALSE) +
+  #   facet_wrap(~ factor(topic, levels = av_CSAT$topic), scales = "free") +
+  #   coord_flip()
+  # 
   
   topicsizes <- LDA_fit@k
   directory <- paste(dirROutput,"/",identifier,"_size_",topicsizes,sep="")
@@ -171,7 +171,8 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   # write.table(outputAll[1:min(nrow(outputAll),maxRows),], paste0(directory,'/topics_all_',identifier,"_size_",topicsizes,'.csv'), row.names=F,eol="\n",sep=',')
   
   
-  list(outputAll,plotTopWords)
+  #list(outputAll,plotTopWords)
+  list(outputAll)
 })
 
 

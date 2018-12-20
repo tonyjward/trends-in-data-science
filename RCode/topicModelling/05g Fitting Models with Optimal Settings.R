@@ -35,7 +35,7 @@ gc()
 seed <- 2018
 keep <- 50
 burninFit <- 50
-iterFit <- 10000
+iterFit <- 2000
 
 
 #---------------------------------------------------------------------
@@ -95,9 +95,7 @@ stopCluster(cluster)
 names(fitted_many_p) <- hyperparams$k
 
 # save results
-identifier <- paste(filter_name1, glue::collapse(filter_condition1), 
-                    filter_name2, glue::collapse(filter_condition2),
-                    field_name, "iterations", iterFit, sep = "_") %>% gsub(" ", "_", .)
+identifier <- paste(field_name, "iterations", iterFit, sep = "_") %>% gsub(" ", "_", .)
 
 # save for future use
 save(fitted_many_p,

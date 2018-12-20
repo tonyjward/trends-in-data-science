@@ -76,7 +76,7 @@ txtCorpus <- tm_map(txtCorpus, removeNumbers)
 
 dtmControl <- list(stemming = F, 
                    stopwords = F, 
-                   wordLengths = c(2, Inf),
+                   wordLengths = c(1, Inf), 
                    removeNumbers = T,
                    removePunctuation = F,
                    bounds = list(global = c(2, Inf)))
@@ -169,14 +169,14 @@ if(sum(emptyRows >0))
 vocab <- colnames(txtDtm)
 
 wordsUsedList <-  apply(txtDtm, 1, function(x){
-  glue::collapse(vocab[x>0], sep = " ")
+  glue_collapse(vocab[x>0], sep = " ")
   # sum(x)
 })
 
 dt_all[, wordsUsed := unlist(wordsUsedList)]
 
 
-dt_all[1:90,list(text, wordsUsed)]
+# dt_all[1:90,list(text, wordsUsed)]
 
 
 #---------------------------------------------------------------------
@@ -188,12 +188,6 @@ dt_all[1:90,list(text, wordsUsed)]
 # idxWord <- txtDtm[,"resetfiori"] %>% as.matrix() %>% as.vector() > 0
 # dt_all[idxWord, text]
 
-#---------------------------------------------------------------------
-#  7. Create corpus required for supervised LDA
-
-txtList <- txtCorpus %>% as.list() # just takes first item of each element of txtItems (content) which is what we want
-txtVector <- do.call(cbind,txtList)
-txtCorpusLDA_VOCAB <- lexicalize(txtVector, vocab = txtDtm$dimnames$Terms)
 
 
 #---------------------------------------------------------------------
@@ -221,7 +215,7 @@ if (exists("dt_removed")){
        dt_removed,
        train_folds,
        val_folds,
-       idxFilter,
+       #idxFilter,
        file = file.path(dirRData,'05a_dt_all.RData'))
 } else {
   save(dt_all, 
@@ -231,10 +225,11 @@ if (exists("dt_removed")){
        file = file.path(dirRData,'05a_dt_all.RData'))
 }
 
-save(filter_name1,
-     filter_condition1,
-     filter_name2,
-     filter_condition2,
+save(
+  #filter_name1,
+   #  filter_condition1,
+    # filter_name2,
+     #filter_condition2,
      field_name,
      file = file.path(dirRData,'05a_settings.RData'))
 
@@ -268,12 +263,6 @@ save(txtDtm_valid,
      field_name,
      filter,
      file = file.path(dirRData,'05a_txtDtm_valid.RData'))
-
-save(txtCorpusLDA_VOCAB,
-     txtDtm,
-     file = file.path(dirRData,'05a_slda.RData'))
-
-
 
 
 cleanUp(functionNames)

@@ -68,6 +68,7 @@ packagesToLoad <- c(
   #"tidyr",
   'slam',
   'zoo',
+  'glue',
   
   # VISUALISATION AND EDA
   'ggplot2' ,
