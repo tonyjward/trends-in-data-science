@@ -38,7 +38,7 @@ maxRows <- 9999999
 
 
 outputData<- lapply(names(fitted_many_p), function(x) {
-  # LDA_fit <- fitted_many_p[[4]]
+  # LDA_fit <- fitted_many_p[[2]]
   
   LDA_fit <- fitted_many_p[[x]]
   
@@ -167,9 +167,12 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   topicsizes <- LDA_fit@k
   directory <- paste(dirROutput,"/",identifier,"_size_",topicsizes,sep="")
   
-  write.table(outputAll[1:min(nrow(outputAll),maxRows),], paste0(directory,'/topics_all_',identifier,"_size_",topicsizes,'.txt'), row.names=F,eol="\r\n",sep='\t')
-  # write.table(outputAll[1:min(nrow(outputAll),maxRows),], paste0(directory,'/topics_all_',identifier,"_size_",topicsizes,'.csv'), row.names=F,eol="\n",sep=',')
   
+  # save JSON for shiny
+  saveRDS(jsonviz, file = paste0(directory,'/jsonviz_',identifier,"_size_",topicsizes,'.RData'))
+  
+  # save topic probability matrix together with original data
+  write.table(outputAll[1:min(nrow(outputAll),maxRows),], paste0(directory,'/topics_all_',identifier,"_size_",topicsizes,'.txt'), row.names=F,eol="\r\n",sep='\t')
   
   #list(outputAll,plotTopWords)
   list(outputAll)
