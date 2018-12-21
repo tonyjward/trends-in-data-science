@@ -17,7 +17,16 @@ navbarPage(id = "nav-page",
            #   3.  LDA vis
            
            tabPanel(title = "LDA vis",
-                    topicVisUI("id2"))
+                    topicVizUI("id2")),
+           
+           #-----------------------------------------------------------------------
+           #   4.  Tools
+           
+           tabPanel(title = "Tools",
+                    toolsUI("id3"))
+           
+           
+           
            
            # tabPanel(title = "Reports",
            #          dateRangeInput("daterangeReports", "Date range: Reports"),

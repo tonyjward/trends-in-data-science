@@ -5,7 +5,7 @@
 
 
 
-dt <- readRDS(file = "RData/data_scientist.RData")
+dt <- readRDS(file = "RData/data_scientist2.RData")
 
 jsonviz <- readRDS(file = "RData/jsonviz_Skills_iterations_2000_size_10.RData")
 
@@ -21,6 +21,14 @@ server <- function(input, output, session) {
   #   3.  LDA Vis
   
   callModule(topicViz, "id2", json = jsonviz)
+  
+  #-----------------------------------------------------------------------
+  #   4.  Tools
+  
+  callModule(tools, "id3", jobData = dt)
+  
+  
+  
   
   ## Update date range min/max based on selected transformer
 #   observe({
