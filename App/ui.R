@@ -11,10 +11,13 @@ navbarPage(id = "nav-page",
            #   2.  Load Data
            
            tabPanel(title = "Load Data",
-                    loadDataUI("id1"))
+                    loadDataUI("id1")),
            
            #-----------------------------------------------------------------------
-           #   3.  Reports
+           #   3.  LDA vis
+           
+           tabPanel(title = "LDA vis",
+                    topicVisUI("id2"))
            
            # tabPanel(title = "Reports",
            #          dateRangeInput("daterangeReports", "Date range: Reports"),
