@@ -10,10 +10,11 @@ sudo docker build -f Dockerfile -t tonyjward/rstudio:selenium .
 
 We only need to do this once
 
-We also want a lightweight Rstudio server image so that we can play around with the data and prototype a shiny application
+We also want a lightweight Rstudio server image so that we can play around with the data and develop a shiny application
 
 ```bash
-sudo docker build -f DockerfileRstudio -t tonyjward/rstudio:latestbuild .
+ sudo docker build -f DockerfileRstudio -t tonyjward/rstudio:dev .
+
 ```
 
 which we launch with the shell script
