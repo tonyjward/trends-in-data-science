@@ -5,7 +5,7 @@ The objective of this project is to monitor the trends in data science job oppor
 This container will  run the webscraping on startup
 
 ```bash
-docker build -t tonyjward/rstudio .
+sudo docker build -f Dockerfile -t tonyjward/rstudio:selenium .
 ```
 
 We only need to do this once
