@@ -93,8 +93,8 @@ packagesToLoad <- c(
   # "ROCR",
   
   # PARALLEL PROCESSING
-  # 'parallel',
-  # 'doSNOW',
+  'parallel',
+  'doSNOW',
   
   
   #'doParallel',
@@ -104,10 +104,10 @@ packagesToLoad <- c(
   
   # TEXT ANALYTICS
   'tm', # Framework for text mining.
-  'SnowballC', # Provides wordStem(', for stemming.
+  # 'SnowballC', # Provides wordStem(', for stemming.
   'topicmodels',
   'jsonlite',
-  'wordcloud',
+  # 'wordcloud',
   #'ldatuning',
   'jsonlite',
   'LDAvis',
