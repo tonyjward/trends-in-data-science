@@ -1,4 +1,8 @@
-FROM rocker/tidyverse:3.5
+FROM rocker/tidyverse:3.5.2
 
-# RUN R -e "install.packages(c('XML'))"
+# Install GNU scientific library as per  https://stackoverflow.com/a/25759021 which is requierd for topicmodels package
+RUN apt-get update && apt-get install -y libgsl0-dev
+
+RUN R -e "install.packages(c('slam','doSNOW','tm','LDAvis','servr','tidytext','topicmodels','DT', 'zoo'))"
+
 
