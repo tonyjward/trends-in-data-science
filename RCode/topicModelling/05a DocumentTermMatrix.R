@@ -24,7 +24,7 @@
 #---------------------------------------------------------------------
 #   _. Load data required
 
-load(file = file.path(dirRData,'02a_dt_all.RData'))
+dt_all <- readRDS(dt, file = "RData/02a_dt_all.RData")
 
 #---------------------------------------------------------------------
 #  1. Define Macro Variables

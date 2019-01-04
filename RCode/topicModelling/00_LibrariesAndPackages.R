@@ -112,7 +112,7 @@ packagesToLoad <- c(
   'jsonlite',
   'LDAvis',
   'servr',
-  'lda',
+  # 'lda',
   "tidytext"
   
   # OPTIMISATION

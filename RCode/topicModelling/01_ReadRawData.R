@@ -1,4 +1,13 @@
-library(data.table)
+# 01_ReadRawData.R
+# Author: Tony Ward
+# Date:  
+
+# Purpose: Read raw data *only*.  No other data manipulation.
+
+
+
+# ----------------------------------------------------------
+# 1. Read raw data 
 
 # identify files
 
@@ -11,12 +20,18 @@ result <- lapply(pathsToRead, fread)
 
 dt_Staging <- rbindlist(result, fill = TRUE)
 
-dt <- unique(dt_Staging, by = setdiff(colnames(dt_Staging),
+dt_all <- unique(dt_Staging, by = setdiff(colnames(dt_Staging),
                                            "last_view"))
 
+#--------------------------------------------------------------
+# DONE. Save results and gc()
+
+saveRDS(dt_all, file = "RData/01_dt_all.RData")
+
+cleanUp(functionNames)
+gc()
 
 
-saveRDS(dt, file = "App/RData/data_scientist.RData")
 
 
 

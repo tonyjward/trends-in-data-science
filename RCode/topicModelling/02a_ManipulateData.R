@@ -16,7 +16,7 @@
 #---------------------------------------------------------------------
 #   _. Load data required
 
-dt_all <- readRDS(dt, file = "App/RData/data_scientist.RData")
+dt_all <- readRDS(dt, file = "RData/01_dt_all.RData")
 
 
 #---------------------------------------------------------------------
@@ -90,6 +90,29 @@ dt_all[, R := grepl("R[ [:punct:]]", Skills)]
 dt_all[,Python_R := paste(Python, R, sep = "_")]
 
 #---------------------------------------------------------------------
+#  9. Grab Max Salary
+
+# remove comma's so that 31,850 is treated as 31850 and can be detected as a whole word
+
+dt_all[, Salary := gsub(',','',Salary)]
+
+g <- gregexpr('[0-9]+',dt_all$Salary)
+
+m <- regmatches(dt_all$Salary,g)
+
+maxFun <- function(x){
+  if (length(x)==0)
+    return(NA)
+  else 
+    x %>% as.numeric() %>% max()
+}
+
+dt_all[,salaryMax := sapply(m, maxFun)] 
+
+# convert all jobs to units of 1000
+dt_all[, salaryMax:= ifelse(nchar(salaryMax)>=5, salaryMax/1000, salaryMax)]
+
+#---------------------------------------------------------------------
 #  7. Prototype Charts
 
 ############# line graph
@@ -100,8 +123,8 @@ dt_all[,Python_R := paste(Python, R, sep = "_")]
 #--------------------------------------------------------------
 # DONE. Save results and gc()
 
-saveRDS(dt_all, file = "App/RData/data_scientist2.RData")
 
-save(dt_all, file = file.path(dirRData,'02a_dt_all.RData'))
+saveRDS(dt_all, file = "RData/02a_dt_all.RData")
+
 cleanUp(functionNames)
 gc()
