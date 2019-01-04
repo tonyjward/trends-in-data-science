@@ -112,6 +112,9 @@ dt_all[,salaryMax := sapply(m, maxFun)]
 # convert all jobs to units of 1000
 dt_all[, salaryMax:= ifelse(nchar(salaryMax)>=5, salaryMax/1000, salaryMax)]
 
+# change job type to Contract if salary mentions a day rate
+dt_all[grepl('[p|P]er [d|D]ay', dt_all$Salary) & job_type == "Permanent", job_type := "Contract"]
+
 #---------------------------------------------------------------------
 #  7. Prototype Charts
 
