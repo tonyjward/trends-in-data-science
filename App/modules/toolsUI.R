@@ -2,6 +2,7 @@ toolsUI <- function(id){
   ns <- shiny::NS(id)
   
   tagList(
-    plotOutput(ns("plot"))
+    plotOutput(ns("plot")),
+    tableOutput(ns("table"))
   ) 
 }
