@@ -107,7 +107,7 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   
   
   # export topic probabilities, topic assignments and raw text field to csv file
-  outputAll=data.table(topic_probsAll, 
+  outputAll=data.table(round(100*topic_probsAll), 
                        topic=topic_classAll[[1]],
                        text_field = dt_all[,text], 
                        partition = ifelse(dt_all[["fold"]] %in% train_folds,"TRAIN","VALID")
@@ -174,7 +174,7 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   # save topic probability matrix together with original data
   # write.table(outputAll[1:min(nrow(outputAll),maxRows),], paste0(directory,'/topics_all_',identifier,"_size_",topicsizes,'.txt'), row.names=F,eol="\r\n",sep='\t')
   
-  list(outputAll,jsonviz)
+  list(outputAll,jsonviz, top_words)
 })
 
 

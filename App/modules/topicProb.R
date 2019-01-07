@@ -1,10 +1,18 @@
 topicProb <- function(input, output, session, inputData){
   output$table <- DT::renderDataTable({
     
-    columnNames <- c("text_field",grep("Topic", colnames(inputData),value = TRUE))
+    # rename column names e.g. Topic1 becomes "1"
+    columnNames <- grep("Topic", colnames(inputData),value = TRUE)
+    newNames <- gsub("Topic","",columnNames)
+    
+    setnames(inputData,
+             old = columnNames,
+             new = newNames)
+    
+    displayNames <- c("text_field",newNames)
     
     datatable(
-      inputData[, ..columnNames],
+      inputData[, ..displayNames],
       filter = "top",
       options = list(
         autoWidth = TRUE,
@@ -13,7 +21,5 @@ topicProb <- function(input, output, session, inputData){
     )
   }) 
 }
-
-
 
 

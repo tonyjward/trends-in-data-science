@@ -14,6 +14,7 @@ optimalK <- readRDS(file = "RData/05f_optimalK.RData")  %>% as.character()
 
 dt <- outputData[[optimalK]][[1]]
 jsonviz <- outputData[[optimalK]][[2]]
+topWords <- outputData[[optimalK]][[3]]
 
 # jsonviz <- readRDS(file = "RData/jsonviz_Skills_iterations_2000_size_10.RData")
 
@@ -31,6 +32,8 @@ server <- function(input, output, session) {
   callModule(topicViz, "id2a", json = jsonviz)
   
   callModule(topicProb, "id2b", inputData = dt)
+  
+  callModule(topicWords, "id2c", inputData = topWords)
   
   #-----------------------------------------------------------------------
   #   4.  Tools
