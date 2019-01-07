@@ -19,7 +19,7 @@
 
 load(file = file.path(dirRData,'05a_dt_all.RData'))
 load(file = file.path(dirRData,'05a_txtDtm.RData'))
-load(file = file.path(dirRData,'05f_optimalSettings.RData'))
+load(file = 'App/RData/05f_optimalSettings.RData')
 load(file = file.path(dirRData,'05a_settings.RData'))
 
 # rename document term matrix for ease

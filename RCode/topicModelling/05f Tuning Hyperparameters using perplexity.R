@@ -51,10 +51,10 @@ splitfolds <- sample(1:folds, n, replace = TRUE)
 
 # candidateAlpha <- c(0.01)
 # candidateDelta <- c(0.0001)
-candidateK <- c(10,20)
-#candidateK <- c(10,15,20,25,30,40,50,60, 70, 100)
+# candidateK <- c(10,20)
+candidateK <- seq(3,43, by = 8)
 candidateBurnin <- c(0)
-candidateIter <- c(5)
+candidateIter <- c(10)
 
 candidateAlpha <- c(0.01, 0.2, 0.4)
 candidateDelta <- c(0.00001,0.01,0.2)
@@ -129,6 +129,16 @@ optimalSettings <- results_dt[, .SD[which.min(perplexity)], by = k]
 ggplot(optimalSettings, aes(x = k, y = perplexity)) + geom_line() + labs(title = "Number of Topics vs Perplexity",
                                                                          x = "No. Topics",
                                                                          y = "Perplexity")
+#---------------------------------------------------------------------
+#   4. Find optimal number of topics
+
+# calculate acceleration as per https://pdfs.semanticscholar.org/8353/09966a880c656d59fe29664ae03db09d56ab.pdf
+optimalSettings[, perplexityLag := shift(perplexity, type = "lag")]
+optimalSettings[, perplexityLead := shift(perplexity, type = "lead")]
+optimalSettings[, acceleration := round((perplexityLead - perplexity) - (perplexity - perplexityLag),2)]
+
+# identify optimal topic size
+optimalK <- optimalSettings[which.max(acceleration), k]
 
 #---------------------------------------------------------------------
 #   3. save output
@@ -146,8 +156,12 @@ write.table(optimalSettings,
             row.names = FALSE,
             sep = ",")
 
-save(optimalSettings,
-     file = file.path(dirRData,'05f_optimalSettings.RData'))
+# save for use in shiny app
+saveRDS(optimalSettings,
+     file = 'App/RData/05f_optimalSettings.RData')
+
+saveRDS(optimalK,
+     file = 'App/RData/05f_optimalK.RData')
 
 save(results_df,
      timePerplexity,

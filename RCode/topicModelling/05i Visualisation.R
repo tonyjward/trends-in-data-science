@@ -169,13 +169,12 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   
   
   # save JSON for shiny
-  saveRDS(jsonviz, file = paste0(directory,'/jsonviz_',identifier,"_size_",topicsizes,'.RData'))
+  # saveRDS(jsonviz, file = paste0(directory,'/jsonviz_',identifier,"_size_",topicsizes,'.RData'))
   
   # save topic probability matrix together with original data
   # write.table(outputAll[1:min(nrow(outputAll),maxRows),], paste0(directory,'/topics_all_',identifier,"_size_",topicsizes,'.txt'), row.names=F,eol="\r\n",sep='\t')
   
-  #list(outputAll,plotTopWords)
-  outputAll
+  list(outputAll,jsonviz)
 })
 
 
