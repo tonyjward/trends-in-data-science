@@ -28,4 +28,5 @@ dt_all[,.(jobs = .N,
 
 ggplot(data = dt_all, aes(x = Python_R)) + geom_bar()
 
+ggplot(data = dt_all[job_type == "Contract"], aes(x = Python_R, y = salaryMax, fill = Python_R)) + geom_boxplot()
 ggplot(data = dt_all[job_type == "Permanent"], aes(x = Python_R, y = salaryMax, fill = Python_R)) + geom_boxplot()
