@@ -13,7 +13,7 @@ loadData <- function(input, output, session, jobData){
 
     datatable(jobData[,c( "Type",
                      "Title",
-                     "Skills",
+                     "text_field",
                      "Salary",
                      "Location", # if you want country as well, use location
                      "Posted Date"), with = FALSE],
