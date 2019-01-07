@@ -3,11 +3,19 @@
 # options(shiny.sanitize.errors = TRUE)
 
 
+outputData <- readRDS(file = "RData/05i_OutputData.RData")
+optimalSettings <- readRDS(file = "RData/05f_optimalSettings.RData")
+optimalK <- readRDS(file = "RData/05f_optimalK.RData")  %>% as.character() 
 
+# DEBUGGING
+# outputData <- readRDS(file = "App/RData/05i_OutputData.RData")
+# optimalSettings <- readRDS(file = "App/RData/05f_optimalSettings.RData")
+# optimalK <- readRDS(file = "App/RData/05f_optimalK.RData")  %>% as.character() 
 
-dt <- readRDS(file = "RData/data_scientist2.RData")
+dt <- outputData[[optimalK]][[1]]
+jsonviz <- outputData[[optimalK]][[2]]
 
-jsonviz <- readRDS(file = "RData/jsonviz_Skills_iterations_2000_size_10.RData")
+# jsonviz <- readRDS(file = "RData/jsonviz_Skills_iterations_2000_size_10.RData")
 
 server <- function(input, output, session) {
   
@@ -20,7 +28,9 @@ server <- function(input, output, session) {
   #-----------------------------------------------------------------------
   #   3.  LDA Vis
   
-  callModule(topicViz, "id2", json = jsonviz)
+  callModule(topicViz, "id2a", json = jsonviz)
+  
+  callModule(topicProb, "id2b", inputData = dt)
   
   #-----------------------------------------------------------------------
   #   4.  Tools

@@ -16,8 +16,11 @@ navbarPage(id = "nav-page",
            #-----------------------------------------------------------------------
            #   3.  LDA vis
            
-           tabPanel(title = "LDA vis",
-                    topicVizUI("id2")),
+           navbarMenu(title = "Topic Modelling",
+                      tabPanel("Visualisation",
+                               topicVizUI("id2a")),
+                      tabPanel("Probabilities",
+                               topicProbUI("id2b"))),
            
            #-----------------------------------------------------------------------
            #   4.  Tools
