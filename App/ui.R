@@ -22,7 +22,9 @@ navbarPage(id = "nav-page",
                       tabPanel("Probabilities",
                                topicProbUI("id2b")),
                       tabPanel("Top Words",
-                               topicWordsUI("id2c"))),
+                               topicWordsUI("id2c")),
+                      tabPanel("Scree Plot",
+                               topicScreeUI("id2d"))),
            
            #-----------------------------------------------------------------------
            #   4.  Tools

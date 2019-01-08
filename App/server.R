@@ -35,6 +35,8 @@ server <- function(input, output, session) {
   
   callModule(topicWords, "id2c", inputData = topWords)
   
+  callModule(topicScree, "id2d", inputData = optimalSettings)
+  
   #-----------------------------------------------------------------------
   #   4.  Tools
   
