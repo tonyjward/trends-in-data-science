@@ -38,7 +38,7 @@ maxRows <- 9999999
 
 
 outputData<- lapply(names(fitted_many_p), function(x) {
-  # LDA_fit <- fitted_many_p[[1]]
+  # LDA_fit <- fitted_many_p[[2]]
   
   LDA_fit <- fitted_many_p[[x]]
   
@@ -103,9 +103,14 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   top_words <- top_words[x$topic.order]
   top_words[,topic := paste0("Topic",c(1:topicsizes))]
   
+  # rename columns to be more informative i.e. rather than Topic1 rename as top words followed by (Topic1)
+  topicNames <- grep("Topic", colnames(topic_probsAll), value = TRUE)
   
+  newNames <- paste0(top_words$topWords," (", topicNames, ")")
   
+  colnames(topic_probsAll) <- newNames
   
+
   # export topic probabilities, topic assignments and raw text field to csv file
   outputAll=data.table(round(100*topic_probsAll), 
                        topic=topic_classAll[[1]],
@@ -168,6 +173,8 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   directory <- paste(dirROutput,"/",identifier,"_size_",topicsizes,sep="")
   
   
+
+  
   # save JSON for shiny
   # saveRDS(jsonviz, file = paste0(directory,'/jsonviz_',identifier,"_size_",topicsizes,'.RData'))
   
@@ -190,7 +197,7 @@ save(outputData,
 
 # save for use in shiny app
 saveRDS(outputData,
-     file = 'App/RData/05i_OutputData.RData')
+     file = '/home/rstudio/App/RData/05i_OutputData.RData')
 
 
 cleanUp(functionNames)
