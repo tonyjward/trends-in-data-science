@@ -69,7 +69,7 @@ txtCorpus <- tm_map(txtCorpus, stripWhitespace) #
 txtCorpus <- tm_map(txtCorpus, removeWords, stopwords("english"))
 
 # remove custom stopwords
-txtCorpus <- tm_map(txtCorpus, removeWords, c("january")) 
+txtCorpus <- tm_map(txtCorpus, removeWords, c("data", "science", "scientist", "will", "work", "experience")) 
 txtCorpus <- tm_map(txtCorpus, stemDocument)
 txtCorpus <- tm_map(txtCorpus, removePunctuation)
 txtCorpus <- tm_map(txtCorpus, removeNumbers)
