@@ -46,6 +46,8 @@ server <- function(input, output, session) {
   
   callModule(pay, "id4c", inputData = dt)
   
+  callModule(roles, "id4d", inputData = dt)
+  
   
   #-----------------------------------------------------------------------
   #   5.  Tools

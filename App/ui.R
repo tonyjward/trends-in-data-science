@@ -35,7 +35,9 @@ navbarPage(id = "nav-page",
                       tabPanel("Topics",
                                topicsUI("id4b")),
                       tabPanel("Pay",
-                               payUI("id4c"))),
+                               payUI("id4c")),
+                      tabPanel("Roles",
+                               rolesUI("id4d"))),
            
            
            #-----------------------------------------------------------------------
