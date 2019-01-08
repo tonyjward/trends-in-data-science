@@ -16,7 +16,7 @@
 #---------------------------------------------------------------------
 #   _. Load data required
 
-dt_all <- readRDS(dt, file = "RData/01_dt_all.RData")
+dt_all <- readRDS(dt, file = "/home/rstudio/RData/01_dt_all.RData")
 
 
 #---------------------------------------------------------------------
@@ -89,6 +89,10 @@ dt_all[, Python := grepl("[P|p]ython", Skills)]
 dt_all[, R := grepl("R[ [:punct:]]", Skills)]
 dt_all[,Python_R := paste(Python, R, sep = "_")]
 
+dt_all[, Tools := ifelse(Python_R == "TRUE_TRUE", "Python or R",
+                            ifelse(Python_R == "TRUE_FALSE", "Python but not R",
+                                   ifelse(Python_R == "FALSE_TRUE", "R but not Python","Neither Language")))]
+
 #---------------------------------------------------------------------
 #  9. Grab Max Salary
 
@@ -127,7 +131,7 @@ dt_all[grepl('[p|P]er [d|D]ay', dt_all$Salary) & job_type == "Permanent", job_ty
 # DONE. Save results and gc()
 
 
-saveRDS(dt_all, file = "RData/02a_dt_all.RData")
+saveRDS(dt_all, file = "/home/rstudio/RData/02a_dt_all.RData")
 
 cleanUp(functionNames)
 gc()

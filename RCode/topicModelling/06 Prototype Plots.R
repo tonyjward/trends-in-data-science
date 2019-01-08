@@ -1,9 +1,9 @@
 
 
 
-outputData <- readRDS(file = "App/RData/05i_OutputData.RData")
+outputData <- readRDS(file = "/home/rstudio/App/RData/05i_OutputData.RData")
 
-dt_all <- outputData[[1]]
+dt_all <- outputData[[1]][[1]]
 
 # Split between Python/R
 
@@ -23,10 +23,10 @@ dt_all[job_type == "Permanent" & salaryMax >500 ,.(Salary, salaryMax)]
 dt_all[,.(jobs = .N,
           salaryDataAvailable = sum(!is.na(salaryMax)), 
           averageMaxSalary = mean(salaryMax, na.rm = TRUE)), 
-       by = job_type]
+       by = Tools]
 
 
-ggplot(data = dt_all, aes(x = Python_R)) + geom_bar()
+ggplot(data = dt_all, aes(x = Tools)) + geom_bar()
 
-ggplot(data = dt_all[job_type == "Contract"], aes(x = Python_R, y = salaryMax, fill = Python_R)) + geom_boxplot()
-ggplot(data = dt_all[job_type == "Permanent"], aes(x = Python_R, y = salaryMax, fill = Python_R)) + geom_boxplot()
+ggplot(data = dt_all[job_type == "Contract"], aes(x = Tools, y = salaryMax, fill = Tools)) + geom_boxplot()
+ggplot(data = dt_all[job_type == "Permanent"], aes(x = Tools, y = salaryMax, fill = Tools)) + geom_boxplot()

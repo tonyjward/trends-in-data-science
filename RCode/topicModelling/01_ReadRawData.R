@@ -11,10 +11,10 @@
 
 # identify files
 
-filesToRead <- list.files(path = paste0(getwd(),"/ROutput"),
+filesToRead <- list.files(path = "/home/rstudio/ROutput",
           pattern = "data_scientist")
 
-pathsToRead <- paste0('ROutput/',filesToRead)
+pathsToRead <- paste0('/home/rstudio/ROutput/',filesToRead)
 
 result <- lapply(pathsToRead, fread)
 
@@ -26,7 +26,7 @@ dt_all <- unique(dt_Staging, by = setdiff(colnames(dt_Staging),
 #--------------------------------------------------------------
 # DONE. Save results and gc()
 
-saveRDS(dt_all, file = "RData/01_dt_all.RData")
+saveRDS(dt_all, file = "/home/rstudio/RData/01_dt_all.RData")
 
 cleanUp(functionNames)
 gc()
