@@ -2,14 +2,10 @@ topicProb <- function(input, output, session, inputData){
   output$table <- DT::renderDataTable({
     
     # rename column names e.g. Topic1 becomes "1"
-    columnNames <- grep("Topic", colnames(inputData),value = TRUE)
-    newNames <- gsub("Topic","",columnNames)
+    topicNames <- grep("Topic", colnames(inputData),value = TRUE)
+
     
-    setnames(inputData,
-             old = columnNames,
-             new = newNames)
-    
-    displayNames <- c("text_field",newNames)
+    displayNames <- c("text_field",topicNames)
     
     datatable(
       inputData[, ..displayNames],
