@@ -1,4 +1,4 @@
-toolsUI <- function(id){
+timeSeriesUI <- function(id){
   ns <- shiny::NS(id)
   
   tagList(

@@ -1,18 +1,17 @@
-tools <- function(input, output, session, jobData){
+tools <- function(input, output, session, inputData){
   
   # Time Series Bar Plot
   output$plot <- renderPlot({
-    ggplot(data = jobData, aes_string(x = "yearMonDay", fill = "Python_R")) + "geom_bar"()
+    
+    inputData[, Tools := ifelse(Python_R == "TRUE_TRUE", "Python or R",
+                         ifelse(Python_R == "TRUE_FALSE", "Python but not R",
+                                ifelse(Python_R == "FALSE_TRUE", "R but not Python","Neither Language")))]
+    
+    plotData <- inputData[,.N, .(Tools, job_type)]
+    
+    ggplot(data = plotData,
+           aes(x = Tools, y = N, fill = job_type))  + geom_bar(stat = "identity") + coord_flip() + labs(y = "Job Count")
   })
   
-  
-  # Comparison Table
-  output$table <- renderTable({
-    split <- table(jobData$Python, jobData$R)
-    proportions <- (prop.table(split) * 100) %>% round()
-    colnames(proportions) <- c("NO R", "R")
-    rownames(proportions) <- c("NO Python", "Python")
-    proportions
-  })
   
 }

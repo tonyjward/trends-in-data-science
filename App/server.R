@@ -38,9 +38,17 @@ server <- function(input, output, session) {
   callModule(topicScree, "id2d", inputData = optimalSettings)
   
   #-----------------------------------------------------------------------
-  #   4.  Tools
+  #   4.  Contract vs Perm
   
-  callModule(tools, "id3", jobData = dt)
+  callModule(tools, "id4a", inputData = dt)
+  
+  callModule(topics, "id4b", inputData = dt)
+  
+  
+  #-----------------------------------------------------------------------
+  #   5.  Tools
+  
+  callModule(timeSeries, "id5", jobData = dt)
   
   
   

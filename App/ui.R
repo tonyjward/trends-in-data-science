@@ -27,10 +27,20 @@ navbarPage(id = "nav-page",
                                topicScreeUI("id2d"))),
            
            #-----------------------------------------------------------------------
-           #   4.  Tools
+           #   4.  Contract vs Perm
            
-           tabPanel(title = "Tools",
-                    toolsUI("id3"))
+           navbarMenu(title = "Contract vs Perm",
+                      tabPanel("Tools",
+                               toolsUI("id4a")),
+                      tabPanel("Topics",
+                               topicsUI("id4b"))),
+           
+           
+           #-----------------------------------------------------------------------
+           #   5.  Tools
+           
+           tabPanel(title = "Time Series",
+                    timeSeriesUI("id5"))
            
            
            
