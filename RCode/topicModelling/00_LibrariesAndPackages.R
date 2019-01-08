@@ -33,7 +33,7 @@ rm(list = ls(all = TRUE))
 
 
   
-dirRoot <- getwd()
+dirRoot <- "/home/rstudio"
 
 dirRData   <- file.path(dirRoot, 'RData') 
 dirROutput <- file.path(dirRoot, 'ROutput')

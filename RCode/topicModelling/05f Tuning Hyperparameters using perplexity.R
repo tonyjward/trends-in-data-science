@@ -158,10 +158,10 @@ write.table(optimalSettings,
 
 # save for use in shiny app
 saveRDS(optimalSettings,
-     file = 'App/RData/05f_optimalSettings.RData')
+     file = '/home/rstudio/App/RData/05f_optimalSettings.RData')
 
 saveRDS(optimalK,
-     file = 'App/RData/05f_optimalK.RData')
+     file = '/home/rstudio/App/RData/05f_optimalK.RData')
 
 save(results_df,
      timePerplexity,
