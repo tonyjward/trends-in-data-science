@@ -9,7 +9,7 @@ roles <- function(input, output, session, inputData){
   
   output$plotPerm <- renderPlot({
     
-    ggplot(data = dt_all[job_type == "Permanent"], aes(x = Tools, fill = Tools)) + geom_bar(stat = "count")
+    ggplot(data = inputData[job_type == "Permanent"], aes(x = Tools, fill = Tools)) + geom_bar(stat = "count")
     
   })
   

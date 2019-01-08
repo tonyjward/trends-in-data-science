@@ -9,7 +9,7 @@ pay <- function(input, output, session, inputData){
   
   output$plotPerm <- renderPlot({
     
-    ggplot(data = dt_all[job_type == "Permanent"], aes(x = Tools, y = salaryMax, fill = Tools)) + geom_boxplot()
+    ggplot(data = inputData[job_type == "Permanent"], aes(x = Tools, y = salaryMax, fill = Tools)) + geom_boxplot()
     
   })
   
