@@ -28,5 +28,12 @@ dt_all[,.(jobs = .N,
 
 ggplot(data = dt_all, aes(x = Tools)) + geom_bar()
 
+# Pay
+
 ggplot(data = dt_all[job_type == "Contract"], aes(x = Tools, y = salaryMax, fill = Tools)) + geom_boxplot()
 ggplot(data = dt_all[job_type == "Permanent"], aes(x = Tools, y = salaryMax, fill = Tools)) + geom_boxplot()
+
+# Roles
+
+ggplot(data = dt_all[job_type == "Contract"], aes(x = Tools, fill = Tools)) + geom_bar(stat = "count")
+ggplot(data = dt_all[job_type == "Permanent"], aes(x = Tools, fill = Tools)) + geom_bar(stat = "count")

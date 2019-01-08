@@ -10,7 +10,7 @@ optimalK <- readRDS(file = "RData/05f_optimalK.RData")  %>% as.character()
 # DEBUGGING
 # outputData <- readRDS(file = "/home/rstudio/App/RData/05i_OutputData.RData")
 # optimalSettings <- readRDS(file = "/home/rstudio/App/RData/05f_optimalSettings.RData")
-# optimalK <- readRDS(file = "/home/rstudio/App/RData/05f_optimalK.RData")  %>% as.character() 
+# optimalK <- readRDS(file = "/home/rstudio/App/RData/05f_optimalK.RData")  %>% as.character()
 
 dt <- outputData[[optimalK]][[1]]
 jsonviz <- outputData[[optimalK]][[2]]
@@ -43,6 +43,8 @@ server <- function(input, output, session) {
   callModule(tools, "id4a", inputData = dt)
   
   callModule(topics, "id4b", inputData = dt)
+  
+  callModule(pay, "id4c", inputData = dt)
   
   
   #-----------------------------------------------------------------------
