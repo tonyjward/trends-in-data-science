@@ -19,7 +19,7 @@
 
 load(file = file.path(dirRData,'05a_dt_all.RData'))
 load(file = file.path(dirRData,'05a_txtDtm.RData'))
-load(file = 'App/RData/05f_optimalSettings.RData')
+optimalSettings <- readRDS(file = 'App/RData/05f_optimalSettings.RData')
 load(file = file.path(dirRData,'05a_settings.RData'))
 
 # rename document term matrix for ease
@@ -35,7 +35,7 @@ gc()
 seed <- 2018
 keep <- 50
 burninFit <- 50
-iterFit <- 20
+iterFit <- 1000
 
 
 #---------------------------------------------------------------------
@@ -73,7 +73,7 @@ clusterExport(cluster, c("full_data",
 # of k, and does the cross-validation serially.  This is because it is assumed there
 # are more candidate values of k than there are cross-validation folds, hence it
 # will be more efficient to parallelise
-timePerplexity<- system.time({
+timePerplexity2<- system.time({
   fitted_many_p   <- foreach(j = 1:nrow(hyperparams)) %dopar%{
     print(paste(j, " iteration of", nrow(hyperparams)))
     hp_alpha  <-hyperparams[j,"alpha"]
