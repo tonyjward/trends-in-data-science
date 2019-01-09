@@ -1,7 +1,9 @@
-topicWords <- function(input, output, session, inputData){
+topicWords <- function(input, output, session, inputData, selectedK){
   output$table <- renderTable({
-    inputData
-  }) 
+    inputData()
+  })
+  
+  output$selectedK <- renderText({selectedK()})
 }
 
 

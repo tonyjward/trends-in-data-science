@@ -2,13 +2,13 @@ topicProb <- function(input, output, session, inputData){
   output$table <- DT::renderDataTable({
     
     # rename column names e.g. Topic1 becomes "1"
-    topicNames <- grep("Topic", colnames(inputData),value = TRUE)
+    topicNames <- grep("Topic", colnames(inputData()),value = TRUE)
 
     
     displayNames <- c("text_field",topicNames)
     
     datatable(
-      inputData[, ..displayNames],
+      inputData()[, ..displayNames],
       filter = "top",
       options = list(
         autoWidth = TRUE,
