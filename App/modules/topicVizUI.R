@@ -1,4 +1,4 @@
-topicVizUI <- function(id, choices, selected){
+topicVizUI <- function(id){
   ns <- shiny::NS(id)
   
   tagList(
