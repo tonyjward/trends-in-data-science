@@ -8,47 +8,44 @@ navbarPage(id = "nav-page",
                     homeUI()),
            
            #-----------------------------------------------------------------------
-           #   2.  Load Data
+           #   1.  Inspect Data
            
-           tabPanel(title = "Load Data",
-                    loadDataUI("id1")),
+           tabPanel(title = "Inspect Data",
+                    inspectDataUI("id1")),
            
            #-----------------------------------------------------------------------
-           #   3.  LDA vis
+           #   2.  topic Modelling
            
            navbarMenu(title = "Topic Modelling",
-                      tabPanel("Visualisation",
-                               topicVizUI("id2a")),
-                      tabPanel("Probabilities",
-                               topicProbUI("id2b")),
-                      tabPanel("Top Words",
-                               topicWordsUI("id2c")),
-                      tabPanel("Number of Topics",
-                               topicNumUI("id2d",
+                      tabPanel("Select Number of Topics",
+                               topicNumUI("id2a",
                                           choices = optimalSettings$k %>% as.character(), 
-                                          selected = optimalK))),
+                                          selected = optimalK)),
+                      tabPanel("Visualisation",
+                               topicVizUI("id2b")),
+                      tabPanel("Probabilities",
+                               topicProbUI("id2c")),
+                      tabPanel("Top Words",
+                               topicWordsUI("id2d"))),
            
            #-----------------------------------------------------------------------
-           #   4.  Contract vs Perm
+           #   3.  Contract vs Perm
            
            navbarMenu(title = "Contract vs Perm",
                       tabPanel("Tools",
-                               toolsUI("id4a")),
+                               toolsUI("id3a")),
                       tabPanel("Topics",
-                               topicsUI("id4b")),
+                               topicsUI("id3b")),
                       tabPanel("Pay",
-                               payUI("id4c")),
+                               payUI("id3c")),
                       tabPanel("Roles",
-                               rolesUI("id4d"))),
-           
+                               rolesUI("id3d"))),
            
            #-----------------------------------------------------------------------
-           #   5.  Tools
+           #   4.  Time Series
            
            tabPanel(title = "Time Series",
-                    timeSeriesUI("id5"))
-           
-           
+                    timeSeriesUI("id4"))
 )  
 
 

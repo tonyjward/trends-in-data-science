@@ -17,7 +17,7 @@ server <- function(input, output, session) {
   #   0.  Create reactive elements  
   
   # Users selects number of topic sizes K
-  selectedK <- callModule(topicNum, "id2d", 
+  selectedK <- callModule(topicNum, "id2a", 
                           inputData = optimalSettings)
   
   # Json required for LDAvis
@@ -39,35 +39,35 @@ server <- function(input, output, session) {
   })
   
   #-----------------------------------------------------------------------
-  #   2.  Load Data
+  #   1.  Inspect Data
   
-  callModule(loadData, "id1", jobData = dt)
+  callModule(inspectData, "id1", jobData = dt)
   
 
   #-----------------------------------------------------------------------
-  #   3.  LDA Vis
+  #   2.  Topic Modelling
   
-  callModule(topicViz, "id2a", json = jsonviz)
+  callModule(topicViz, "id2b", json = jsonviz)
   
-  callModule(topicProb, "id2b", inputData = dt)
+  callModule(topicProb, "id2c", inputData = dt)
   
-  callModule(topicWords, "id2c", inputData = topWords)
-  
-  #-----------------------------------------------------------------------
-  #   4.  Contract vs Perm
-  
-  callModule(tools, "id4a", inputData = dt)
-  
-  callModule(topics, "id4b", inputData = dt)
-  
-  callModule(pay, "id4c", inputData = dt)
-  
-  callModule(roles, "id4d", inputData = dt)
+  callModule(topicWords, "id2d", inputData = topWords)
   
   #-----------------------------------------------------------------------
-  #   5.  Tools
+  #   3.  Contract vs Perm
   
-  callModule(timeSeries, "id5", inputData = dt)
+  callModule(tools, "id3a", inputData = dt)
+  
+  callModule(topics, "id3b", inputData = dt)
+  
+  callModule(pay, "id3c", inputData = dt)
+  
+  callModule(roles, "id3d", inputData = dt)
+  
+  #-----------------------------------------------------------------------
+  #   4.  Time Series
+  
+  callModule(timeSeries, "id4", inputData = dt)
 
 } 
 

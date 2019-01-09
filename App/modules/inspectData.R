@@ -1,10 +1,5 @@
-# https://shiny.rstudio.com/articles/sql-injections.html
-# In summary, you should always sanitize your user-provided inputs. 
-# If they’re numbers, coerce them to the integer or the numeric class. 
-# If they’re strings that go into a SQL query, use sqlInterpolate(). 
-# If it’s something more complicated, make sure you process it in a way such that a SQL injection is impossible.
 
-loadData <- function(input, output, session, jobData){ 
+inspectData <- function(input, output, session, jobData){ 
   
   #-----------------------------------------------------------------------
   #   2. Output to UI
