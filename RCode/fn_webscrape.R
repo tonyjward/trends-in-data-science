@@ -31,12 +31,7 @@
 
 fn_webScrape <- function(searchTerm){
   # searchTerm <- '"data scientist"'
-  library(RSelenium)
-  library(rvest)
-  library(dplyr)
-  library(data.table)
-  
-  
+
   remDr <- remoteDriver(remoteServerAddr = "selenium",
                         port = 4444L,
                         browser = "chrome")
@@ -110,8 +105,8 @@ fn_webScrape <- function(searchTerm){
     gsub(",","",.) %>% # remove commas
     as.numeric()
   
-  # for (i in 1:2){
-  for (i in 1:resultNumber-1){
+  for (i in 1:2){
+ #  for (i in 1:resultNumber-1){
     # press down arrow key
     remDr$sendKeysToActiveElement(list(key = 'down_arrow', 
                                        key = 'down_arrow', 
@@ -147,7 +142,7 @@ fn_webScrape <- function(searchTerm){
   searchTermFile <- gsub(" ","_", searchTermFile)
   
   write.table(allDataDT,
-              file = file.path('ROutput',paste0(searchTermFile,Sys.Date(),".txt")),
+              file = file.path('/home/rstudio/ROutput',paste0(searchTermFile,Sys.Date(),".txt")),
               sep = "\t",
               row.names = FALSE) 
 

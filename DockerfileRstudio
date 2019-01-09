@@ -3,6 +3,16 @@ FROM rocker/tidyverse:3.5.2
 # Install GNU scientific library as per  https://stackoverflow.com/a/25759021 which is requierd for topicmodels package
 RUN apt-get update && apt-get install -y libgsl0-dev
 
-RUN R -e "install.packages(c('slam','doSNOW','tm','LDAvis','servr','tidytext','topicmodels','DT', 'zoo'))"
+RUN R -e "install.packages(c('XML','slam','doSNOW','tm','LDAvis','servr','tidytext','topicmodels','DT', 'zoo'))"
+
+RUN R -e 'devtools::install_version("binman", version = "0.1.0", repos = "https://cran.uni-muenster.de/")'
+
+RUN R -e 'devtools::install_version("wdman", version = "0.2.2", repos = "https://cran.uni-muenster.de/")'
+
+RUN R -e 'devtools::install_version("RSelenium", version = "1.7.1", repos = "https://cran.uni-muenster.de/")'
+
+RUN apt-get update && apt-get install -y nano
+
+WORKDIR /home/rstudio
 
 
