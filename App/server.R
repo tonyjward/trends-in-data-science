@@ -4,13 +4,10 @@
 
 
 outputData <- readRDS(file = "RData/05i_OutputData.RData")
-optimalSettings <- readRDS(file = "RData/05f_optimalSettings.RData")
-optimalK <- readRDS(file = "RData/05f_optimalK.RData")  %>% as.character() 
 
 # DEBUGGING
 # outputData <- readRDS(file = "/home/rstudio/App/RData/05i_OutputData.RData")
-# optimalSettings <- readRDS(file = "/home/rstudio/App/RData/05f_optimalSettings.RData")
-# optimalK <- readRDS(file = "/home/rstudio/App/RData/05f_optimalK.RData")  %>% as.character()
+
 
 dt <- outputData[[optimalK]][[1]]
 jsonviz <- outputData[[optimalK]][[2]]
@@ -35,7 +32,8 @@ server <- function(input, output, session) {
   
   callModule(topicWords, "id2c", inputData = topWords)
   
-  callModule(topicScree, "id2d", inputData = optimalSettings)
+  selectedK <- callModule(topicNum, "id2d", 
+                          inputData = optimalSettings)
   
   #-----------------------------------------------------------------------
   #   4.  Contract vs Perm
