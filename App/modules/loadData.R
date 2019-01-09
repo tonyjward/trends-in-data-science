@@ -11,7 +11,7 @@ loadData <- function(input, output, session, jobData){
   
   output$tbl <- DT::renderDataTable({
 
-    datatable(jobData[,c( "Type",
+    datatable(jobData()[,c( "Type",
                      "Title",
                      "text_field",
                      "Salary",

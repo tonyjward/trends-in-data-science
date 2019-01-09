@@ -23,8 +23,10 @@ navbarPage(id = "nav-page",
                                topicProbUI("id2b")),
                       tabPanel("Top Words",
                                topicWordsUI("id2c")),
-                      tabPanel("Scree Plot",
-                               topicScreeUI("id2d"))),
+                      tabPanel("Number of Topics",
+                               topicNumUI("id2d",
+                                          choices = optimalSettings$k %>% as.character(), 
+                                          selected = optimalK))),
            
            #-----------------------------------------------------------------------
            #   4.  Contract vs Perm

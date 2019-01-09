@@ -2,23 +2,41 @@
 # options(shiny.error = browser)
 # options(shiny.sanitize.errors = TRUE)
 
+#-----------------------------------------------------------------------
+#   .  Load Data
 
-outputData <- readRDS(file = "RData/05i_OutputData.RData")
-optimalSettings <- readRDS(file = "RData/05f_optimalSettings.RData")
-optimalK <- readRDS(file = "RData/05f_optimalK.RData")  %>% as.character() 
+  outputData <- readRDS(file = "RData/05i_OutputData.RData")
+  
+  # DEBUGGING
+  # outputData <- readRDS(file = "/home/rstudio/App/RData/05i_OutputData.RData")
 
-# DEBUGGING
-# outputData <- readRDS(file = "/home/rstudio/App/RData/05i_OutputData.RData")
-# optimalSettings <- readRDS(file = "/home/rstudio/App/RData/05f_optimalSettings.RData")
-# optimalK <- readRDS(file = "/home/rstudio/App/RData/05f_optimalK.RData")  %>% as.character()
-
-dt <- outputData[[optimalK]][[1]]
-jsonviz <- outputData[[optimalK]][[2]]
-topWords <- outputData[[optimalK]][[3]]
-
-# jsonviz <- readRDS(file = "RData/jsonviz_Skills_iterations_2000_size_10.RData")
 
 server <- function(input, output, session) {
+  
+  #-----------------------------------------------------------------------
+  #   0.  Create reactive elements  
+  
+  # Users selects number of topic sizes K
+  selectedK <- callModule(topicNum, "id2d", 
+                          inputData = optimalSettings)
+  
+  # Json required for LDAvis
+  jsonviz <- reactive({
+    selectedK() # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
+    outputData[[selectedK()]][[2]]
+  })
+  
+  # Data.table containing topic propabilities
+  dt <- reactive({
+    force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
+    outputData[[selectedK()]][[1]]
+  })
+  
+  # Words with highest probability for each topic
+  topWords <- reactive({
+    force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
+    outputData[[selectedK()]][[3]]
+  })
   
   #-----------------------------------------------------------------------
   #   2.  Load Data
@@ -35,7 +53,7 @@ server <- function(input, output, session) {
   
   callModule(topicWords, "id2c", inputData = topWords)
   
-  callModule(topicScree, "id2d", inputData = optimalSettings)
+
   
   #-----------------------------------------------------------------------
   #   4.  Contract vs Perm
@@ -52,7 +70,7 @@ server <- function(input, output, session) {
   #-----------------------------------------------------------------------
   #   5.  Tools
   
-  callModule(timeSeries, "id5", jobData = dt)
+  callModule(timeSeries, "id5", inputData = dt)
   
   
   
