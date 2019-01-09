@@ -51,7 +51,7 @@ server <- function(input, output, session) {
   
   callModule(topicProb, "id2b", inputData = dt)
   
-  callModule(topicWords, "id2c", inputData = topWords, selectedK = selectedK)
+  callModule(topicWords, "id2c", inputData = topWords)
   
 
   
