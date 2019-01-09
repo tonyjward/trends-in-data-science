@@ -1,5 +1,5 @@
 navbarPage(id = "nav-page",
-           title = "RTTR Training",
+           title = "Data Science",
            
            #-----------------------------------------------------------------------
            #   1.  Home
