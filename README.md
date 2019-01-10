@@ -32,7 +32,7 @@ Modifying "entrypointScraping.r" controls which search terms are send to the job
 
 This all happens automatically, but sometimes to debug it is useful to run the code ourselves interactively. To do this we instead run
 
-``bash
+```bash
 sudo docker-compose -f docker-compose-interactive.yml up --force-recreate -d
 ```
 Then navigate to 
