@@ -90,6 +90,7 @@ Then add the following line to the file.
 
 ```bash
 10 00 * * * cd /home/d14xj1/repos/trends-in-data-science && docker-compose up -d --force-recreate
+30 01 * * * ./launch-analyse.sh
 ```
 
 Then at 12:10 AM the job will run. The job first changes directory to the location of the docker file, and then runs docker-compose.
