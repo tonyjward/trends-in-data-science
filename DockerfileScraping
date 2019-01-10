@@ -11,3 +11,5 @@ RUN R -e 'devtools::install_version("RSelenium", version = "1.7.1", repos = "htt
 RUN apt-get update && apt-get install -y nano
 
 WORKDIR /home/rstudio
+
+

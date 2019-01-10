@@ -4,3 +4,8 @@ FROM rocker/tidyverse:3.5.2
 RUN apt-get update && apt-get install -y libgsl0-dev
 
 RUN R -e "install.packages(c('slam','doSNOW','tm','LDAvis','servr','tidytext','topicmodels','DT', 'zoo'))"
+
+WORKDIR /home/rstudio
+
+CMD ["Rscript", "RCode/entrypointAnalyse.R"]
+

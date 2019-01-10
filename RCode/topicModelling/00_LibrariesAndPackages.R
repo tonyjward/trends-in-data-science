@@ -112,7 +112,7 @@ packagesToLoad <- c(
   'LDAvis',
   'servr',
   # 'lda',
-  "tidytext",
+  "tidytext"
   
   # WEB SCRAPING
   # 'RSelenium',
