@@ -1,41 +1,72 @@
 # trends-in-data-science
-The objective of this project is to monitor the trends in data science job opportunities. We achieve this through scraping of the jobserve website. 
+The objective of this project is to monitor the trends in data science job opportunities. We achieve this in three stages
 
-# Build Dockerfile with R and required libraries installed (RSelenium). 
-This container will  run the webscraping on startup
+1) Scraping jobserve.com 
+2) Analyse job data 
+3) Visualisation output
 
-```bash
-sudo docker build -f Dockerfile -t tonyjward/rstudio:selenium .
-```
 
-We only need to do this once
+# Scraping jobserve.com
 
-We also want a lightweight Rstudio server image so that we can play around with the data and develop a shiny application
+# First Build Dockerfile with R and required libraries installed (RSelenium). 
 
-```bash
- sudo docker build -f DockerfileRstudio -t tonyjward/rstudio:dev .
-
-```
-
-which we launch with the shell script
+This shell script builds the Dockerfile called DockerfileAnalyse, which creates an image with R installed together with the required libraries 
 
 ```bash
-./launch-dev.sh
+./build-analyse.sh
 ```
 
-# Docker Compose
-
-We use docker compose to launch our two services (Selenium and RStudio Server)
+Then in order to do the web-scraping we run
 
 ```bash
-docker-compose up -d
+sudo docker-compose up --force-recreate -d
 ```
 
+This starts two services 
+1) A selenium server
+2) Our R image created above
+
+The above code has an entry point set to be 'entrypointScraping.R' which is found in the RCode directory. 
+Setting the code as an entry point means that it gets run automatically when the service starts. 
+Modifying "entrypointScraping.r" controls which search terms are send to the jobserve website.
+
+This all happens automatically, but sometimes to debug it is useful to run the code ourselves interactively. To do this we instead run
+
+``bash
+sudo docker-compose -f docker-compose-interactive.yml up --force-recreate -d
+```
 Then navigate to 
 * localhost:80 to view RStudio or
 * localhost:4445 to view Selenium Browser
 
-# Automation
+# Analyse Job Data
+
+## Build Dockerfile
+
+```bash
+./build-analyse.sh
+```
+
+This builds an image with R configured with the necessary machine learning libraries to analyse the data
+
+We then run the analysis automatically using
+
+```bash
+./launch-analysis.sh
+```
+
+or we can do it interactively as well, by first launching the image
+
+```bash
+./launch-analysis-interactive.sh
+```
+
+then navigating to the Rserver at the relevant ip address and running the code manually
+
+# Visualising Output
+TCS
+
+# Required steps for Automation
 In order to automate the web scraping process we do the following
 
 1) Schedule Virtual Machine start up /shutdown 
