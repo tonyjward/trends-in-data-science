@@ -109,15 +109,14 @@ packagesToLoad <- c(
   'jsonlite',
   # 'wordcloud',
   #'ldatuning',
-  'jsonlite',
   'LDAvis',
   'servr',
   # 'lda',
   "tidytext",
   
   # WEB SCRAPING
-  'RSelenium',
-  'rvest'
+  # 'RSelenium',
+  # 'rvest'
   
   # OPTIMISATION
   #'NMOF'
