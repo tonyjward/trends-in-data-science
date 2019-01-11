@@ -86,7 +86,7 @@ packagesToLoad <- c(
   # "rpart", 
   # "rpart.plot",
   # "glmnet",
-  # "earth",
+  "earth",
   # "ranger",
   
   # PERFORMANCE MEASUREMENT

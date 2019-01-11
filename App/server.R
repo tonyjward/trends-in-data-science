@@ -38,6 +38,14 @@ server <- function(input, output, session) {
     outputData[[selectedK()]][[3]]
   })
   
+  # Earth model for Permanent
+  earthModels <- reactive({
+    force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
+    outputData[[selectedK()]][[4]]
+  })
+  
+  # earthModels <- outputData[["15"]][[4]]
+
   #-----------------------------------------------------------------------
   #   1.  Inspect Data
   
@@ -63,6 +71,8 @@ server <- function(input, output, session) {
   callModule(pay, "id3c", inputData = dt)
   
   callModule(roles, "id3d", inputData = dt)
+  
+  callModule(lucrative, "id3e", inputData = earthModels)
   
   #-----------------------------------------------------------------------
   #   4.  Time Series

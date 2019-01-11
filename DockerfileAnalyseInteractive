@@ -5,6 +5,8 @@ RUN apt-get update && apt-get install -y libgsl0-dev
 
 RUN R -e "install.packages(c('slam','doSNOW','tm','LDAvis','servr','tidytext','topicmodels','DT', 'zoo'))"
 
+RUN R -e "install.packages('earth')"
+
 WORKDIR /home/rstudio
 
 
