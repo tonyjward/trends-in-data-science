@@ -1,0 +1,13 @@
+FROM rocker/shiny:3.5.2
+
+# Install GNU scientific library as per  https://stackoverflow.com/a/25759021 which is requierd for topicmodels package
+RUN apt-get update && apt-get install -y libxml2-dev libgsl0-dev
+
+# RUN R -e "install.packages(c('topicmodels'))"
+RUN R -e "install.packages(c('slam','doSNOW','tm','LDAvis','servr','tidytext','topicmodels','DT', 'zoo'))"
+
+RUN R -e "install.packages(c('data.table'))"
+
+
+
+
