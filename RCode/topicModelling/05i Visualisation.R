@@ -172,8 +172,32 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   topicsizes <- LDA_fit@k
   directory <- paste(dirROutput,"/",identifier,"_size_",topicsizes,sep="")
   
+  # MARS model to predict salary from 
   
-
+  # temporarlily change names so they display nice in plotmo
+  originalNames <- colnames(outputAll)[1:topicsizes]
+  modelNames <- paste("Topic", 1:topicsizes)
+  colnames(outputAll)[1:topicsizes] <- modelNames
+  
+  indPerm <- !is.na(outputAll$salaryMax) & outputAll$job_type == "Permanent"
+  
+  indContract <- !is.na(outputAll$salaryMax) & outputAll$job_type == "Contract"
+  
+  filters <- list(indPerm, indContract)
+  
+  buildModel <- function(filter){
+    earthModel <- earth(x = outputAll[filter, modelNames, with = FALSE] %>% as.matrix(),
+          y = outputAll[filter,salaryMax],
+          degree = 1,
+          trace = 2,
+          nfold = 5,
+          keepxy = TRUE)
+  }
+  
+  earthModels <-lapply(filters, buildModel) 
+  
+  # put names back
+  colnames(outputAll)[1:topicsizes] <- originalNames
   
   # save JSON for shiny
   # saveRDS(jsonviz, file = paste0(directory,'/jsonviz_',identifier,"_size_",topicsizes,'.RData'))
@@ -181,7 +205,7 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   # save topic probability matrix together with original data
   # write.table(outputAll[1:min(nrow(outputAll),maxRows),], paste0(directory,'/topics_all_',identifier,"_size_",topicsizes,'.txt'), row.names=F,eol="\r\n",sep='\t')
   
-  list(outputAll,jsonviz, top_words)
+  list(outputAll,jsonviz, top_words, earthModels)
 })
 
 

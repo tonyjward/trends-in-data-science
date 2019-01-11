@@ -5,6 +5,7 @@ library(data.table)
 library(ggplot2)
 library(DT)
 library(LDAvis)
+library(plotmo)
 
 # run all Modules
 sapply( list.files("modules", full.names=TRUE), source )

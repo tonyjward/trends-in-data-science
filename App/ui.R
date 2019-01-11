@@ -39,7 +39,9 @@ navbarPage(id = "nav-page",
                       tabPanel("Pay",
                                payUI("id3c")),
                       tabPanel("Roles",
-                               rolesUI("id3d"))),
+                               rolesUI("id3d")),
+                      tabPanel("Lucrative Skills",
+                               lucrativeUI("id3e"))),
            
            #-----------------------------------------------------------------------
            #   4.  Time Series
