@@ -27,6 +27,7 @@ server <- function(input, output, session) {
   })
   
   # Data.table containing topic propabilities
+  # dt <- outputData[["15"]][[1]]
   dt <- reactive({
     force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
     outputData[[selectedK()]][[1]]
