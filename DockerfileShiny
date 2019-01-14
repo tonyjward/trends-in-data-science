@@ -8,6 +8,8 @@ RUN R -e "install.packages(c('slam','doSNOW','tm','LDAvis','servr','tidytext','t
 
 RUN R -e "install.packages(c('data.table'))"
 
+RUN R -e "install.packages(c('earth'))"
+
 
 
 
