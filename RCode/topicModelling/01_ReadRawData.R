@@ -4,8 +4,6 @@
 
 # Purpose: Read raw data *only*.  No other data manipulation.
 
-
-
 # ----------------------------------------------------------
 # 1. Read raw data 
 
