@@ -8,7 +8,7 @@ topicProb <- function(input, output, session, inputData){
     displayNames <- c("text_field",topicNames)
     
     datatable(
-      inputData()[, ..displayNames],
+      inputData()[order(-`Posted Date`), ..displayNames],
       filter = "top",
       options = list(
         autoWidth = TRUE,
