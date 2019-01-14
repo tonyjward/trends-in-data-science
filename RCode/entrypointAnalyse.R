@@ -10,9 +10,10 @@ gc()
 
 # https://stackoverflow.com/a/48173272/6351353
 
-zz <- file(paste0("/home/rstudio/Logs/log_",format(Sys.time(), "%d%b%Y"),".txt"), open = "wt")
+zz <- file(paste0("/home/rstudio/Logs/",format(Sys.time(), "%Y-%m-%d"),"_analyse.txt"), open = "wt")
 sink(zz , append = TRUE, type = "output")
 sink(zz, append = TRUE, type = "message")
+sessionInfo()
 
 #-----------------------------------------------------------------------
 #   3. Run Scripts
