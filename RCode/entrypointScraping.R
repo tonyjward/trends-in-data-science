@@ -39,6 +39,10 @@ searchTerms <- c('"data scientist"',
                  'teacher',
                  '"c developer"')
 
+# Wait until selenium server is ready
+# This is a hack - could do it properly https://docs.docker.com/compose/startup-order/
+Sys.sleep(15)
+
 sapply(searchTerms, fn_webScrape)
 
 #-----------------------------------------------------------------------
