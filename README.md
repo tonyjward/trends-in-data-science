@@ -89,8 +89,8 @@ sudo crontab -e
 Then add the following line to the file.
 
 ```bash
-10 00 * * * docker stop $(docker ps -aq) && docker-compose -f /home/d14xj1/repos/trends-in-data-science/docker-c$
-30 01 * * * docker stop $(docker ps -aq) && cd /home/d14xj1/repos/trends-in-data-science && ./launch-analyse.sh
+10 00 * * * docker stop $(docker ps -aq) && rm -rf /home/d14xj1/repos/trends-in-data-science/.rstudio && cd /home/d14xj1/repos/trends-in-data-science && docker-compose up -d --force-recreate
+30 01 * * * docker stop $(docker ps -aq) && rm -rf /home/d14xj1/repos/trends-in-data-science/.rstudio && cd /home/d14xj1/repos/trends-in-data-science && ./launch-analyse.sh
 ```
 
 Then at 12:10 AM the job will run. The job first changes directory to the location of the docker file, and then runs docker-compose.
