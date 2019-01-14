@@ -16,7 +16,6 @@
 #   1. This is TEMPLATE code.  However we do not expect any changes or choices to be made
 #      other than the package to be loaded      
 
-
 #-----------------------------------------------------------------------
 #   1.  Clear all working variables and most packages
 #       From http://stackoverflow.com/questions/7505547/detach-all-packages-while-working-in-r
@@ -26,7 +25,7 @@ if (!is.null(pkgs)){
   pkgs = paste('package:', pkgs, sep = "")
   lapply(pkgs, detach, character.only = TRUE, unload = TRUE, force = TRUE)
 }
-rm(list = ls(all = TRUE))
+rm(list = setdiff(ls(all = TRUE), "startLogging"))
 
 #-----------------------------------------------------------------------
 #   2.  Define directories
@@ -39,7 +38,7 @@ dirRData   <- file.path(dirRoot, 'RData')
 dirROutput <- file.path(dirRoot, 'ROutput')
 dirRCode   <- file.path(dirRoot, 'RCode')
 
-rm(dirRootData, dirRootCode)
+rm(dirRoot)
 
 #-----------------------------------------------------------------------
 #   3. LOAD PACKAGES
@@ -158,11 +157,11 @@ sapply(functionPaths, source)
 Sys.setenv(TZ = "Europe/London")
 Sys.getenv("TZ")
 
-fileOut <- paste(c('Rsession_', format(Sys.time(), "%d%b%Y"), '.txt'), sep="", collapse="")
-sink(file = file.path(dirROutput, fileOut))
-sessionInfo()
-sink()
+# fileOut <- paste(c('Rsession_', format(Sys.time(), "%d%b%Y"), '.txt'), sep="", collapse="")
+# sink(file = file.path(dirROutput, fileOut))
+# sessionInfo()
+# sink()
 
-rm(fileOut, pkgInstall, packagesToLoad, functionPaths)
+rm(pkgInstall, packagesToLoad, functionPaths)
 
 gc()
