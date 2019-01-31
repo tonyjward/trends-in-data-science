@@ -5,7 +5,26 @@ The objective of this project is to monitor the trends in data science job oppor
 2) Analyse job data 
 3) Visualisation output
 
+# Set up Linux machine
 
+First install docker and docker-compose if they are not already installed
+
+```bash
+sudo apt-get update
+sudo apt-get install docker
+sudo apt-get install docker-compose
+```
+
+Then clone the repos
+```
+git clone https://github.com/tonyjward/trends-in-data-science.git
+```
+
+The creates some directories in the folder
+```
+cd trends-in-data-science
+mkdir Logs RData ROutput
+```
 # Scraping jobserve.com
 
 # First Build Dockerfile with R and required libraries installed (RSelenium). 
