@@ -221,7 +221,7 @@ if (exists("dt_removed")){
   save(dt_all, 
        train_folds,
        val_folds,
-       idxFilter,
+       #idxFilter,
        file = file.path(dirRData,'05a_dt_all.RData'))
 }
 
