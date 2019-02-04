@@ -20,11 +20,17 @@ Then clone the repos
 git clone https://github.com/tonyjward/trends-in-data-science.git
 ```
 
-The creates some directories in the folder
+Then creates some directories in the folder
 ```
 cd trends-in-data-science
-mkdir Logs RData ROutput
+mkdir Logs RData App/RData
 ```
+
+And build the containers
+```
+./build-scraping.sh && ./build-analyse.sh && ./build-shiny.sh
+```
+
 # Scraping jobserve.com
 
 # First Build Dockerfile with R and required libraries installed (RSelenium). 
