@@ -74,7 +74,7 @@ fn_webScrape <- function(searchTerm){
   # sink()
   
   tagNames <- c(".jobSelected .jobResultsTitle", ".jobSelected .jobResultsSalary", ".jobSelected .jobResultsLoc", ".jobSelected .jobResultsType",
-                "#td_jobpositionlink", "#td_location_salary", "#td_job_type", "#td_posted_date", "#td_last_view",
+                "#td_jobpositionlink", "#td_location_salary", "#td_job_type", "#td_last_view",
                 "#md_skills", "#md_location", "#md_industry", "#md_category", "#md_duration", "#md_start_date", "#md_rate",
                 "#md_recruiter", "#md_contact", "#md_ref", "#md_posted_date", "#md_permalink",
                 "#md_company_summary")
