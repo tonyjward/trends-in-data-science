@@ -51,7 +51,7 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   directory <- paste(dirROutput,"/",identifier,"_size_",topicsizes,sep="")
   jsonviz <- topicJson (LDA_fit, txtCorpus, txtDtm)
   x <- fromJSON(jsonviz)
-  serVis(jsonviz, out.dir=directory, open.browser = FALSE,as.gist=FALSE)
+  # serVis(jsonviz, out.dir=directory, open.browser = FALSE,as.gist=FALSE)
   
   # OBTAIN TOPIC PROBABILITIES
   # Note that we score the entire data (both training and validation datasets) and then
