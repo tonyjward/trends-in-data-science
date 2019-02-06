@@ -32,13 +32,15 @@ setnames(dt_all,
                  "jobResultsLoc",
                  "jobResultsType",
                  "jobpositionlink",
-                 "skills"),
+                 "skills",
+                 "posted_date"),
          new = c("Title",
                  "Salary",
                  "Location",
                  "Type",
                  "Link",
-                 "Skills"))
+                 "Skills",
+                 "Posted Date"))
 
 #---------------------------------------------------------------------
 #  3. Add Fold for partitioning 
