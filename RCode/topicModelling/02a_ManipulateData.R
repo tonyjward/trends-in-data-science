@@ -40,10 +40,6 @@ setnames(dt_all,
                  "Link",
                  "Skills"))
 
-setnames(dt_all,
-         old = 18,
-         new = "Posted Date")
-
 #---------------------------------------------------------------------
 #  3. Add Fold for partitioning 
 
