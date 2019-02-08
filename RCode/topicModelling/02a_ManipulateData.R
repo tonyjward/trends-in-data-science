@@ -117,6 +117,17 @@ dt_all[, salaryMax:= ifelse(nchar(salaryMax)>=5, salaryMax/1000, salaryMax)]
 # change job type to Contract if salary mentions a day rate
 dt_all[grepl('[p|P]er [d|D]ay', dt_all$Salary) & job_type == "Permanent", job_type := "Contract"]
 
+
+# big day rates
+# Salary salaryMax
+# £400 - £5256 per Day
+dt_all[job_type == "Contract" & salaryMax > 2500, salaryMax := salaryMax/10]
+
+# bit salarys
+# Salary salaryMax
+# £60k - £900k per annum + bonus benefits pension       900
+dt_all[job_type == "Permanent" & salaryMax > 400, salaryMax := salaryMax/10]
+
 #---------------------------------------------------------------------
 #  7. Prototype Charts
 
