@@ -19,7 +19,7 @@ result <- lapply(pathsToRead, fread)
 dt_Staging <- rbindlist(result, fill = TRUE)
 
 dt_all <- unique(dt_Staging, by = setdiff(colnames(dt_Staging),
-                                           "last_view"))
+                                           c("last_view", "posted_date","permalink")))
 
 #--------------------------------------------------------------
 # DONE. Save results and gc()
