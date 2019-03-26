@@ -37,7 +37,10 @@ searchTerms <- c('"data scientist"',
                  'actuary OR actuarial',
                  'physiotherapist',
                  'teacher',
-                 '"c developer"')
+                 '"c developer"',
+		'Java')
+
+# searchTerms <- "Java"
 
 # Wait until selenium server is ready
 # This is a hack - could do it properly https://docs.docker.com/compose/startup-order/
