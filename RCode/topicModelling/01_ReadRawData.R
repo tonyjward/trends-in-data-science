@@ -9,8 +9,12 @@
 
 # identify files
 
+# search_for = "data_scien|machine|artificial|statistic"
+
+search_for = "data_scientist"
+
 filesToRead <- list.files(path = "/home/rstudio/ROutput",
-          pattern = "data_scientist")
+          pattern = search_for)
 
 pathsToRead <- paste0('/home/rstudio/ROutput/',filesToRead)
 
