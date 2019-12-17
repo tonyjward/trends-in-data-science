@@ -29,18 +29,12 @@ library(data.table)
 source('/home/rstudio/RCode/fn_webscrape.R')
 
 searchTerms <- c('"data scientist"',
-                 '"digital project manager"',
                  '"data science"',
                  '"machine learning"',
                  '"artificial intelligence"',
                  'statistician OR statistics',
                  'actuary OR actuarial',
-                 'physiotherapist',
-                 'teacher',
-                 '"c developer"',
-		'Java')
-
-# searchTerms <- "Java"
+                 'physiotherapist')
 
 # Wait until selenium server is ready
 # This is a hack - could do it properly https://docs.docker.com/compose/startup-order/
