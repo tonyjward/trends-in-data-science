@@ -1,30 +1,3 @@
-# jobserve.R
-# Author: Tony Ward
-# Date: 27 November 2017
-
-# Purpose: Manipulate data as needed
-
-# Contents:
-#   1. When using this TEMPLATE, note here in a numbered list, what the program does.
-#      Will vary by client but typically something like: 
-#   _. Load data required
-#      followed by options from template and / or manipulation specific to the client.
-
-# Notes: Add to template for 02a
-#        1 below: Stack datasets section along with various checks   
-#        2 below: Change text for header for 2
-#        3 below: New code based on TW - change in template
-#        4 below: Add section to deal with 
-#                 manually changing to NA things that are missing levels
-#        6 below: Add new code to find character columns
-#        
-
-
-#---------------------------------------------------------------------
-#   _. Required Libraries
-
-
-
 
 #---------------------------------------------------------------------
 #  1. Establish Connection
@@ -44,8 +17,6 @@ fn_webScrape <- function(searchTerm){
   
   #---------------------------------------------------------------------
   #  1. Search for data scientist
-  
-  
   
   # clear entries just in case
   webElem <- remDr$findElement(using = "id", value = "txtKey")
@@ -67,12 +38,7 @@ fn_webScrape <- function(searchTerm){
   
   # grab html
   htmlOutput<- read_html(remDr$getPageSource()[[1]])
-  
-  # # save html to file (optional)
-  # sink("htmlOutput.txt")
-  # htmlOutput
-  # sink()
-  
+
   tagNames <- c(".jobSelected .jobResultsTitle", ".jobSelected .jobResultsSalary", ".jobSelected .jobResultsLoc", ".jobSelected .jobResultsType",
                 "#td_jobpositionlink", "#td_location_salary", "#td_job_type", "#td_last_view",
                 "#md_skills", "#md_location", "#md_industry", "#md_category", "#md_duration", "#md_start_date", "#md_rate",
@@ -133,10 +99,8 @@ fn_webScrape <- function(searchTerm){
     allDataDT <- rbind(allDataDT, resultDT, fill = TRUE )
   }
   
-  
   #---------------------------------------------------------------------
   #  3. Save and exit
-  
   
   searchTermFile <- gsub('"', "",searchTerm)
   searchTermFile <- gsub(" ","_", searchTermFile)

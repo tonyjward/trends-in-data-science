@@ -140,7 +140,7 @@ dt_all[job_type == "Permanent" & salaryMax > 400, salaryMax := salaryMax/10]
 # DONE. Save results and gc()
 
 
-saveRDS(dt_all, file = "/home/rstudio/RData/02a_dt_all.RData")
+saveRDS(dt_all, file = "/home/rstudio/RData/02_dt_all.RData")
 
 cleanUp(functionNames)
 gc()

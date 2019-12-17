@@ -20,17 +20,12 @@
 # identifier <- '05g_directorate_Network_Operations_yearQtr_2018Q12018Q22018Q3_description_iterations_10000'
 
 # LDA
-identifier <- '05g_models'
-
-# CTM
-# identifier <- '05o_models'
-
+identifier <- '05_models'
 
 load(file = file.path(dirRData,paste0(identifier,'.RData')))
-load(file = file.path(dirRData,'05a_txtCorpus.RData'))
-load(file = file.path(dirRData,'05a_txtDtm.RData'))
-#load(file = file.path(dirRData,'05a_txtDtm_train.RData'))
-load(file = file.path(dirRData,'05a_dt_all.RData'))
+load(file = file.path(dirRData,'03_txtCorpus.RData'))
+load(file = file.path(dirRData,'03_txtDtm.RData'))
+load(file = file.path(dirRData,'03_dt_all.RData'))
 
 
 # if you want to limit the number of rows that can scored with predicted probabilities
@@ -213,15 +208,15 @@ names(outputData) <- hyperparams$k
 
 # save for future reference
 save(outputData,
-     file = file.path(dirRData,paste0('05i_',identifier,'_OutputData.RData')))
+     file = file.path(dirRData,paste0('06_',identifier,'_OutputData.RData')))
 
 # save for immediate use
 save(outputData,
-     file = file.path(dirRData,paste0('05i_OutputData.RData')))
+     file = file.path(dirRData,paste0('06_OutputData.RData')))
 
 # save for use in shiny app
 saveRDS(outputData,
-     file = '/home/rstudio/App/RData/05i_OutputData.RData')
+     file = '/home/rstudio/App/RData/06_OutputData.RData')
 
 
 cleanUp(functionNames)

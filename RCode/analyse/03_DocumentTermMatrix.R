@@ -24,7 +24,7 @@
 #---------------------------------------------------------------------
 #   _. Load data required
 
-dt_all <- readRDS(dt, file = "/home/rstudio/RData/02a_dt_all.RData")
+dt_all <- readRDS(dt, file = "/home/rstudio/RData/02_dt_all.RData")
 
 #---------------------------------------------------------------------
 #  1. Define Macro Variables
@@ -216,13 +216,13 @@ if (exists("dt_removed")){
        train_folds,
        val_folds,
        #idxFilter,
-       file = file.path(dirRData,'05a_dt_all.RData'))
+       file = file.path(dirRData,'03_dt_all.RData'))
 } else {
   save(dt_all, 
        train_folds,
        val_folds,
        #idxFilter,
-       file = file.path(dirRData,'05a_dt_all.RData'))
+       file = file.path(dirRData,'03_dt_all.RData'))
 }
 
 save(
@@ -231,38 +231,38 @@ save(
     # filter_name2,
      #filter_condition2,
      field_name,
-     file = file.path(dirRData,'05a_settings.RData'))
+     file = file.path(dirRData,'03_settings.RData'))
 
 
 save(dt_train, 
-     file = file.path(dirRData,'05a_dt_train.RData'))
+     file = file.path(dirRData,'03_dt_train.RData'))
 
 save(dt_valid, 
-     file = file.path(dirRData,'05a_dt_valid.RData'))
+     file = file.path(dirRData,'03_dt_valid.RData'))
 
 save(txtCorpus,
-     file = file.path(dirRData,'05a_txtCorpus.RData'))
+     file = file.path(dirRData,'03_txtCorpus.RData'))
 
 save(txtCorpus_train,
-     file = file.path(dirRData,'05a_txtCorpus_train.RData'))
+     file = file.path(dirRData,'03_txtCorpus_train.RData'))
 
 save(txtCorpus_valid,
-     file = file.path(dirRData,'05a_txtCorpus_valid.RData'))
+     file = file.path(dirRData,'03_txtCorpus_valid.RData'))
 
 save(txtDtm,
-     file = file.path(dirRData,'05a_txtDtm.RData'))
+     file = file.path(dirRData,'03_txtDtm.RData'))
 
 save(txtDtm_train,
      dtmRows,
      dtmCols,
      field_name,
      filter,
-     file = file.path(dirRData,'05a_txtDtm_train.RData'))
+     file = file.path(dirRData,'03_txtDtm_train.RData'))
 
 save(txtDtm_valid,
      field_name,
      filter,
-     file = file.path(dirRData,'05a_txtDtm_valid.RData'))
+     file = file.path(dirRData,'03_txtDtm_valid.RData'))
 
 
 cleanUp(functionNames)

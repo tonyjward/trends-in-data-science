@@ -4,10 +4,8 @@
 rm(list=ls())
 gc()
 
-
 #-----------------------------------------------------------------------
 #   2. Start Logging
-
 # https://stackoverflow.com/a/48173272/6351353
 
 zz <- file(paste0("/home/rstudio/Logs/",format(Sys.time(), "%Y-%m-%d"),"_analyse.txt"), open = "wt")
@@ -18,15 +16,15 @@ sessionInfo()
 #-----------------------------------------------------------------------
 #   3. Run Scripts
 
-path <- "/home/rstudio/RCode/topicModelling"
+path <- "/home/rstudio/RCode/analyse"
 
 codes <- c("00_LibrariesAndPackages.R",
            "01_ReadRawData.R",
-           "02a_ManipulateData.R",
-           "05a DocumentTermMatrix.R",
-           "05f Tuning Hyperparameters using perplexity.R",
-           "05g Fitting Models with Optimal Settings.R",
-           "05i Visualisation.R")
+           "02_ManipulateData.R",
+           "03_DocumentTermMatrix.R",
+           "04_HyperparameterTuning.R",
+           "05_FinalModelTraining.R",
+           "06_Visualisation.R")
 
 runCode <- function(path, codeName){
   print(codeName)

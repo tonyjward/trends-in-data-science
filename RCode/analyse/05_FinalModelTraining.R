@@ -1,4 +1,4 @@
-# 05g fitting models with optimal settings.R
+# 05 fitting models with optimal settings.R
 # Author: Tony Ward
 # Date: 21 June 2016
 
@@ -17,10 +17,10 @@
 #---------------------------------------------------------------------
 #   _. Load data required
 
-load(file = file.path(dirRData,'05a_dt_all.RData'))
-load(file = file.path(dirRData,'05a_txtDtm.RData'))
-optimalSettings <- readRDS(file = '/home/rstudio/App/RData/05f_optimalSettings.RData')
-load(file = file.path(dirRData,'05a_settings.RData'))
+load(file = file.path(dirRData,'03_dt_all.RData'))
+load(file = file.path(dirRData,'03_txtDtm.RData'))
+optimalSettings <- readRDS(file = '/home/rstudio/App/RData/04_optimalSettings.RData')
+load(file = file.path(dirRData,'03_settings.RData'))
 
 # rename document term matrix for ease
 
@@ -103,7 +103,7 @@ save(fitted_many_p,
      optimalSettings,
      hyperparams,
      dt_all,
-     file = file.path(dirRData,paste0('05g_',identifier,'.RData')))
+     file = file.path(dirRData,paste0('05_',identifier,'.RData')))
 
 # save for immediate use
 save(fitted_many_p,
@@ -111,7 +111,7 @@ save(fitted_many_p,
      optimalSettings,
      hyperparams,
      dt_all,
-     file = file.path(dirRData,paste0('05g_models.RData')))
+     file = file.path(dirRData,paste0('05_models.RData')))
 
 cleanUp(functionNames)
 gc()

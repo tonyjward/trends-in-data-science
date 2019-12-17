@@ -1,4 +1,4 @@
-# 05f Tuning Hyperparameters using perplexity.R
+# 04 Tuning Hyperparameters using perplexity.R
 # Author: Tony Ward
 # Date: 21 June 2016
 
@@ -14,8 +14,8 @@
 #---------------------------------------------------------------------
 #   _. Load data required
 
-load(file = file.path(dirRData,'05a_txtDtm.RData'))
-load(file = file.path(dirRData,'05a_settings.RData'))
+load(file = file.path(dirRData,'03_txtDtm.RData'))
+load(file = file.path(dirRData,'03_settings.RData'))
 
 
 # rename document term matrix for ease
@@ -53,9 +53,9 @@ splitfolds <- sample(1:folds, n, replace = TRUE)
 # candidateDelta <- c(0.0001)
 # candidateK <- c(10, 15)
 # candidateK <- seq(3,19, by = 2)
-candidateK <- c(10,20)
+candidateK <- c(10, 25)
 candidateBurnin <- c(50)
-candidateIter <- c(300)
+candidateIter <- c(200)
 
 # candidateAlpha <- c(0.01, 0.2, 0.4)
 # candidateDelta <- c(0.00001,0.01,0.2)
@@ -147,23 +147,23 @@ identifier <- paste(field_name, sep = "_") %>% gsub(" ", "_", .)
 
 
 write.table(optimalSettings,
-            file = file.path(dirROutput, paste0('05f_', 'optimalSettings_', identifier,'.csv')),
+            file = file.path(dirROutput, paste0('04_', 'optimalSettings_', identifier,'.csv')),
             row.names = FALSE,
             sep = ",")
 
 # save for use in shiny app
 saveRDS(optimalSettings,
-     file = '/home/rstudio/App/RData/05f_optimalSettings.RData')
+     file = '/home/rstudio/App/RData/04_optimalSettings.RData')
 
 saveRDS(optimalK,
-     file = '/home/rstudio/App/RData/05f_optimalK.RData')
+     file = '/home/rstudio/App/RData/04_optimalK.RData')
 
 save(results_df,
      timePerplexity,
-     file = file.path(dirRData,'05f_tuning_extra.RData'))
+     file = file.path(dirRData,'04_tuning_extra.RData'))
 
 write.table(results_df,
-            file = file.path(dirROutput, '05f_tuning_extra.csv'),
+            file = file.path(dirROutput, '04_tuning_extra.csv'),
             row.names = FALSE,
             sep = ",")
 
