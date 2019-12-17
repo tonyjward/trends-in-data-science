@@ -53,7 +53,7 @@ splitfolds <- sample(1:folds, n, replace = TRUE)
 # candidateDelta <- c(0.0001)
 # candidateK <- c(10, 15)
 # candidateK <- seq(3,19, by = 2)
-candidateK <- c(10,30)
+candidateK <- c(10,20)
 candidateBurnin <- c(50)
 candidateIter <- c(300)
 

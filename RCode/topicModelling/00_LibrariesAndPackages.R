@@ -93,7 +93,7 @@ sapply(packagesToLoad, require, character.only = TRUE, quietly = TRUE,
 #   5. Load Functions
 
 # identify all scripts containing functions stored in code directory
-functionNames <- list.files(dirRCode,
+functionNames <- list.files(file.path(dirRCode, 'functions'),
                             pattern = "^fn")
 functionPaths <- paste(dirRCode, functionNames, sep = "/")
 # 

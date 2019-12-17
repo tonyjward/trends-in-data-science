@@ -24,7 +24,7 @@ codes <- c("00_LibrariesAndPackages.R",
            "01_ReadRawData.R",
            "02a_ManipulateData.R",
            "05a DocumentTermMatrix.R",
-#           "05f Tuning Hyperparameters using perplexity.R",
+           "05f Tuning Hyperparameters using perplexity.R",
            "05g Fitting Models with Optimal Settings.R",
            "05i Visualisation.R")
 
