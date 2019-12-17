@@ -52,9 +52,10 @@ splitfolds <- sample(1:folds, n, replace = TRUE)
 # candidateAlpha <- c(0.01)
 # candidateDelta <- c(0.0001)
 # candidateK <- c(10, 15)
-candidateK <- seq(3,19, by = 2)
-candidateBurnin <- c(0)
-candidateIter <- c(200)
+# candidateK <- seq(3,19, by = 2)
+candidateK <- c(10,30)
+candidateBurnin <- c(50)
+candidateIter <- c(300)
 
 # candidateAlpha <- c(0.01, 0.2, 0.4)
 # candidateDelta <- c(0.00001,0.01,0.2)
@@ -119,8 +120,6 @@ stopCluster(cluster)
 
 results_df <- as.data.frame(results)
 
-
-
 # selecting optimal settings per topic size
 results_dt <- as.data.table(results_df)
 
@@ -143,11 +142,6 @@ optimalK <- optimalSettings[which.max(acceleration), k]
 
 #---------------------------------------------------------------------
 #   3. save output
-
-
-# identifier <- paste(filter_name1, glue_collapse(filter_condition1), 
-#                     filter_name2, glue_collapse(filter_condition2),
-#                     field_name, sep = "_") %>% gsub(" ", "_", .)
 
 identifier <- paste(field_name, sep = "_") %>% gsub(" ", "_", .)
 

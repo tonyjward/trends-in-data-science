@@ -26,7 +26,7 @@ library(data.table)
 #-----------------------------------------------------------------------
 #   4. Web Scrape Jobs from Jobserve
 
-source('/home/rstudio/RCode/fn_webscrape.R')
+source('/home/rstudio/RCode/functions/fn_webscrape.R')
 
 searchTerms <- c('"data scientist"',
                  '"data science"',

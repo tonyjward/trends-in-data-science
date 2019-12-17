@@ -30,8 +30,6 @@ rm(list = setdiff(ls(all = TRUE), "startLogging"))
 #-----------------------------------------------------------------------
 #   2.  Define directories
 
-
-  
 dirRoot <- "/home/rstudio"
 
 dirRData   <- file.path(dirRoot, 'RData') 
@@ -56,69 +54,31 @@ pkgInstall <- function(x)
 
 packagesToLoad <- c(
   # DATA MANIPULATION
-  # "readxl",
   "data.table",
   'plyr', 
   'dplyr', 
   'reshape2',
-  #'Matrix',
-  #'MatrixModels', 
-  #'SparseM',
-  #"tidyr",
   'slam',
   'zoo',
   'glue',
   
   # VISUALISATION AND EDA
   'ggplot2' ,
-  # 'RColorBrewer',
-  # 'corrplot',
-  # 'e1071',
-  
-  # LEARNING STRUCTURE
-  # "caret",
-  
-  # UNIVARIATE SCREENING
-  # "Information",
-  
+ 
   # SUPERVISED LEARNING
-  # "rpart", 
-  # "rpart.plot",
-  # "glmnet",
   "earth",
-  # "ranger",
-  
-  # PERFORMANCE MEASUREMENT
-  # "ROCR",
-  
+
   # PARALLEL PROCESSING
   'parallel',
   'doSNOW',
-  
-  
-  #'doParallel',
-  
-  # OTHER
-  #'testthat',
-  
+
   # TEXT ANALYTICS
   'tm', # Framework for text mining.
-  # 'SnowballC', # Provides wordStem(', for stemming.
   'topicmodels',
   'jsonlite',
-  # 'wordcloud',
-  #'ldatuning',
   'LDAvis',
   'servr',
-  # 'lda',
   "tidytext"
-  
-  # WEB SCRAPING
-  # 'RSelenium',
-  # 'rvest'
-  
-  # OPTIMISATION
-  #'NMOF'
   
 )
 
@@ -128,17 +88,6 @@ sapply(packagesToLoad, pkgInstall)
 # Loads packages
 sapply(packagesToLoad, require, character.only = TRUE, quietly = TRUE,
        warn.conflicts = FALSE)
-
-# 4. Special Packages
-# special treatment for drat, Xgboost, since these are installed from a different repos
-
-# sapply("drat", pkgInstall)
-# drat:::addRepo("dmlc")
-# 
-# if (!("xgboost" %in% rownames(installed.packages())))
-# {
-#   install.packages("xgboost", repos="http://dmlc.ml/drat/", type = "source")
-# }
 
 #-----------------------------------------------------------------------
 #   5. Load Functions
@@ -156,11 +105,6 @@ sapply(functionPaths, source)
 # Set time zone
 Sys.setenv(TZ = "Europe/London")
 Sys.getenv("TZ")
-
-# fileOut <- paste(c('Rsession_', format(Sys.time(), "%d%b%Y"), '.txt'), sep="", collapse="")
-# sink(file = file.path(dirROutput, fileOut))
-# sessionInfo()
-# sink()
 
 rm(pkgInstall, packagesToLoad, functionPaths)
 
