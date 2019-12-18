@@ -16,7 +16,7 @@ sessionInfo()
 #-----------------------------------------------------------------------
 #   3. Run Scripts
 
-path <- "/home/rstudio/RCode/analyse"
+path <- "/home/rstudio/Analyse/RCode/"
 
 codes <- c("00_LibrariesAndPackages.R",
            "01_ReadRawData.R",

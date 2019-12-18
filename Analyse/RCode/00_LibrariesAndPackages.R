@@ -30,7 +30,7 @@ rm(list = setdiff(ls(all = TRUE), "startLogging"))
 #-----------------------------------------------------------------------
 #   2.  Define directories
 
-dirRoot <- "/home/rstudio"
+dirRoot <- "/home/rstudio/Analyse"
 
 dirRData   <- file.path(dirRoot, 'RData') 
 dirROutput <- file.path(dirRoot, 'ROutput')
@@ -93,9 +93,9 @@ sapply(packagesToLoad, require, character.only = TRUE, quietly = TRUE,
 #   5. Load Functions
 
 # identify all scripts containing functions stored in code directory
-functionNames <- list.files(file.path(dirRCode, 'analyse'),
+functionNames <- list.files(dirRCode,
                             pattern = "^fn")
-functionPaths <- paste(dirRCode, 'analyse', functionNames, sep = "/")
+functionPaths <- paste(dirRCode, functionNames, sep = "/")
  
 # # source functions
 sapply(functionPaths, source)

@@ -1,4 +1,4 @@
 FROM tonyjward/rstudio:analyseinteractive 
 
-CMD ["Rscript", "RCode/entrypointAnalyse.R"]
+CMD ["Rscript", "Analyse/entrypointAnalyse.R"]
 

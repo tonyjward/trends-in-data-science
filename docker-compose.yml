@@ -10,7 +10,7 @@ services:
       - ".:/home/rstudio"
     environment:
       - PASSWORD=letmein 
-    entrypoint: ["Rscript", "RCode/entrypointScraping.R"]
+    entrypoint: ["Rscript", "Scraping/entrypointScraping.R"]
   selenium:
     image: selenium/standalone-chrome-debug:3.141.59
     ports:
