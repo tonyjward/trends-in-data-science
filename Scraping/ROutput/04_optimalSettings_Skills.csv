@@ -1,0 +1,3 @@
+"k","alpha","delta","burnin","iter","perplexity","perplexityLag","perplexityLead","acceleration"
+10,0.35,0.05,50,200,810.227428194642,NA,695.720022731063,NA
+25,0.2,0.05,50,200,695.720022731063,810.227428194642,NA,NA
