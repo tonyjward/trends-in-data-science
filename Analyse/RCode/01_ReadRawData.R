@@ -11,12 +11,13 @@
 
 # search_for = "data_scien|machine|artificial|statistic"
 
+# search_for = "actuary|actuarial"
 search_for = "data_scientist"
 
-filesToRead <- list.files(path = "/home/rstudio/ROutput",
+filesToRead <- list.files(path = "/home/rstudio/Scraping/ROutput",
           pattern = search_for)
 
-pathsToRead <- paste0('/home/rstudio/ROutput/',filesToRead)
+pathsToRead <- paste0('/home/rstudio/Scraping/ROutput/',filesToRead)
 
 result <- lapply(pathsToRead, fread)
 
@@ -31,7 +32,7 @@ dt_all <- unique(dt_Staging, by = 'skills')
 #--------------------------------------------------------------
 # DONE. Save results and gc()
 
-saveRDS(dt_all, file = "/home/rstudio/RData/01_dt_all.RData")
+saveRDS(dt_all, file = file.path(dirRData, "01_dt_all.RData"))
 
 cleanUp(functionNames)
 gc()

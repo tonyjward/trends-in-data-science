@@ -24,7 +24,7 @@
 #---------------------------------------------------------------------
 #   _. Load data required
 
-dt_all <- readRDS(dt, file = "/home/rstudio/RData/02_dt_all.RData")
+dt_all <- readRDS(dt, file = file.path(dirRData, "02_dt_all.RData"))
 
 #---------------------------------------------------------------------
 #  1. Define Macro Variables

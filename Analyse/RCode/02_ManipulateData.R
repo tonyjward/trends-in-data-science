@@ -16,7 +16,7 @@
 #---------------------------------------------------------------------
 #   _. Load data required
 
-dt_all <- readRDS(dt, file = "/home/rstudio/RData/01_dt_all.RData")
+dt_all <- readRDS(dt, file = file.path(dirRData, "01_dt_all.RData"))
 
 
 #---------------------------------------------------------------------
@@ -140,7 +140,7 @@ dt_all[job_type == "Permanent" & salaryMax > 400, salaryMax := salaryMax/10]
 # DONE. Save results and gc()
 
 
-saveRDS(dt_all, file = "/home/rstudio/RData/02_dt_all.RData")
+saveRDS(dt_all, file = file.path(dirRData, "02_dt_all.RData"))
 
 cleanUp(functionNames)
 gc()

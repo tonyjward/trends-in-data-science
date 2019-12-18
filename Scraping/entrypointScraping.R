@@ -10,7 +10,7 @@ gc()
 
 # https://stackoverflow.com/a/48173272/6351353
 
-zz <- file(paste0("/home/rstudio/Logs/",format(Sys.time(), "%Y-%m-%d"),"_scraping.txt"), open = "wt")
+zz <- file(paste0("/home/rstudio/Scraping/Logs/",format(Sys.time(), "%Y-%m-%d"),"_scraping.txt"), open = "wt")
 sink(zz , append = TRUE, type = "output")
 sink(zz, append = TRUE, type = "message")
 sessionInfo()
@@ -28,13 +28,15 @@ library(data.table)
 
 source('/home/rstudio/Scraping/fn_webscrape.R')
 
-searchTerms <- c('"data scientist"',
-                 '"data science"',
-                 '"machine learning"',
-                 '"artificial intelligence"',
-                 'statistician OR statistics',
-                 'actuary OR actuarial',
-                 'physiotherapist')
+# searchTerms <- c('"data scientist"',
+#                  '"data science"',
+#                  '"machine learning"',
+#                  '"artificial intelligence"',
+#                  'statistician OR statistics',
+#                  'actuary OR actuarial',
+#                  'physiotherapist')
+
+searchTerms <- 'teacher'
 
 # Wait until selenium server is ready
 # This is a hack - could do it properly https://docs.docker.com/compose/startup-order/

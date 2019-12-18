@@ -49,31 +49,35 @@ clusterEvalQ(cluster, library(topicmodels))
 folds <- 5
 splitfolds <- sample(1:folds, n, replace = TRUE)
 
-# candidateAlpha <- c(0.01)
-# candidateDelta <- c(0.0001)
-# candidateK <- c(10, 15)
-# candidateK <- seq(3,19, by = 2)
+
+# candidateAlpha <- c(0.001, 0.005, 0.01, 0.05,	0.1, 0.15, 0.2,0.25, 0.3, 0.35, 0.4)
+# candidateDelta <- c(0.001,	0.005, 0.01, 0.05, 0.1, 0.2)
+# candidateK <- c(5)
+
 candidateK <- c(10, 25)
+
 candidateBurnin <- c(50)
 candidateIter <- c(200)
 
-# candidateAlpha <- c(0.01, 0.2, 0.4)
-# candidateDelta <- c(0.00001,0.01,0.2)
+candidateAlpha <- c(0.1)
+candidateDelta <- c(0.05)
 
-
-candidateAlpha <- c(0.001, 0.005, 0.01, 0.05,	0.1, 0.15, 0.2,0.25, 0.3, 0.35, 0.4)
-candidateDelta <- c(0.001,	0.005, 0.01, 0.05, 0.1, 0.2)
-# candidateDelta <- c(0.000001, 0.000005, 0.00005,0.00001, 0.0005, 0.0001,	0.001,	0.005, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4)
-# candidateDelta <- c(0.00001, 0.0001,	0.001,	0.01, 0.05, 0.2)
-# candidateK <- c(10)
-# candidateBurnin <- c(0)
-# candidateIter <- c(10, 50, 200, 1000)
-
-hyperparams <- expand.grid(alpha = candidateAlpha,
+hyperparams1 <- expand.grid(alpha = candidateAlpha,
                            delta = candidateDelta,
                            k = candidateK,
                            burnin = candidateBurnin,
                            iter = candidateIter)
+candidateK <- c(40)
+candidateAlpha <- c(0.1,0.2,0.3)
+candidateDelta <- c(0.05, 0.1, 0.2)
+
+hyperparams2 <- expand.grid(alpha = candidateAlpha,
+                            delta = candidateDelta,
+                            k = candidateK,
+                            burnin = candidateBurnin,
+                            iter = candidateIter)
+
+hyperparams <- rbind(hyperparams1, hyperparams2)
 
 # export all the needed R objects to the parallel sessions
 clusterExport(cluster, c("full_data", 
@@ -153,10 +157,10 @@ write.table(optimalSettings,
 
 # save for use in shiny app
 saveRDS(optimalSettings,
-     file = '/home/rstudio/App/RData/04_optimalSettings.RData')
+     file = '/home/rstudio/Shiny/RData/04_optimalSettings.RData')
 
 saveRDS(optimalK,
-     file = '/home/rstudio/App/RData/04_optimalK.RData')
+     file = '/home/rstudio/Shiny/RData/04_optimalK.RData')
 
 save(results_df,
      timePerplexity,

@@ -207,8 +207,8 @@ outputData<- lapply(names(fitted_many_p), function(x) {
 names(outputData) <- hyperparams$k  
 
 # save for future reference
-save(outputData,
-     file = file.path(dirRData,paste0('06_',identifier,'_OutputData.RData')))
+# save(outputData,
+#     file = file.path(dirRData,paste0('06_',identifier,'_OutputData.RData')))
 
 # save for immediate use
 save(outputData,
@@ -216,7 +216,8 @@ save(outputData,
 
 # save for use in shiny app
 saveRDS(outputData,
-     file = '/home/rstudio/App/RData/06_OutputData.RData')
+     file = '/home/rstudio/Shiny/RData/06_OutputData.RData')
+
 
 
 cleanUp(functionNames)
