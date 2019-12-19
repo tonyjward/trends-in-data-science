@@ -155,6 +155,10 @@ write.table(optimalSettings,
             row.names = FALSE,
             sep = ",")
 
+# save for 05_FinalModelTraining.R
+save(optimalSettings,
+     file = file.path(dirRData,'04_optimalSettings.RData'))
+
 # save for use in shiny app
 saveRDS(optimalSettings,
      file = '/home/rstudio/Shiny/RData/04_optimalSettings.RData')

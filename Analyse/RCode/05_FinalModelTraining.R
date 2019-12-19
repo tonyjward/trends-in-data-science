@@ -19,7 +19,7 @@
 
 load(file = file.path(dirRData,'03_dt_all.RData'))
 load(file = file.path(dirRData,'03_txtDtm.RData'))
-optimalSettings <- readRDS(file = file.path(dirRData,'04_optimalSettings.RData'))
+load(file = file.path(dirRData,'04_optimalSettings.RData'))
 load(file = file.path(dirRData,'03_settings.RData'))
 
 # rename document term matrix for ease
