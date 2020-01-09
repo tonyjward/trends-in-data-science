@@ -1,5 +1,6 @@
 .rstudio/
 *.txt
+*.csv
 .Rhistory
 .Rproj.user/
 *.Rproj
