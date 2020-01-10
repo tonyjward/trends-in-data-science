@@ -49,35 +49,21 @@ clusterEvalQ(cluster, library(topicmodels))
 folds <- 5
 splitfolds <- sample(1:folds, n, replace = TRUE)
 
-
-# candidateAlpha <- c(0.001, 0.005, 0.01, 0.05,	0.1, 0.15, 0.2,0.25, 0.3, 0.35, 0.4)
-# candidateDelta <- c(0.001,	0.005, 0.01, 0.05, 0.1, 0.2)
-# candidateK <- c(5)
-
-candidateK <- c(10, 25)
-
+# create grid of alpha/delta to test
+candidateK <- c(10, 20, 40)
 candidateBurnin <- c(200)
-candidateIter <- c(200)
+candidateIter <- c(500)
+candidateAlpha <- runif(20, 0.001, 0.2)
+candidateDelta <- runif(20, 0.001, 0.2)
+plot(candidateAlpha, candidateDelta)
 
-candidateAlpha <- c(0.05, 0.1, 0.15)
-candidateDelta <- c(0.01, 0.05, 0.1)
+hyperparams <- data.table(k = candidateK,
+                          alpha = rep(candidateAlpha, length(candidateK)),
+                          delta = rep(candidateDelta, length(candidateK)),
+                          burnin = candidateBurnin,
+                          iter = candidateIter)
 
-hyperparams1 <- expand.grid(alpha = candidateAlpha,
-                           delta = candidateDelta,
-                           k = candidateK,
-                           burnin = candidateBurnin,
-                           iter = candidateIter)
-candidateK <- c(40)
-candidateAlpha <- c(0.05, 0.1,0.2)
-candidateDelta <- c(0.01, 0.05, 0.1, 0.2)
-
-hyperparams2 <- expand.grid(alpha = candidateAlpha,
-                            delta = candidateDelta,
-                            k = candidateK,
-                            burnin = candidateBurnin,
-                            iter = candidateIter)
-
-hyperparams <- rbind(hyperparams1, hyperparams2)
+setorder(hyperparams, k)
 
 # export all the needed R objects to the parallel sessions
 clusterExport(cluster, c("full_data", 

@@ -33,9 +33,9 @@ maxRows <- 9999999
 
 
 outputData<- lapply(names(fitted_many_p), function(x) {
-  LDA_fit <- fitted_many_p[[1]]
+  # LDA_fit <- fitted_many_p[[1]]
   
-  # LDA_fit <- fitted_many_p[[x]]
+  LDA_fit <- fitted_many_p[[x]]
   
   # VISUALISE TOPICS
   # Note that we use the just the corpus and document term matrix from the training data
