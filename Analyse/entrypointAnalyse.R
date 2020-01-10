@@ -22,7 +22,7 @@ codes <- c("00_LibrariesAndPackages.R",
            "01_ReadRawData.R",
            "02_ManipulateData.R",
            "03_DocumentTermMatrix.R",
-           # "04_HyperparameterTuning.R",
+           "04_HyperparameterTuning.R",
            "05_FinalModelTraining.R",
            "06_Visualisation.R")
 

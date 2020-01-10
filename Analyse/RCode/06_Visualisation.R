@@ -33,9 +33,9 @@ maxRows <- 9999999
 
 
 outputData<- lapply(names(fitted_many_p), function(x) {
-  # LDA_fit <- fitted_many_p[[2]]
+  LDA_fit <- fitted_many_p[[1]]
   
-  LDA_fit <- fitted_many_p[[x]]
+  # LDA_fit <- fitted_many_p[[x]]
   
   # VISUALISE TOPICS
   # Note that we use the just the corpus and document term matrix from the training data
@@ -44,7 +44,7 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   print(LDA_fit@k)
   topicsizes <- LDA_fit@k
   directory <- paste(dirROutput,"/",identifier,"_size_",topicsizes,sep="")
-  jsonviz <- topicJson (LDA_fit, txtCorpus, txtDtm)
+  jsonviz <- topicJson(LDA_fit, txtCorpus, txtDtm)
   x <- fromJSON(jsonviz)
   # serVis(jsonviz, out.dir=directory, open.browser = FALSE,as.gist=FALSE)
   
@@ -63,22 +63,16 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   topic_probsAll <- topic_probsAll[,x$topic.order] 
   colnames(topic_probsAll) <- paste0("Topic",c(1:topicsizes))
   
-  # create correlation matrix of topic probabilities
-  # res <- cor(topic_probsAll) %>% round(3)
-  # 
-  # write.table(res,
-  #             file = paste0(directory,'/correlations_',identifier,"_size_",topicsizes,'.txt'))
-  
   # assign a topic to each document
-  topic_temp=apply(topic_probsAll,1,function(x) colnames(topic_probsAll)[which(x==max(x))])
-  flatten=function(x){paste(x,collapse=" ")}
-  topic_flat = lapply(topic_temp, flatten)
-  topic_list_df=lapply(topic_flat, data.frame, stringsAsFactors = FALSE)
-  topic_classAll=rbind.fill(topic_list_df)
-  colnames(topic_classAll) = "topic_pred"
+  topic_temp <- apply(topic_probsAll,1,function(x) colnames(topic_probsAll)[which(x==max(x))])
+  flatten <- function(x){paste(x,collapse=" ")}
+  topic_flat <- lapply(topic_temp, flatten)
+  topic_list_df <- lapply(topic_flat, data.frame, stringsAsFactors = FALSE)
+  topic_classAll <- rbind.fill(topic_list_df)
+  colnames(topic_classAll) <- "topic_pred"
   
   # identify duplicate classifications
-  dup_idx = sapply(topic_classAll, function(x){nchar(x)>8})
+  dup_idx <- sapply(topic_classAll, function(x){nchar(x)>8})
   topic_classAll$topic_pred[dup_idx] <- "Multiple"
   
   # top topic words
@@ -114,16 +108,16 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   )
   
   
+  # join top words onto topic probs
   outputAll[top_words, topWords := i.topWords, on = "topic"]
   outputAll[is.na(topWords), topWords := "NA - Multiple Topics"]
   
+  # for debugging
   outputAll[,wordsUsed := dt_all$wordsUsed]
-  
   outputAll <- cbind(outputAll, dt_all[,-c("text", "wordsUsed")])
   
   
   # replace line endings for all character variables so we can export
-  
   characterIdx <- sapply(outputAll, is.character)
   characterNames <- names(characterIdx)[characterIdx]
   
@@ -133,38 +127,10 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   
   # save as data.frame 
   
-  # facet_wrap plot of top words
-  # av_CSAT <- outputAll[topWords != "NA - Multiple Topics",list(overall_CSAT_score = mean(overall_CSAT_score, na.rm = TRUE),
-  #                                                              count = .N),, by = list(topic = gsub("Topic","",topic))][order(overall_CSAT_score)]
-  # 
   # create data.frame to re-order topics
   topicReorder <- data.frame(topic = x$topic.order,
                              newTopic = 1:topicsizes)
   
-  lda_topics <- tidy(LDA_fit, matrix = "beta")
-  
-  ap_top_terms <- lda_topics %>%
-    group_by(topic) %>%
-    top_n(8, beta) %>%
-    ungroup() %>%
-    arrange(topic, -beta) %>%
-    group_by(topic) %>%
-    slice(seq_len(8)) %>% # to make sure we definitely only bring back top n results since there may be ties
-    left_join(topicReorder, by = "topic") %>%
-    as.data.frame() %>%
-    mutate(topic = newTopic) %>%
-    select(-one_of("newTopic"))# swaps names round and gets rid of old topic
-  
-  # visualise top words per topic
-  # plotTopWords <- ap_top_terms %>%
-  #   mutate(term = reorder(term, beta)) %>%
-  #   ggplot(aes(term, beta, fill = factor(topic))) +
-  #   geom_col(show.legend = FALSE) +
-  #   facet_wrap(~ factor(topic, levels = av_CSAT$topic), scales = "free") +
-  #   coord_flip()
-  # 
-  
-  topicsizes <- LDA_fit@k
   directory <- paste(dirROutput,"/",identifier,"_size_",topicsizes,sep="")
   
   # MARS model to predict salary from 

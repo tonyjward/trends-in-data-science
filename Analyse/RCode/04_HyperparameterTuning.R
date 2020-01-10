@@ -56,11 +56,11 @@ splitfolds <- sample(1:folds, n, replace = TRUE)
 
 candidateK <- c(10, 25)
 
-candidateBurnin <- c(50)
+candidateBurnin <- c(200)
 candidateIter <- c(200)
 
-candidateAlpha <- c(0.1)
-candidateDelta <- c(0.05)
+candidateAlpha <- c(0.05, 0.1, 0.15)
+candidateDelta <- c(0.01, 0.05, 0.1)
 
 hyperparams1 <- expand.grid(alpha = candidateAlpha,
                            delta = candidateDelta,
@@ -68,8 +68,8 @@ hyperparams1 <- expand.grid(alpha = candidateAlpha,
                            burnin = candidateBurnin,
                            iter = candidateIter)
 candidateK <- c(40)
-candidateAlpha <- c(0.1,0.2,0.3)
-candidateDelta <- c(0.05, 0.1, 0.2)
+candidateAlpha <- c(0.05, 0.1,0.2)
+candidateDelta <- c(0.01, 0.05, 0.1, 0.2)
 
 hyperparams2 <- expand.grid(alpha = candidateAlpha,
                             delta = candidateDelta,
