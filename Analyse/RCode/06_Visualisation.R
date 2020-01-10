@@ -125,6 +125,12 @@ outputData<- lapply(names(fitted_many_p), function(x) {
     gsub("[\r\n]", "", x)
   }), .SDcols = characterNames]
   
+  outputMolten <- melt(outputAll, 
+                       id.vars = c("Posted Date", "Type", "Title", "text_field"), 
+                       measure.vars = grep(pattern = 'Topic', colnames(outputAll), value = TRUE),
+                       value.name = "Probability",
+                       variable.name = "Topic")
+  
   # save as data.frame 
   
   # create data.frame to re-order topics
@@ -166,7 +172,7 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   # save topic probability matrix together with original data
   # write.table(outputAll[1:min(nrow(outputAll),maxRows),], paste0(directory,'/topics_all_',identifier,"_size_",topicsizes,'.txt'), row.names=F,eol="\r\n",sep='\t')
   
-  list(outputAll,jsonviz, top_words, earthModels)
+  list(outputAll,jsonviz, top_words, earthModels, outputMolten)
 })
 
 

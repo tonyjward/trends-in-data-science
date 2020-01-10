@@ -45,8 +45,12 @@ server <- function(input, output, session) {
     outputData[[selectedK()]][[4]]
   })
   
-  # earthModels <- outputData[["15"]][[4]]
-
+  # Topic Probabilities in long format
+  topicProbs <- reactive({
+    force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
+    outputData[[selectedK()]][[5]]
+  })
+  
   #-----------------------------------------------------------------------
   #   1.  Inspect Data
   
@@ -58,7 +62,7 @@ server <- function(input, output, session) {
   
   callModule(topicViz, "id2b", json = jsonviz)
   
-  callModule(topicProb, "id2c", inputData = dt)
+  callModule(topicProb, "id2c", inputData = topicProbs)
   
   callModule(topicWords, "id2d", inputData = topWords)
   
