@@ -30,11 +30,19 @@ rm(list = setdiff(ls(all = TRUE), "startLogging"))
 #-----------------------------------------------------------------------
 #   2.  Define directories
 
-dirRoot <- "/home/rstudio/Analyse"
+# Distinguishes between dev environment (windows) and web server in cloud (linux)
+if (.Platform$OS.type == "windows") {
+  dirRoot <- getwd()
+} else { 
+  dirRoot <- "/home/rstudio"
+}
 
-dirRData   <- file.path(dirRoot, 'RData') 
-dirROutput <- file.path(dirRoot, 'ROutput')
-dirRCode   <- file.path(dirRoot, 'RCode')
+dirRData   <- file.path(dirRoot, 'Analyse', 'RData') 
+dirROutput <- file.path(dirRoot, 'Analyse', 'ROutput')
+dirRCode   <- file.path(dirRoot, 'Analyse', 'RCode')
+
+dirScraping <- file.path(dirRoot, 'Scraping', 'ROutput')
+dirShiny <- file.path(dirRoot, 'Shiny', 'RData')
 
 rm(dirRoot)
 

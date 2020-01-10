@@ -50,11 +50,18 @@ folds <- 5
 splitfolds <- sample(1:folds, n, replace = TRUE)
 
 # create grid of alpha/delta to test
-candidateK <- c(10, 20, 40)
-candidateBurnin <- c(200)
-candidateIter <- c(500)
-candidateAlpha <- runif(20, 0.001, 0.2)
-candidateDelta <- runif(20, 0.001, 0.2)
+# candidateK <- c(10, 20, 40)
+# candidateBurnin <- c(200)
+# candidateIter <- c(500)
+# candidateAlpha <- runif(20, 0.001, 0.2)
+# candidateDelta <- runif(20, 0.001, 0.2)
+# plot(candidateAlpha, candidateDelta)
+
+candidateK <- c(4,5)
+candidateBurnin <- c(0)
+candidateIter <- c(20)
+candidateAlpha <- runif(2, 0.001, 0.2)
+candidateDelta <- runif(2, 0.001, 0.2)
 plot(candidateAlpha, candidateDelta)
 
 hyperparams <- data.table(k = candidateK,
@@ -147,10 +154,10 @@ save(optimalSettings,
 
 # save for use in shiny app
 saveRDS(optimalSettings,
-     file = '/home/rstudio/Shiny/RData/04_optimalSettings.RData')
+     file = file.path(dirShiny, '04_optimalSettings.RData'))
 
 saveRDS(optimalK,
-     file = '/home/rstudio/Shiny/RData/04_optimalK.RData')
+     file = file.path(dirShiny, '04_optimalK.RData'))
 
 save(results_df,
      timePerplexity,

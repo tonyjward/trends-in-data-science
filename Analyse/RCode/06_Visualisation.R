@@ -182,7 +182,7 @@ save(outputData,
 
 # save for use in shiny app
 saveRDS(outputData,
-     file = '/home/rstudio/Shiny/RData/06_OutputData.RData')
+     file = file.path(dirShiny, '06_OutputData.RData'))
 
 
 

@@ -2,7 +2,7 @@ cleanUp <- function(functionNames){
   
   # define objects to be removed
   allObjects <- ls(envir = .GlobalEnv)
-  pathObjects <- c("dirRawData", "dirRCode", "dirRData", "dirROutput", "functionNames")
+  pathObjects <- c("dirRawData", "dirRCode", "dirRData", "dirROutput", "dirScraping", "dirShiny", "functionNames")
   functionObjects <- gsub("fn_|.R", "", functionNames)
   removeObjects <- setdiff(allObjects, c(pathObjects, functionObjects))
   

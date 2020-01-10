@@ -14,10 +14,10 @@
 # search_for = "actuary|actuarial"
 search_for = "data_scientist"
 
-filesToRead <- list.files(path = "/home/rstudio/Scraping/ROutput",
+filesToRead <- list.files(path = dirScraping,
           pattern = search_for)
 
-pathsToRead <- paste0('/home/rstudio/Scraping/ROutput/',filesToRead)
+pathsToRead <- file.path(dirScraping, filesToRead)
 
 result <- lapply(pathsToRead, fread)
 
@@ -28,6 +28,8 @@ dt_Staging <- rbindlist(result, fill = TRUE)
 # modelling try and fit a topic to a specific job. Instead we would rather
 # the topic modelling identify general trends
 dt_all <- unique(dt_Staging, by = 'skills') 
+
+dt_all <- dt_all[1:500]
 
 #--------------------------------------------------------------
 # DONE. Save results and gc()
