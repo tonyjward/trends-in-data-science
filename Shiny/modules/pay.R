@@ -4,14 +4,16 @@ pay <- function(input, output, session, inputData){
   output$plotContract <- renderPlot({
     
     ggplot(data = inputData()[job_type == "Contract"], aes(x = Tools, y = salaryMax, fill = Tools)) + geom_boxplot() +
-      scale_y_continuous(limits = c(0, NA))
+      scale_y_continuous(limits = c(0, NA),
+                         breaks = scales::pretty_breaks(n = 10)) 
     
   })
   
   output$plotPerm <- renderPlot({
     
     ggplot(data = inputData()[job_type == "Permanent"], aes(x = Tools, y = salaryMax, fill = Tools)) + geom_boxplot() +
-      scale_y_continuous(limits = c(0, NA))
+      scale_y_continuous(limits = c(0, NA),
+                         breaks = scales::pretty_breaks(n = 10))
     
   })
   
