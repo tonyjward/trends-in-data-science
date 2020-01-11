@@ -29,7 +29,7 @@ dt_Staging <- rbindlist(result, fill = TRUE)
 # the topic modelling identify general trends
 dt_all <- unique(dt_Staging, by = 'skills') 
 
-dt_all <- dt_all[1:500]
+# dt_all <- dt_all[1:500]
 
 #--------------------------------------------------------------
 # DONE. Save results and gc()

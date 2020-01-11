@@ -115,25 +115,54 @@ dt_all[,salaryMax := sapply(m, maxFun)]
 dt_all[, salaryMax:= ifelse(nchar(salaryMax)>=5, salaryMax/1000, salaryMax)]
 
 # change job type to Contract if salary mentions a day rate
-dt_all[grepl('[p|P]er [d|D]ay', dt_all$Salary) & job_type == "Permanent", job_type := "Contract"]
+dt_all[grepl('[p|P]er [d|D]ay', dt_all$Salary), job_type := "Contract"]
+
+# change job type to Permanent if salary mentions per year/annual salary
+# '£17 - £18 per annum'
+# '32816 - 40322 Annual GBP
+dt_all[grepl('(annual|annum)', tolower(dt_all$Salary)), job_type := "Permanent"]
+
+# change job type to Permanent if salary units in thousands
+# '75k - 85k EUR'
+dt_all[grepl('[0-9]+k', tolower(dt_all$Salary)), job_type := "Permanent"]
+
+# Hourly contracts - assume 8 hour day
+# 'Uxbridge - £35 - £40 Per Hour'
+# '£60-70 p/h'
+dt_all[grepl('[h|H]our', dt_all$Salary), salaryMax := salaryMax * 8]
+dt_all[grepl('p/h', dt_all$Salary), salaryMax := salaryMax * 8]
 
 
 # big day rates
 # Salary salaryMax
 # £400 - £5256 per Day
+# London - £450 - £560 per hour
 dt_all[job_type == "Contract" & salaryMax > 2500, salaryMax := salaryMax/10]
 
-# bit salarys
+# big salarys
 # Salary salaryMax
 # £60k - £900k per annum + bonus benefits pension       900
-dt_all[job_type == "Permanent" & salaryMax > 400, salaryMax := salaryMax/10]
+dt_all[job_type == "Permanent" & salaryMax > 3000, salaryMax := salaryMax/100]
+dt_all[job_type == "Permanent" & salaryMax > 330, salaryMax := salaryMax/10]
+
+# zero salarys
+# 'Up to £0.00 per annum'
+dt_all[salaryMax <15, salaryMax := NA]
+
+
+
+# Day rates incorrectly specified as 35 for 
+#'Excellent outside IR35'
+dt_all[job_type == "Contract" & salaryMax < 40, salaryMax := NA]
+
+
+
+
 
 #---------------------------------------------------------------------
-#  7. Prototype Charts
+#  7. Remove redundant fields
 
-############# line graph
-
-# ggplot(data = dt_all, aes_string(x = "yearMonDay", fill = "Python_R")) + "geom_bar"()
+dt_all[,Type:= NULL]
 
 
 #--------------------------------------------------------------
