@@ -126,7 +126,7 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   }), .SDcols = characterNames]
   
   outputMolten <- melt(outputAll, 
-                       id.vars = c("Posted Date", "Type", "Title", "text_field"), 
+                       id.vars = c("Posted Date", "job_type", "Title", "text_field"), 
                        measure.vars = grep(pattern = 'Topic', colnames(outputAll), value = TRUE),
                        value.name = "Probability",
                        variable.name = "Topic")
