@@ -4,12 +4,13 @@
 
 #-----------------------------------------------------------------------
 #   .  Load Data
-
-  outputData <- readRDS(file = "RData/06_OutputData.RData")
+  
+  glmnet_list <- readRDS(file = 'RData/06_glmnet_list.RData')
+  outputData <- readRDS(file = "RData/07_OutputData.RData")
   
   # DEBUGGING
-  # outputData <- readRDS(file = "/home/rstudio/App/RData/05i_OutputData.RData")
-
+  # outputData <- readRDS(file = file.path(dirShiny, '07_OutputData.RData'))
+ 
 
 server <- function(input, output, session) {
   
@@ -51,6 +52,7 @@ server <- function(input, output, session) {
     outputData[[selectedK()]][[5]]
   })
   
+
   #-----------------------------------------------------------------------
   #   1.  Inspect Data
   
@@ -83,6 +85,13 @@ server <- function(input, output, session) {
   #   4.  Time Series
   
   callModule(timeSeries, "id4", inputData = dt)
+  
+  #-----------------------------------------------------------------------
+  #   5.  Salary Predictor
+  
+  callModule(wordCloud, "id5a",  glmnet_list)
+  
+  #callModule(modelCoef, "id5b", inputData = glmnet_list)
 
 } 
 

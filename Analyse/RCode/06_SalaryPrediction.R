@@ -75,6 +75,8 @@ glmnet_list <- lapply(jobs, function(job){
   
 })
 
+names(glmnet_list) <- jobs
+
 # save for use in shiny app
 saveRDS(glmnet_list,
         file = file.path(dirShiny, '06_glmnet_list.RData'))

@@ -47,7 +47,14 @@ navbarPage(id = "nav-page",
            #   4.  Time Series
            
            tabPanel(title = "Time Series",
-                    timeSeriesUI("id4"))
+                    timeSeriesUI("id4")),
+           
+           #-----------------------------------------------------------------------
+           #   5.  Salary Predictor
+           
+           navbarMenu(title = "Salary Predictor",
+                      tabPanel("Word Cloud",
+                               wordCloudUI("id5a")))
 )  
 
 
