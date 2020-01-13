@@ -14,7 +14,6 @@
 load(file = file.path(dirRData, '03_txtDtm.RData'))
 load(file = file.path(dirRData,'03_dt_all.RData'))
 
-
 #---------------------------------------------------------------------
 #   1. Pre-process data 
 
@@ -48,6 +47,7 @@ idx_train[is.na(idx_train)] <- FALSE # catch NA's resulting from when is.na(dt_a
 jobs <- c("Permanent", "Contract")
 
 glmnet_list <- lapply(jobs, function(job){
+  
   idx_jobtype <- dt_all[!idx_NA][idx_train, job_type] == job
   
   glmnet_fit <- 
@@ -59,10 +59,6 @@ glmnet_list <- lapply(jobs, function(job){
               alpha = .95
     )
   
-  plot(glmnet_fit)
-  
-  summary(glmnet_fit)
-  
   glmnet_coef <- coef(glmnet_fit,s = glmnet_fit$lambda.min) %>% as.matrix() %>% as.data.table(keep.rownames = TRUE)
   
   setnames(glmnet_coef,
@@ -71,36 +67,20 @@ glmnet_list <- lapply(jobs, function(job){
   
   setorder(glmnet_coef, coef)
   
-  return(list(glmnet_fit, glmnet_coef))
+  # Create indexers for word clouds
+  idx_positive <- glmnet_coef$coef>0 & glmnet_coef$rn != '(Intercept)'
+  idx_negative <- glmnet_coef$coef<0 & glmnet_coef$rn != '(Intercept)'
+  
+  return(list(glmnet_coef, idx_positive, idx_negative))
   
 })
 
+# save for use in shiny app
+saveRDS(glmnet_list,
+        file = file.path(dirShiny, '06_glmnet_list.RData'))
+
+cleanUp(functionNames)
+gc()
 
 
-coef <- glmnet_list[[1]][[2]]
-coef[coef != 0]
-
-idx_positive <- coef$coef>0 & coef$rn != '(Intercept)'
-idx_negative <- coef$coef<0 & coef$rn != '(Intercept)'
-
-wordcloud(words = coef[idx_positive, rn],
-          freq = coef[idx_positive, coef],
-          min.freq=2,
-          #scale=c(6, .1), 
-          colors=brewer.pal(6, "Dark2"))
-
-wordcloud(words = coef[idx_negative, rn],
-          freq = -coef[idx_negative, coef],
-          min.freq=2,
-          #scale=c(6, .1), 
-          colors=brewer.pal(6, "Dark2"))
-
-# prototype coef_plot
-
-coef_plot <- glmnet_list[[1]][[2]]
-coef_plot <- coef[rn != '(Intercept)'] 
-coef_plot[, abs_coef := abs(coef)]
-
-ggplot(coef_plot[order(-abs_coef)][1:20], 
-       aes(x = reorder(rn, coef), y = coef)) + geom_point() + coord_flip()
 
