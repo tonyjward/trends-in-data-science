@@ -72,7 +72,8 @@ packagesToLoad <- c(
   'Matrix',
   
   # VISUALISATION AND EDA
-  'ggplot2' ,
+  'ggplot2',
+  'wordcoud',
  
   # SUPERVISED LEARNING
   "earth",

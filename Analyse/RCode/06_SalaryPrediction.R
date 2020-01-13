@@ -56,7 +56,7 @@ glmnet_list <- lapply(jobs, function(job){
               family = 'gaussian',
               standardize = FALSE, # FALSE since we only have categorical variables
               parallel = FALSE,
-              alpha = 0.95
+              alpha = .95
     )
   
   plot(glmnet_fit)
@@ -74,6 +74,8 @@ glmnet_list <- lapply(jobs, function(job){
   return(list(glmnet_fit, glmnet_coef))
   
 })
+
+
 
 coef <- glmnet_list[[1]][[2]]
 coef[coef != 0]
@@ -93,6 +95,12 @@ wordcloud(words = coef[idx_negative, rn],
           #scale=c(6, .1), 
           colors=brewer.pal(6, "Dark2"))
 
+# prototype coef_plot
 
+coef_plot <- glmnet_list[[1]][[2]]
+coef_plot <- coef[rn != '(Intercept)'] 
+coef_plot[, abs_coef := abs(coef)]
 
+ggplot(coef_plot[order(-abs_coef)][1:20], 
+       aes(x = reorder(rn, coef), y = coef)) + geom_point() + coord_flip()
 
