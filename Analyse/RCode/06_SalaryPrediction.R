@@ -14,30 +14,55 @@
 load(file = file.path(dirRData, '03_txtDtm.RData'))
 load(file = file.path(dirRData,'03_dt_all.RData'))
 
-mat <-  sparseMatrix(i=txtDtm$i,
-                    j=txtDtm$j,
-                    x=txtDtm$v,
-                    dims=c(txtDtm$nrow, txtDtm$ncol))
 
-colnames(mat) <- colnames(txtDtm)
+#---------------------------------------------------------------------
+#   1. Pre-process data 
+
+# Create target vector and input matrix
+y_orig <- dt_all$salaryMax
+
+x_orig <- sparseMatrix(i=txtDtm$i,
+                       j=txtDtm$j,
+                       x=txtDtm$v,
+                       dims=c(txtDtm$nrow, txtDtm$ncol))
+
+# remove NA's (jobs with no salary)
+idx_NA <- is.na(y_orig)
+y <- y_orig[!idx_NA]
+x <- x_orig[!idx_NA,]
+
+colnames(x) <- colnames(txtDtm)
+
+#---------------------------------------------------------------------
+#   2. Partition data
+
+# We will test the model using the last 2 months worth of jobs, and train using everything prior
+test_start <- Sys.time() - 60*60*24*30*2
+idx_test <- dt_all[!idx_NA, `Posted Date`] > test_start 
+idx_train <- !idx_test 
+idx_train[is.na(idx_train)] <- FALSE # catch NA's resulting from when is.na(dt_all$`Posted Date`) == TRUE
 
 
-# to create validation set we want the last 30 days worth of jobs
 
-#use
-Sys.time()
-# and subtract number of seconds
+glmnet_fit <- 
+  cv.glmnet(x = x[idx_train,],
+            y = y[idx_train],
+            family = 'gaussian',
+            standardize = FALSE, # FALSE since we only have categorical variables
+            parallel = FALSE,
+            alpha = 1,
+            #foldid = foldid
+            )
 
-idx_train <- dt_all$`Posted Date` %>% class()
+plot(glmnet_fit)
 
-60*60*24
+summary(glmnet_fit)
 
+glmnet_coef <- coef(glmnet_fit,s = glmnet_fit$lambda.min) %>% as.matrix() %>% as.data.table(keep.rownames = TRUE)
 
+setnames(glmnet_coef,
+         old = c("rn","1"),
+         new = c("rn", "coef"))
 
-salaryMax
-
-x_train
-y_train
-x_test
-y_test
+setorder(glmnet_coef, coef)
 

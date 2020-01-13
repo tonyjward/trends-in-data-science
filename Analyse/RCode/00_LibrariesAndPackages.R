@@ -69,12 +69,14 @@ packagesToLoad <- c(
   'slam',
   'zoo',
   'glue',
+  'Matrix',
   
   # VISUALISATION AND EDA
   'ggplot2' ,
  
   # SUPERVISED LEARNING
   "earth",
+  "glmnet",
 
   # PARALLEL PROCESSING
   'parallel',
