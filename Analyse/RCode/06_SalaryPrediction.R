@@ -43,26 +43,37 @@ idx_train <- !idx_test
 idx_train[is.na(idx_train)] <- FALSE # catch NA's resulting from when is.na(dt_all$`Posted Date`) == TRUE
 
 
+# We build seperate models for permanent and contract jobs
 
-glmnet_fit <- 
-  cv.glmnet(x = x[idx_train,],
-            y = y[idx_train],
-            family = 'gaussian',
-            standardize = FALSE, # FALSE since we only have categorical variables
-            parallel = FALSE,
-            alpha = 1,
-            #foldid = foldid
-            )
+jobs <- c("Permanent", "Contract")
 
-plot(glmnet_fit)
+glmnet_list <- lapply(jobs, function(job){
+  idx_jobtype <- dt_all[!idx_NA][idx_train, job_type] == job
+  
+  glmnet_fit <- 
+    cv.glmnet(x = x[idx_train,][idx_jobtype,],
+              y = y[idx_train][idx_jobtype],
+              family = 'gaussian',
+              standardize = FALSE, # FALSE since we only have categorical variables
+              parallel = FALSE,
+              alpha = 1,
+              #foldid = foldid
+    )
+  
+  plot(glmnet_fit)
+  
+  summary(glmnet_fit)
+  
+  glmnet_coef <- coef(glmnet_fit,s = glmnet_fit$lambda.min) %>% as.matrix() %>% as.data.table(keep.rownames = TRUE)
+  
+  setnames(glmnet_coef,
+           old = c("rn","1"),
+           new = c("rn", "coef"))
+  
+  setorder(glmnet_coef, coef)
+  
+  return(list(glmnet_fit, glmnet_coef))
+  
+})
 
-summary(glmnet_fit)
-
-glmnet_coef <- coef(glmnet_fit,s = glmnet_fit$lambda.min) %>% as.matrix() %>% as.data.table(keep.rownames = TRUE)
-
-setnames(glmnet_coef,
-         old = c("rn","1"),
-         new = c("rn", "coef"))
-
-setorder(glmnet_coef, coef)
 
