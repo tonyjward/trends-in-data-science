@@ -8,10 +8,18 @@ wordCloud <- function(input, output, session, glmnet_list){
   idx_negative <- glmnet_item[[3]]
   
   # Time Series Bar Plot
-  output$wordCloud <- renderPlot({
-    
+  output$wordCloudPositive <- renderPlot({
     wordcloud(words = glmnet_coef[idx_positive, rn],
               freq = glmnet_coef[idx_positive, coef],
+              min.freq=2,
+              #scale=c(6, .1), 
+              colors=brewer.pal(6, "Dark2"))
+    
+  })
+  
+  output$wordCloudNegative <- renderPlot({
+    wordcloud(words = glmnet_coef[idx_negative, rn],
+              freq = -glmnet_coef[idx_negative, coef], # we reverse the sign since coefficients are negative
               min.freq=2,
               #scale=c(6, .1), 
               colors=brewer.pal(6, "Dark2"))
