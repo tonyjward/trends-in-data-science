@@ -28,8 +28,6 @@ dt_all <- readRDS(dt, file = file.path(dirRData, "02_dt_all.RData"))
 
 #---------------------------------------------------------------------
 #  1. Define Macro Variables
-
-
 field_name <- "Skills"
 
 # Partitioning
@@ -37,60 +35,73 @@ train_folds <- 1:8
 val_folds   <- 9:10
 
 #---------------------------------------------------------------------
-#  2. Create Document Term Matrix
+#  2. Create Corpus
 
 setnames(dt_all,field_name,"text")
 
-
-
-
+# remove all punctuation
 dt_all[, text := gsub("[[:punct:]]|–"," ", text)]
 
-# CREATE CORPUS
 txtCorpus = Corpus(DataframeSource(dt_all[,c("doc_id", "text"), with = FALSE])) 
-txtCorpus = tm_map(txtCorpus, content_transformer(tolower)) #  CONVERT TO LOWER CASE
 
+#---------------------------------------------------------------------
+#  3. Process data
+
+# lower case
+txtCorpus = tm_map(txtCorpus, content_transformer(tolower))
+
+# convert bigrams to unigrams
 # txtCorpus <- tm_map(txtCorpus,
 #                     content_transformer(gsub),
 #                     pattern = "sat nav|tomtom| tom tom", replacement = "satnav")
 
-
-
-# txtCorpus <- tm_map(txtCorpus,
-#                     content_transformer(gsub),
-#                     pattern = ":punct:", replacement = " ")
-
-txtCorpus <- tm_map(txtCorpus, stripWhitespace) # 
-
-# We have two choices of where we could stem, either using tmp_map(txtCorpus, stemDocument)
-# or as an argument to Document term matrix. We prefer the former because we later will be using
-# txtCorpus to create structure needed for lda::lda.collapsed.gibbs.sampler so better to just stem once
-
-txtCorpus <- tm_map(txtCorpus, removeWords, stopwords("english"))
-
-# remove custom stopwords
-txtCorpus <- tm_map(txtCorpus, removeWords, c("data", "science", "scientist", "will", "work", "experience")) 
-txtCorpus <- tm_map(txtCorpus, stemDocument)
+txtCorpus <- tm_map(txtCorpus, stripWhitespace) 
+txtCorpus <- tm_map(txtCorpus, removeWords, stopwords("english")) 
+txtCorpus <- tm_map(txtCorpus, removeWords, c("data", "science", "scientist", "will", "work"))
 txtCorpus <- tm_map(txtCorpus, removePunctuation)
 txtCorpus <- tm_map(txtCorpus, removeNumbers)
+
+# save unstemmed corpus for later
+txtCorpusNotStemmed <- copy(txtCorpus)
+
+# stem corpus
+txtCorpus <- tm_map(txtCorpus, stemDocument)
+
+#---------------------------------------------------------------------
+#  4. Document term matrix
 
 dtmControl <- list(stemming = F, 
                    stopwords = F, 
                    wordLengths = c(1, Inf), 
                    removeNumbers = T,
                    removePunctuation = F,
-                   bounds = list(global = c(2, Inf)))
+                   bounds = list(global = c(5, Inf)))
 
 txtDtm <- DocumentTermMatrix(txtCorpus,
                              control = dtmControl)
 
-# distribution of word frequencies
-table(row_sums(txtDtm))
 
-dtmPlot(txtDtm,1:30, "Top 30 words original")
+txtDtmNotStemmed <- DocumentTermMatrix(txtCorpusNotStemmed,
+                             control = dtmControl)
 
+#---------------------------------------------------------------------
+#  5. Map stemmed words to most common original, to improve plots later
 
+# frequency count of unstemmed words accross all documents
+original_words <- data.table(doc_id = seq(1,ncol(txtDtmNotStemmed)),
+                             text = colnames(txtDtmNotStemmed),
+                             freq = col_sums(txtDtmNotStemmed))
 
+# stem unstemmed words
+original_corpus <- original_words %>% 
+  DataframeSource() %>% 
+  Corpus() %>%
+  tm_map(stemDocument)
+
+original_words[, stemmed := sapply(original_corpus, as.character)]
+
+# https://stackoverflow.com/questions/24558328/how-to-select-the-row-with-the-maximum-value-in-each-group
+mapping <- original_words[original_words[, .I[which.max(freq)], by=stemmed]$V1]
 
 
 #---------------------------------------------------------------------
@@ -162,33 +173,22 @@ if(sum(emptyRows >0))
   dt_removed <- dt_all[emptyRows]
   dt_all <- dt_all[!emptyRows]
   
+  txtCorpusNotStemmed <- txtCorpusNotStemmed[!emptyRows]
+  txtDtmNotStemmed <- DocumentTermMatrix(txtCorpusNotStemmed,
+                                         control = dtmControl)
+  
 }
 
 #---------------------------------------------------------------------
-#  3. Identify words selected to be used in document term matrix
+#  7. Identify words selected to be used in document term matrix
 vocab <- colnames(txtDtm)
 
 wordsUsedList <-  apply(txtDtm, 1, function(x){
-  glue_collapse(vocab[x>0], sep = " ")
-  # sum(x)
+    glue_collapse(vocab[x>0], sep = " ")
+
 })
 
 dt_all[, wordsUsed := unlist(wordsUsedList)]
-
-
-# dt_all[1:90,list(text, wordsUsed)]
-
-
-#---------------------------------------------------------------------
-#  5. Investigate specific terms. Bring back examples
-# 
-# freq %>% class()
-# rownames(freq)[1]
-# 
-# idxWord <- txtDtm[,"resetfiori"] %>% as.matrix() %>% as.vector() > 0
-# dt_all[idxWord, text]
-
-
 
 #---------------------------------------------------------------------
 #   8. Partitioning into Train/Validation
@@ -215,12 +215,14 @@ if (exists("dt_removed")){
        dt_removed,
        train_folds,
        val_folds,
+       mapping,
        #idxFilter,
        file = file.path(dirRData,'03_dt_all.RData'))
 } else {
   save(dt_all, 
        train_folds,
        val_folds,
+       mapping,
        #idxFilter,
        file = file.path(dirRData,'03_dt_all.RData'))
 }
