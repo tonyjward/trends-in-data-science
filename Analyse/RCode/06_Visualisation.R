@@ -79,13 +79,12 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   top_words <- tidy(LDA_fit, matrix = "beta") %>%
     group_by(topic) %>%
     top_n(5, beta) %>%
-    left_join(mapping, by = c("term" = "stemmed")) %>%
     ungroup() %>%
     arrange(topic, -beta) %>%
     group_by(topic) %>%
     slice(seq_len(5)) %>% # to make sure we definitely only bring back top n results since there may be ties
     group_by(topic) %>%
-    summarize (topWords = paste(text, collapse = " ")) %>%
+    summarize (topWords = paste(term, collapse = " ")) %>%
     mutate(topic = paste0("Topic",topic)) %>%
     as.data.table()
   

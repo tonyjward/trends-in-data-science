@@ -57,127 +57,120 @@ txtCorpus = tm_map(txtCorpus, content_transformer(tolower))
 
 txtCorpus <- tm_map(txtCorpus, stripWhitespace) 
 txtCorpus <- tm_map(txtCorpus, removeWords, stopwords("english")) 
-txtCorpus <- tm_map(txtCorpus, removeWords, c("data", "science", "scientist", "will", "work"))
+txtCorpus <- tm_map(txtCorpus, removeWords, c("data", "science", "scientist", "will", "work", "â", "experience"))
 txtCorpus <- tm_map(txtCorpus, removePunctuation)
 txtCorpus <- tm_map(txtCorpus, removeNumbers)
 
+#---------------------------------------------------------------------
+#  4. Remove cases where text is NA or missing 
+
+txtNchars <- sapply(txtCorpus, function(x){
+  x[[1]][[1]] %>% nchar() 
+}) %>% as.vector()
+
+idx_empty <- is.na(txtNchars) | txtNchars == 0
+
+paste("we have ", sum(idx_empty), "empty Rows")
+
+dt_all[idx_empty, text]
+
+if(sum(idx_empty >0))
+  # if there are documents with no entries in the dtm these will be removed 
+{
+  print("WE HAVE REMOVED DOCUMENTS FROM THE DATA")
+  txtCorpus <- txtCorpus[!idx_empty]
+  dt_removed <- dt_all[idx_empty]
+  dt_all <- dt_all[!idx_empty]
+  
+}
+
+#---------------------------------------------------------------------
+#  4. Stem
+
+
 # save unstemmed corpus for later
-txtCorpusNotStemmed <- copy(txtCorpus)
+txtCorpusUnStemmed <- copy(txtCorpus)
 
 # stem corpus
-txtCorpus <- tm_map(txtCorpus, stemDocument)
+txtCorpusStemmed <- tm_map(txtCorpus, stemDocument)
 
 #---------------------------------------------------------------------
 #  4. Document term matrix
 
-dtmControl <- list(stemming = F, 
-                   stopwords = F, 
-                   wordLengths = c(1, Inf), 
-                   removeNumbers = T,
-                   removePunctuation = F,
-                   bounds = list(global = c(5, Inf)))
+dtm_control <- list(stemming = F,
+                    stopwords = F, 
+                    wordLengths = c(1, Inf), 
+                    removeNumbers = T,
+                    removePunctuation = F,
+                    bounds = list(global = c(5, Inf)))
 
-txtDtm <- DocumentTermMatrix(txtCorpus,
-                             control = dtmControl)
+dtm_control_no_bounds <- list(stemming = F,
+                              stopwords = F, 
+                              wordLengths = c(1, Inf), 
+                              removeNumbers = F,
+                              removePunctuation = F,
+                              bounds = list(global = c(1, Inf)))
 
+txtDtmStemmed <- DocumentTermMatrix(txtCorpusStemmed,
+                             control = dtm_control)
 
-txtDtmNotStemmed <- DocumentTermMatrix(txtCorpusNotStemmed,
-                             control = dtmControl)
+txtDtmUnStemmed <- DocumentTermMatrix(txtCorpusUnStemmed,
+                             control = dtm_control_no_bounds)
 
 #---------------------------------------------------------------------
-#  5. Map stemmed words to most common original, to improve plots later
+#  5. Replace Stemmed words with the most likely unstemmed equivilant
 
 # frequency count of unstemmed words accross all documents
-original_words <- data.table(doc_id = seq(1,ncol(txtDtmNotStemmed)),
-                             text = colnames(txtDtmNotStemmed),
-                             freq = col_sums(txtDtmNotStemmed))
+unstemmed_words <- data.table(doc_id = seq(1,ncol(txtDtmUnStemmed)),
+                             unstemmed = colnames(txtDtmUnStemmed),
+                             freq = col_sums(txtDtmUnStemmed))
 
-# stem unstemmed words
-original_corpus <- original_words %>% 
+# create a corpus where each document contains an original word from above, then stem
+unstemmed_corpus <- unstemmed_words %>% 
+  rename('text' = 'unstemmed') %>%
   DataframeSource() %>% 
   Corpus() %>%
   tm_map(stemDocument)
 
-original_words[, stemmed := sapply(original_corpus, as.character)]
+# add stemmed words onto list of original words
+unstemmed_words[, stemmed := sapply(unstemmed_corpus, as.character)]
 
+# select the most frequently used unstemmed word for each stemmed word
 # https://stackoverflow.com/questions/24558328/how-to-select-the-row-with-the-maximum-value-in-each-group
-mapping <- original_words[original_words[, .I[which.max(freq)], by=stemmed]$V1]
-
-
-#---------------------------------------------------------------------
-#  3. (Optional) Remove most frequent terms using TF-IDF
-# based on http://davidmeza1.github.io/2015/07/20/topic-modeling-in-R.html
-
-## remove terms using tf-idf
-# term_tfidf <- tapply(txtDtm$v/row_sums(txtDtm)[txtDtm$i], txtDtm$j, mean) * log2(nDocs(txtDtm)/col_sums(txtDtm > 0))
-
-# summary(term_tfidf)
-# 
-# txtDtm <- txtDtm[,term_tfidf >= summary(term_tfidf)["Median"]]
-# summary(col_sums(txtDtm))
-# table(col_sums(txtDtm))
-# dim(txtDtm)
+mapping <- unstemmed_words[unstemmed_words[, .I[which.max(freq)], by=stemmed]$V1]
 
 #---------------------------------------------------------------------
-#  4. (Optional) Remove sparse terms
+#  6. 'Undo stem' the document term matrix to get meaningful column names
 
-# Decide how much sparsity you want
-# dim(txtDtm)
-# sparsity <- 0.999
-# removeSparseTerms(txtDtm,sparsity) %>% dim()
-# summary(col_sums(txtDtm))
-# table(col_sums(txtDtm))
+colnames_stemmed <- data.frame(stemmed = colnames(txtDtmStemmed))
 
-# Overwrite txtDtm with new sparsity level
-# txtDtm <- removeSparseTerms(txtDtm,sparsity)
+colnames_mapping <- mapping[colnames_stemmed, on = "stemmed"]
 
+# sometimes the unstemmed word is NA
+colnames_mapping[!is.na(unstemmed), replacement := unstemmed]
+colnames_mapping[is.na(unstemmed), replacement := stemmed]
 
+colnames(txtDtmStemmed) <- colnames_mapping$replacement
 
 #---------------------------------------------------------------------
-#  6. Adjust Document Term Matrix to Remove Documents with no contents
-#   After all our transformation (stopword removal etc) we may be left with some rows
-#   of our document term matrix that have no entries. This is a problem for the topic modelling
-#   algorithm. 
-#   Instead of removing the empty rows from the dtm matrix, we can identify the documents in our corpus 
-#   that have zero length and remove the documents directly from the corpus, before performing a second 
-#   dtm with only non empty documents.This is useful to keep a 1:1 correspondence between the dtm and the corpus.
+#  6. Use document term matrix to create job descriptions using unstemmed words
+
+wordsUsedList2 <-  apply(txtDtmStemmed, 1, function(x){
+  glue_collapse(colnames(txtDtmStemmed)[x>0], sep = " ")
+  # sum(x>0)
+})
+
+wordsUsedList2[[2]]
+jumbled_sentence <- unlist(wordsUsedList2)
+
+bag_of_words <- data.table(doc_id = seq(1, length(jumbled_sentence)),
+                             text = jumbled_sentence)
+
+txtCorpus <- bag_of_words %>% DataframeSource() %>% Corpus() 
 
 
-dim(txtDtm)
-dim(dt_all)
-
-rowTotals <- row_sums(txtDtm) 
-# empty.rows <- txtDtm[rowTotals == 0, ]$dimnames[1][[1]]
-emptyRows <- rowTotals == 0
-
-paste("we have ", sum(emptyRows), "empty Rows")
-
-dt_all[emptyRows, text]
-
-firstRow <- txtDtm[emptyRows,]
-
-colnames(txtDtm)[firstRow$j]
-
-
-if(sum(emptyRows >0))
-  # if there are documents with no entries in the dtm these will be removed 
-{
-  print("WE HAVE REMOVED DOCUMENTS FROM THE DATA")
-  length(txtCorpus)
-  dim(txtDtm)
-  txtCorpus <- txtCorpus[!emptyRows]
-  txtDtm <- DocumentTermMatrix(txtCorpus,
-                               control = dtmControl)
-  length(txtCorpus)
-  dim(txtDtm)
-  dt_removed <- dt_all[emptyRows]
-  dt_all <- dt_all[!emptyRows]
-  
-  txtCorpusNotStemmed <- txtCorpusNotStemmed[!emptyRows]
-  txtDtmNotStemmed <- DocumentTermMatrix(txtCorpusNotStemmed,
-                                         control = dtmControl)
-  
-}
+txtDtm <- DocumentTermMatrix(txtCorpus,
+                             control = dtm_control_no_bounds)
 
 #---------------------------------------------------------------------
 #  7. Identify words selected to be used in document term matrix
@@ -227,12 +220,7 @@ if (exists("dt_removed")){
        file = file.path(dirRData,'03_dt_all.RData'))
 }
 
-save(
-  #filter_name1,
-   #  filter_condition1,
-    # filter_name2,
-     #filter_condition2,
-     field_name,
+save(field_name,
      file = file.path(dirRData,'03_settings.RData'))
 
 
