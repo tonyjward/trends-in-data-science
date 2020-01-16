@@ -88,11 +88,11 @@ glmnet_list <- lapply(jobs, function(job){
 names(glmnet_list) <- jobs
 
 # save for use in shiny app
-# saveRDS(glmnet_list,
-#         file = file.path(dirShiny, '06_glmnet_list.RData'))
-# 
-# cleanUp(functionNames)
-# gc()
+saveRDS(glmnet_list,
+        file = file.path(dirShiny, '06_glmnet_list.RData'))
+
+cleanUp(functionNames)
+gc()
 
 job_type <- 'Permanent'
 
@@ -107,27 +107,4 @@ wordcloud2(glmnet_coef[freq > threshold & positive_coef == TRUE][order(freq),.(w
 wordcloud2(glmnet_coef[freq > threshold & positive_coef == FALSE][order(freq),.(word, freq)])
 
 
-
-wordcloud2(glmnet_coef[freq > 40 & positive_coef == FALSE])
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-wordcloud2(coef_negative)
-
-wordcloud2(glmnet_coef[idx_positive, freq:= round(freq*100)])
-wordcloud2(glmnet_coef[idx_negative, freq:= -1 * round(freq*100)])
 
