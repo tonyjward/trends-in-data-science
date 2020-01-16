@@ -61,28 +61,73 @@ glmnet_list <- lapply(jobs, function(job){
   
   glmnet_coef <- coef(glmnet_fit,s = glmnet_fit$lambda.min) %>% as.matrix() %>% as.data.table(keep.rownames = TRUE)
   
+  # wordcloud2 requires A data frame including word and freq in each column
   setnames(glmnet_coef,
            old = c("rn","1"),
-           new = c("rn", "coef"))
+           new = c("word", "coef"))
+  
+  # remove intercept
+  glmnet_coef <- glmnet_coef[word != '(Intercept)']
+  
+  # create absolute value for thresholding plots 
+  glmnet_coef[, abs_coef := abs(coef)]
   
   setorder(glmnet_coef, coef)
   
-  # Create indexers for word clouds
-  idx_positive <- glmnet_coef$coef>0 & glmnet_coef$rn != '(Intercept)'
-  idx_negative <- glmnet_coef$coef<0 & glmnet_coef$rn != '(Intercept)'
+  # word cloud2 doesn't handle decimals well so we scale up freq and round
+  glmnet_coef[, freq := round(abs_coef*100)]
+  glmnet_coef[, positive_coef := coef > 0 ]
   
-  return(list(glmnet_coef, idx_positive, idx_negative))
+  # remove low influence words
+  glmnet_coef <- glmnet_coef[freq != 0]
+  
+  return(glmnet_coef)
   
 })
 
 names(glmnet_list) <- jobs
 
 # save for use in shiny app
-saveRDS(glmnet_list,
-        file = file.path(dirShiny, '06_glmnet_list.RData'))
+# saveRDS(glmnet_list,
+#         file = file.path(dirShiny, '06_glmnet_list.RData'))
+# 
+# cleanUp(functionNames)
+# gc()
 
-cleanUp(functionNames)
-gc()
+job_type <- 'Permanent'
+
+glmnet_coef <- glmnet_list[['Permanent']]
 
 
+
+threshold <- 100
+
+wordcloud2(glmnet_coef[freq > threshold & positive_coef == TRUE][order(freq),.(word, freq)])
+
+wordcloud2(glmnet_coef[freq > threshold & positive_coef == FALSE][order(freq),.(word, freq)])
+
+
+
+wordcloud2(glmnet_coef[freq > 40 & positive_coef == FALSE])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+wordcloud2(coef_negative)
+
+wordcloud2(glmnet_coef[idx_positive, freq:= round(freq*100)])
+wordcloud2(glmnet_coef[idx_negative, freq:= -1 * round(freq*100)])
 

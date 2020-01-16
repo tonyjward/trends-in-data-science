@@ -73,7 +73,7 @@ packagesToLoad <- c(
   
   # VISUALISATION AND EDA
   'ggplot2',
-  'wordcloud',
+  'wordcloud2',
  
   # SUPERVISED LEARNING
   "earth",
