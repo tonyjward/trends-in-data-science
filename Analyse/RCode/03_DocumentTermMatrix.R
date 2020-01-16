@@ -23,7 +23,6 @@
 # TODO - IF THERE ARE NO DOCUS REMOVED THEN THE SAVE DOESN'T WORK
 #---------------------------------------------------------------------
 #   _. Load data required
-
 dt_all <- readRDS(dt, file = file.path(dirRData, "02_dt_all.RData"))
 
 #---------------------------------------------------------------------
@@ -36,7 +35,6 @@ val_folds   <- 9:10
 
 #---------------------------------------------------------------------
 #  2. Create Corpus
-
 setnames(dt_all,field_name,"text")
 
 # remove all punctuation
@@ -85,8 +83,7 @@ if(sum(idx_empty >0))
 }
 
 #---------------------------------------------------------------------
-#  4. Stem
-
+#  5. Stem
 
 # save unstemmed corpus for later
 txtCorpusUnStemmed <- copy(txtCorpus)
@@ -95,7 +92,7 @@ txtCorpusUnStemmed <- copy(txtCorpus)
 txtCorpusStemmed <- tm_map(txtCorpus, stemDocument)
 
 #---------------------------------------------------------------------
-#  4. Document term matrix
+#  6. Document term matrix
 
 dtm_control <- list(stemming = F,
                     stopwords = F, 
@@ -118,7 +115,7 @@ txtDtmUnStemmed <- DocumentTermMatrix(txtCorpusUnStemmed,
                              control = dtm_control_no_bounds)
 
 #---------------------------------------------------------------------
-#  5. Replace Stemmed words with the most likely unstemmed equivilant
+#  7. Replace Stemmed words with the most likely unstemmed equivilant
 
 # frequency count of unstemmed words accross all documents
 unstemmed_words <- data.table(doc_id = seq(1,ncol(txtDtmUnStemmed)),
@@ -140,7 +137,7 @@ unstemmed_words[, stemmed := sapply(unstemmed_corpus, as.character)]
 mapping <- unstemmed_words[unstemmed_words[, .I[which.max(freq)], by=stemmed]$V1]
 
 #---------------------------------------------------------------------
-#  6. 'Undo stem' the document term matrix to get meaningful column names
+#  8. 'Undo stem' the document term matrix to get meaningful column names
 
 colnames_stemmed <- data.frame(stemmed = colnames(txtDtmStemmed))
 
@@ -153,7 +150,7 @@ colnames_mapping[is.na(unstemmed), replacement := stemmed]
 colnames(txtDtmStemmed) <- colnames_mapping$replacement
 
 #---------------------------------------------------------------------
-#  6. Use document term matrix to create job descriptions using unstemmed words
+#  9. Use document term matrix to create job descriptions using unstemmed words
 
 wordsUsedList2 <-  apply(txtDtmStemmed, 1, function(x){
   glue_collapse(colnames(txtDtmStemmed)[x>0], sep = " ")
@@ -173,7 +170,7 @@ txtDtm <- DocumentTermMatrix(txtCorpus,
                              control = dtm_control_no_bounds)
 
 #---------------------------------------------------------------------
-#  7. Identify words selected to be used in document term matrix
+#  10. Identify words selected to be used in document term matrix
 vocab <- colnames(txtDtm)
 
 wordsUsedList <-  apply(txtDtm, 1, function(x){
@@ -184,7 +181,7 @@ wordsUsedList <-  apply(txtDtm, 1, function(x){
 dt_all[, wordsUsed := unlist(wordsUsedList)]
 
 #---------------------------------------------------------------------
-#   8. Partitioning into Train/Validation
+#   11. Partitioning into Train/Validation
 
 idx_train  <- dt_all$fold %in% train_folds
 idx_val    <- dt_all$fold %in% val_folds
@@ -200,6 +197,7 @@ txtCorpus_valid <-txtCorpus[idx_val]
 
 dtmCols <- ncol(txtDtm_train)
 dtmRows <- nrow(txtDtm_train)
+
 #--------------------------------------------------------------
 # DONE. Save results and gc()
 
@@ -222,7 +220,6 @@ if (exists("dt_removed")){
 
 save(field_name,
      file = file.path(dirRData,'03_settings.RData'))
-
 
 save(dt_train, 
      file = file.path(dirRData,'03_dt_train.RData'))
