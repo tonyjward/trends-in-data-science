@@ -5,6 +5,8 @@ The objective of this project is to monitor the trends in data science job oppor
 2) Analyse job data 
 3) Visualisation output
 
+and present the results as a shiny app here https://apps.statcore.co.uk/
+
 # Set up Linux machine
 
 First install docker and docker-compose if they are not already installed
