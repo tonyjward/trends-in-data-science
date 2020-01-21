@@ -10,6 +10,10 @@ RUN R -e "install.packages(c('data.table'))"
 
 RUN R -e "install.packages(c('earth'))"
 
+RUN R -e "install.packages(c('wordcloud2'))"
+
+RUN R -e "install.packages(c('glmnet'))"
+
 
 
 

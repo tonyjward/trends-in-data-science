@@ -7,6 +7,16 @@ RUN R -e "install.packages(c('slam','doSNOW','tm','LDAvis','servr','tidytext','t
 
 RUN R -e "install.packages('earth')"
 
+# You could save space in the docker image by putting all the R package installs on the same line - so you only get one layer
+# However if you change any line in the docker file, when you rebuild the docker image it has to do the whole of that line again - which can be time consuming - and potentially break your system as the latest version of packages will be downloaded
+# Therefore in this instance I prefer to just add a new line at the bottom
+
+RUN R -e "install.packages('wordcloud2')"
+
+RUN R -e "install.packages('glmnet')"
+
+
+
 WORKDIR /home/rstudio
 
 
