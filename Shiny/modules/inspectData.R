@@ -6,7 +6,7 @@ inspectData <- function(input, output, session, jobData){
   
   output$tbl <- DT::renderDataTable({
 
-    datatable(jobData()[order(-`Posted Date`),c( "Type",
+    datatable(jobData()[order(-`Posted Date`),c( "job_type",
                      "Title",
                      "text_field",
                      "Salary",

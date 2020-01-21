@@ -6,6 +6,7 @@ library(ggplot2)
 library(DT)
 library(LDAvis)
 library(earth)
+library(wordcloud2)
 
 # run all Modules
 sapply( list.files("modules", full.names=TRUE), source )

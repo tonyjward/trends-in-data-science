@@ -166,31 +166,18 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   # put names back
   colnames(outputAll)[1:topicsizes] <- originalNames
   
-  # save JSON for shiny
-  # saveRDS(jsonviz, file = paste0(directory,'/jsonviz_',identifier,"_size_",topicsizes,'.RData'))
-  
-  # save topic probability matrix together with original data
-  # write.table(outputAll[1:min(nrow(outputAll),maxRows),], paste0(directory,'/topics_all_',identifier,"_size_",topicsizes,'.txt'), row.names=F,eol="\r\n",sep='\t')
-  
   list(outputAll,jsonviz, top_words, earthModels, outputMolten)
 })
 
-
 names(outputData) <- hyperparams$k  
-
-# save for future reference
-# save(outputData,
-#     file = file.path(dirRData,paste0('06_',identifier,'_OutputData.RData')))
 
 # save for immediate use
 save(outputData,
-     file = file.path(dirRData,paste0('06_OutputData.RData')))
+     file = file.path(dirRData,paste0('07_OutputData.RData')))
 
 # save for use in shiny app
 saveRDS(outputData,
-     file = file.path(dirShiny, '06_OutputData.RData'))
-
-
+     file = file.path(dirShiny, '07_OutputData.RData'))
 
 cleanUp(functionNames)
 gc()
