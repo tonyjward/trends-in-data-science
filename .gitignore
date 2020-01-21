@@ -10,3 +10,7 @@
 /copy_ROutput
 fixPostedDate.R
 .Rproj.user
+
+# SSL
+*.pem
+*.key
