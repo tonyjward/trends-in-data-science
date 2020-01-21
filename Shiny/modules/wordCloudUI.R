@@ -8,12 +8,12 @@ wordCloudUI <- function(id){
       column(6,
              wellPanel(
                h3("Positive Coefficients"),
-               plotOutput(ns("wordCloudPositive"))
+               wordcloud2Output(ns("wordCloudPositive"))
              )),
       column(6,
              wellPanel(
                h3("Negative Coefficients"),
-               plotOutput(ns("wordCloudNegative"))
+               wordcloud2Output(ns("wordCloudNegative"))
              )))
       
     )

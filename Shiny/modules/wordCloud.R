@@ -2,28 +2,18 @@ wordCloud <- function(input, output, session, glmnet_list){
   
   job_type <- 'Permanent'
   
-  glmnet_item <- glmnet_list[['Permanent']]
-  glmnet_coef <- glmnet_item[[1]]
-  idx_positive <- glmnet_item[[2]]
-  idx_negative <- glmnet_item[[3]]
+  glmnet_coef <- glmnet_list[['Permanent']]
   
-  # Time Series Bar Plot
-  output$wordCloudPositive <- renderPlot({
-    wordcloud(words = glmnet_coef[idx_positive, rn],
-              freq = glmnet_coef[idx_positive, coef],
-              min.freq=2,
-              #scale=c(6, .1), 
-              colors=brewer.pal(6, "Dark2"))
+  threshold <- 100
+  
+  # Word clouds
+  output$wordCloudPositive <- renderWordcloud2({
+    wordcloud2(glmnet_coef[freq > threshold & positive_coef == TRUE][order(freq),.(word, freq)])
     
   })
   
-  output$wordCloudNegative <- renderPlot({
-    wordcloud(words = glmnet_coef[idx_negative, rn],
-              freq = -glmnet_coef[idx_negative, coef], # we reverse the sign since coefficients are negative
-              min.freq=2,
-              #scale=c(6, .1), 
-              colors=brewer.pal(6, "Dark2"))
-    
+  output$wordCloudNegative <- renderWordcloud2({
+    wordcloud2(glmnet_coef[freq > threshold & positive_coef == FALSE][order(freq),.(word, freq)])
   })
   
   
