@@ -24,7 +24,8 @@ codes <- c("00_LibrariesAndPackages.R",
            "03_DocumentTermMatrix.R",
            "04_HyperparameterTuning.R",
            "05_FinalModelTraining.R",
-           "06_Visualisation.R")
+           "06_SalaryPrediction.R",
+           "07_Visualisation.R")
 
 runCode <- function(path, codeName){
   print(codeName)
