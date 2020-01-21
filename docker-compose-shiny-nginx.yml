@@ -9,7 +9,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - /home/ubuntu/rstudio_docker/nginx.conf:/etc/nginx/nginx.conf
+      - ./Nginx/nginx.conf:/etc/nginx/nginx.conf
       - /home/ubuntu/ssl:/ssl/
 
   shiny:
