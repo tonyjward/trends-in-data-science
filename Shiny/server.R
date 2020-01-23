@@ -80,8 +80,6 @@ server <- function(input, output, session) {
   
   callModule(roles, "id3d", inputData = dt)
   
-  callModule(lucrative, "id3e", inputData = earthModels)
-  
   #-----------------------------------------------------------------------
   #   4.  Time Series
   
