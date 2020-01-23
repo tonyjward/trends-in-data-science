@@ -27,35 +27,30 @@ server <- function(input, output, session) {
   selectedK <- callModule(topicNum, "id2a", 
                           inputData = optimalSettings)
   
+  
   # Json required for LDAvis
   jsonviz <- reactive({
     selectedK() # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
-    outputData[[selectedK()]][[2]]
+    outputData[[selectedK()]][['jsonviz']]
   })
   
   # Data.table containing topic propabilities
   # dt <- outputData[["15"]][[1]]
   dt <- reactive({
     force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
-    outputData[[selectedK()]][[1]]
+    outputData[[selectedK()]][['outputAll']]
   })
   
   # Words with highest probability for each topic
   topWords <- reactive({
     force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
-    outputData[[selectedK()]][[3]]
-  })
-  
-  # Earth model for Permanent
-  earthModels <- reactive({
-    force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
-    outputData[[selectedK()]][[4]]
+    outputData[[selectedK()]][['top_words']]
   })
   
   # Topic Probabilities in long format
   topicProbs <- reactive({
     force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
-    outputData[[selectedK()]][[5]]
+    outputData[[selectedK()]][['outputMolten']]
   })
   
 
