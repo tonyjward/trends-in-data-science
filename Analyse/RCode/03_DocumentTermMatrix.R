@@ -99,7 +99,7 @@ dtm_control <- list(stemming = F,
                     wordLengths = c(1, Inf), 
                     removeNumbers = T,
                     removePunctuation = F,
-                    bounds = list(global = c(5, Inf)))
+                    bounds = list(global = c(20, Inf)))
 
 dtm_control_no_bounds <- list(stemming = F,
                               stopwords = F, 
