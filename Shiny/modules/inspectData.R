@@ -18,7 +18,8 @@ inspectData <- function(input, output, session, jobData){
                 scrollX = TRUE # required to change column length https://github.com/rstudio/DT/issues/29
                 #columnDefs = list(list(width = '1000px', targets = 3)))
                 #lengthMenu = c(5,10,15,20))
-              ), rownames = FALSE)
+              ), rownames = FALSE) %>% formatDate("Posted Date",
+                                                  method = "toLocaleString")
   } 
 )
 }
