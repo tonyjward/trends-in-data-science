@@ -94,17 +94,7 @@ saveRDS(glmnet_list,
 cleanUp(functionNames)
 gc()
 
-job_type <- 'Permanent'
 
-glmnet_coef <- glmnet_list[['Permanent']]
-
-
-
-threshold <- 100
-
-wordcloud2(glmnet_coef[freq > threshold & positive_coef == TRUE][order(freq),.(word, freq)])
-
-wordcloud2(glmnet_coef[freq > threshold & positive_coef == FALSE][order(freq),.(word, freq)])
 
 
 

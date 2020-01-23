@@ -20,3 +20,5 @@ services:
       - 3838
     volumes:
       - ./Shiny:/srv/shiny-server/
+      - ./Shiny/shiny-server.conf:/etc/shiny-server/shiny-server.conf
+      - ./Shiny/Logs:/var/log/shiny-server

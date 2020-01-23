@@ -2,14 +2,10 @@ version: '2'
 services:
   rstudio:
     image: tonyjward/rstudio:scraping 
-    ports:
-      - "3838:8787"
     links:
       - selenium:selenium
     volumes:
       - ".:/home/rstudio"
-    environment:
-      - PASSWORD=letmein 
     entrypoint: ["Rscript", "Scraping/entrypointScraping.R"]
   selenium:
     image: selenium/standalone-chrome-debug:3.141.59
