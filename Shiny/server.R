@@ -95,14 +95,6 @@ server <- function(input, output, session) {
   callModule(timeSeriesJob, "id4b", inputData = month_job_type)
   
   callModule(timeSeriesTools, "id4c", inputData = month_tools)
-  
-  #-----------------------------------------------------------------------
-  #   5.  Salary Predictor
-  
-  callModule(wordCloud, "id5a",  glmnet_list)
-  
-  #callModule(modelCoef, "id5b", inputData = glmnet_list)
-
 } 
 
 

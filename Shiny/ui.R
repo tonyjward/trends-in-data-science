@@ -52,14 +52,7 @@ navbarPage(id = "nav-page",
                       tabPanel("Job Type",
                                toolsUI("id4b")),
                       tabPanel("Tools",
-                               toolsUI("id4c"))),
-          
-           #-----------------------------------------------------------------------
-           #   5.  Salary Predictor
-           
-           navbarMenu(title = "Salary Predictor",
-                      tabPanel("Word Cloud",
-                               wordCloudUI("id5a")))
+                               toolsUI("id4c")))
 )  
 
 
