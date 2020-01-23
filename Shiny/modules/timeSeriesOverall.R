@@ -1,4 +1,4 @@
-timeSeries <- function(input, output, session, inputData){
+timeSeriesOverall <- function(input, output, session, inputData){
   
   # Time Series Bar Plot
   output$plot <- renderPlot({

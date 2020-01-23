@@ -20,7 +20,8 @@ load(file = file.path(dirRData,'03_dt_all.RData'))
 # aggregated data for time series plots
 month <- dt_all[`Posted Date` > "2019-01-01",.N, .(month)]
 month_job_type <- dt_all[`Posted Date` > "2019-01-01",.N, .(month, job_type)]
-month_job_type_tools <- dt_all[`Posted Date` > "2019-01-01",.N, .(month, job_type, Tools)]
+month_tools <- dt_all[`Posted Date` > "2019-01-01",.N, .(month, Tools)]
+
 
 #---------------------------------------------------------------------
 #   2. Save for use in shiny app
@@ -31,8 +32,8 @@ saveRDS(month,
 saveRDS(month_job_type,
         file = file.path(dirShiny, '08_month_job_type.RData'))
 
-saveRDS(month_job_type_tools,
-        file = file.path(dirShiny, '08_month_job_type_tools.RData'))
+saveRDS(month_tools,
+        file = file.path(dirShiny, '08_month_tools.RData'))
 
 cleanUp(functionNames)
 gc()

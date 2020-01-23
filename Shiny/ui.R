@@ -46,9 +46,14 @@ navbarPage(id = "nav-page",
            #-----------------------------------------------------------------------
            #   4.  Time Series
            
-           tabPanel(title = "Time Series",
-                    timeSeriesUI("id4")),
-           
+           navbarMenu(title = "Time Series",
+                      tabPanel("Overall",
+                               toolsUI("id4a")),
+                      tabPanel("Job Type",
+                               toolsUI("id4b")),
+                      tabPanel("Tools",
+                               toolsUI("id4c"))),
+          
            #-----------------------------------------------------------------------
            #   5.  Salary Predictor
            
