@@ -69,6 +69,9 @@ table(dt_all$yearMon)
 # Daily
 dt_all[,yearMonDay := `Posted Date` %>% as.Date()]
 
+# Year Month
+dt_all[, month:= as.Date(cut(`Posted Date`, breaks = "month"))]
+
 #---------------------------------------------------------------------
 #  6. Create uniuqe string identifier for each row
 

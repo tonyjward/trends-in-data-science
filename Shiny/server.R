@@ -8,6 +8,12 @@
   glmnet_list <- readRDS(file = 'RData/06_glmnet_list.RData')
   outputData <- readRDS(file = "RData/07_OutputData.RData")
   
+  
+  # Time Series plots
+  month <- readRDS(file = file.path(dirShiny, '08_month.RData'))
+  month_job_type <- readRDS(file = file.path(dirShiny, '08_month_job_type.RData'))
+  month_job_type_tools <- readRDS(file = file.path(dirShiny, '08_month_job_type_tools.RData'))
+  
   # DEBUGGING
   # outputData <- readRDS(file = file.path(dirShiny, '07_OutputData.RData'))
  
@@ -84,7 +90,7 @@ server <- function(input, output, session) {
   #-----------------------------------------------------------------------
   #   4.  Time Series
   
-  callModule(timeSeries, "id4", inputData = dt)
+  callModule(timeSeries, "id4", inputData = month)
   
   #-----------------------------------------------------------------------
   #   5.  Salary Predictor
