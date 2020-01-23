@@ -6,7 +6,7 @@ inspectData <- function(input, output, session, jobData){
   
   output$tbl <- DT::renderDataTable({
 
-    datatable(jobData()[job_type == input$job_type][order(-`Posted Date`),c( "Title",
+    datatable(jobData()[job_type == input$job_type][order(-`Posted Date`),c( "doc_id", "Title",
                                                  "text_field",
                                                  "Salary",
                                                   "salaryMax",
@@ -18,7 +18,7 @@ inspectData <- function(input, output, session, jobData){
                 scrollX = TRUE # required to change column length https://github.com/rstudio/DT/issues/29
                 #columnDefs = list(list(width = '1000px', targets = 3)))
                 #lengthMenu = c(5,10,15,20))
-              ) )
+              ), rownames = FALSE)
   } 
 )
 }

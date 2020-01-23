@@ -13,7 +13,8 @@ topicProb <- function(input, output, session, inputData){
       options = list(
         autoWidth = TRUE,
         scrollX = TRUE, # required to change column length https://github.com/rstudio/DT/issues/29
-        columnDefs = list(list(width = '200px', targets = 3)))
+        columnDefs = list(list(width = '200px', targets = 3))),
+      rownames = FALSE
     )
   }) 
 }
