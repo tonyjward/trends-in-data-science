@@ -9,10 +9,10 @@
 
 # identify files
 
-# search_for = "data_scien|machine|artificial|statistic"
+search_for = "data_scien|machine|artificial|statistic"
 
 # search_for = "actuary|actuarial"
-search_for = "data_scientist"
+# search_for = "data_scientist"
 
 filesToRead <- list.files(path = dirScraping,
           pattern = search_for)
