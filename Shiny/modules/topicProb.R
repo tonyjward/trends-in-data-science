@@ -8,12 +8,13 @@ topicProb <- function(input, output, session, inputData){
     #displayNames <- c("text_field",topicNames)
     
     datatable(
-      inputData()[order(-`Posted Date`)],
+      inputData()[order(-Probability), .(doc_id, text_field, Topic, Probability)],
       filter = "top",
       options = list(
         autoWidth = TRUE,
         scrollX = TRUE, # required to change column length https://github.com/rstudio/DT/issues/29
-        columnDefs = list(list(width = '1000px', targets = 4)))
+        columnDefs = list(list(width = '200px', targets = 3))),
+      rownames = FALSE
     )
   }) 
 }

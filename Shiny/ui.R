@@ -39,22 +39,18 @@ navbarPage(id = "nav-page",
                       tabPanel("Pay",
                                payUI("id3c")),
                       tabPanel("Roles",
-                               rolesUI("id3d")),
-                      tabPanel("Lucrative Skills",
-                               lucrativeUI("id3e"))),
+                               rolesUI("id3d"))),
            
            #-----------------------------------------------------------------------
            #   4.  Time Series
            
-           tabPanel(title = "Time Series",
-                    timeSeriesUI("id4")),
-           
-           #-----------------------------------------------------------------------
-           #   5.  Salary Predictor
-           
-           navbarMenu(title = "Salary Predictor",
-                      tabPanel("Word Cloud",
-                               wordCloudUI("id5a")))
+           navbarMenu(title = "Time Series",
+                      tabPanel("Overall",
+                               toolsUI("id4a")),
+                      tabPanel("Job Type",
+                               toolsUI("id4b")),
+                      tabPanel("Tools",
+                               toolsUI("id4c")))
 )  
 
 

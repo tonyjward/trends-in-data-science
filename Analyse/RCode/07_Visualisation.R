@@ -126,7 +126,7 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   }), .SDcols = characterNames]
   
   outputMolten <- melt(outputAll, 
-                       id.vars = c("Posted Date", "job_type", "Title", "text_field"), 
+                       id.vars = c("doc_id", "text_field"), 
                        measure.vars = grep(pattern = 'Topic', colnames(outputAll), value = TRUE),
                        value.name = "Probability",
                        variable.name = "Topic")
@@ -139,34 +139,10 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   
   directory <- paste(dirROutput,"/",identifier,"_size_",topicsizes,sep="")
   
-  # MARS model to predict salary from 
-  
-  # temporarlily change names so they display nice in plotmo
-  originalNames <- colnames(outputAll)[1:topicsizes]
-  modelNames <- paste("Topic", 1:topicsizes)
-  colnames(outputAll)[1:topicsizes] <- modelNames
-  
-  indPerm <- !is.na(outputAll$salaryMax) & outputAll$job_type == "Permanent"
-  
-  indContract <- !is.na(outputAll$salaryMax) & outputAll$job_type == "Contract"
-  
-  filters <- list(indPerm, indContract)
-  
-  buildModel <- function(filter){
-    earthModel <- earth(x = outputAll[filter, modelNames, with = FALSE] %>% as.matrix(),
-          y = outputAll[filter,salaryMax],
-          degree = 1,
-          trace = 2,
-          nfold = 5,
-          keepxy = TRUE)
-  }
-  
-  earthModels <-lapply(filters, buildModel) 
-  
-  # put names back
-  colnames(outputAll)[1:topicsizes] <- originalNames
-  
-  list(outputAll,jsonviz, top_words, earthModels, outputMolten)
+  list(outputAll = outputAll,
+       jsonviz = jsonviz, 
+       top_words = top_words, 
+       outputMolten = outputMolten)
 })
 
 names(outputData) <- hyperparams$k  
