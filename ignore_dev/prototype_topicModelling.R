@@ -1,1 +1,0 @@
-dt <- readRDS(file = "App/RData/data_scientist.RData")
