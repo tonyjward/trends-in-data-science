@@ -17,36 +17,6 @@
 #      other than the package to be loaded      
 
 #-----------------------------------------------------------------------
-#   1.  Clear all working variables and most packages
-#       From http://stackoverflow.com/questions/7505547/detach-all-packages-while-working-in-r
-
-pkgs = names(sessionInfo()$otherPkgs)
-if (!is.null(pkgs)){
-  pkgs = paste('package:', pkgs, sep = "")
-  lapply(pkgs, detach, character.only = TRUE, unload = TRUE, force = TRUE)
-}
-rm(list = setdiff(ls(all = TRUE), "startLogging"))
-
-#-----------------------------------------------------------------------
-#   2.  Define directories
-
-# Distinguishes between dev environment (windows) and web server in cloud (linux)
-if (.Platform$OS.type == "windows") {
-  dirRoot <- getwd()
-} else { 
-  dirRoot <- "/home/rstudio"
-}
-
-dirRData   <- file.path(dirRoot, 'Analyse', 'RData') 
-dirROutput <- file.path(dirRoot, 'Analyse', 'ROutput')
-dirRCode   <- file.path(dirRoot, 'Analyse', 'RCode')
-
-dirScraping <- file.path(dirRoot, 'Scraping', 'ROutput')
-dirShiny <- file.path(dirRoot, 'Shiny', 'RData')
-
-rm(dirRoot)
-
-#-----------------------------------------------------------------------
 #   3. LOAD PACKAGES
 #   If needed install packages first
 # http://stackoverflow.com/questions/9341635/check-for-installed-packages-before-running-install-packages
