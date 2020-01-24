@@ -139,6 +139,11 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   
   directory <- paste(dirROutput,"/",identifier,"_size_",topicsizes,sep="")
   
+  # give nicer column names for shiny app
+  setnames(top_words,
+           old = c("topic", "topWords"),
+           new = c("Topic", "Top Words"))
+  
   list(outputAll = outputAll,
        jsonviz = jsonviz, 
        top_words = top_words, 
