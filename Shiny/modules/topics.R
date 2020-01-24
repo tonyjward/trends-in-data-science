@@ -3,9 +3,9 @@ topics <- function(input, output, session, inputData){
   # Time Series Bar Plot
   output$plot <- renderPlot({
     
-    topicNames <- grep("Topic", colnames(inputData()), value = TRUE)
+    topicNames <- grep("Topic", colnames(inputData), value = TRUE)
     
-    moltenData <- melt(data = inputData(),
+    moltenData <- melt(data = inputData,
                        id.vars = "job_type",
                        measure.vars = topicNames)
     
