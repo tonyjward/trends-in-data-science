@@ -127,6 +127,12 @@ dt_all[salaryMax <15, salaryMax := NA]
 #'Excellent outside IR35'
 dt_all[job_type == "Contract" & salaryMax < 40, salaryMax := NA]
 
+
+#---------------------------------------------------------------------
+#  7. Add London Flag
+dt_all[, London := grepl('london', tolower(dt_all$Location))]
+
+table(dt_all$London)
 #---------------------------------------------------------------------
 #  7. Remove redundant fields
 

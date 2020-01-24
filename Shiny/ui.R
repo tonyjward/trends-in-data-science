@@ -33,22 +33,31 @@ navbarPage(id = "nav-page",
 
            navbarMenu(title = "Contract vs Perm",
                       tabPanel("Overall",
-                               toolsUI("id3a")),
+                               overallUI("id3a")),
                       tabPanel("Pay",
                                payUI("id3b")),
                       tabPanel("Roles",
                                rolesUI("id3c"))),
+           
+           #-----------------------------------------------------------------------
+           #   4.  Location
+           
+           tabPanel(title = "Location",
+                    locationSplitUI("id4a")),
+           
+           #tabPanel(title = "Location",
+           #         locationSplitUI("id4a")),
 
            #-----------------------------------------------------------------------
-           #   4.  Time Series
+           #   5.  Trends
 
            navbarMenu(title = "Trends",
                       tabPanel("Overall",
-                               timeSeriesOverallUI("id4a")),
+                               timeSeriesOverallUI("id5a")),
                       tabPanel("Job Type",
-                               timeSeriesJobUI("id4b")),
+                               timeSeriesJobUI("id5b")),
                       tabPanel("Tools",
-                               timeSeriesToolsUI("id4c")))
+                               timeSeriesToolsUI("id5c")))
 )  
 
 

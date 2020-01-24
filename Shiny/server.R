@@ -11,10 +11,11 @@
   # Topic Modelling
   outputData <- readRDS(file = "RData/07_OutputData.RData")
    
-  # Time Series plots
+  # Trends
   month <- readRDS(file = 'RData/08_month.RData')
   month_job_type <- readRDS(file = 'RData/08_month_job_type.RData')
   month_tools <- readRDS(file = 'RData/08_month_tools.RData')
+  
   
 server <- function(input, output, session) {
   
@@ -54,13 +55,18 @@ server <- function(input, output, session) {
   callModule(overall,  "id3a", inputData = dt)
   callModule(pay,      "id3b", inputData = dt)
   callModule(roles,    "id3c", inputData = dt)
+  
+  #-----------------------------------------------------------------------
+  #   4.  Location
+  
+  callModule(locationSplit, "id4a", inputData = dt)
 
   #-----------------------------------------------------------------------
-  #   4.  Time Series
+  #   5.  Trends
 
-  callModule(timeSeriesOverall, "id4a", inputData = month)
-  callModule(timeSeriesJob,     "id4b", inputData = month_job_type)
-  callModule(timeSeriesTools,   "id4c", inputData = month_tools)
+  callModule(timeSeriesOverall, "id5a", inputData = month)
+  callModule(timeSeriesJob,     "id5b", inputData = month_job_type)
+  callModule(timeSeriesTools,   "id5c", inputData = month_tools)
 } 
 
 
