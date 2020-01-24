@@ -23,43 +23,39 @@
 server <- function(input, output, session) {
   
   #-----------------------------------------------------------------------
-  #   1.  Home
+  #   Tab 1.  Home
   
   #-----------------------------------------------------------------------
-  #   2.  Data
+  #   Tab 2.  Data
   
   callModule(inspectData, "id1", jobData = dt)
   
   #-----------------------------------------------------------------------
-  #   0.  Create reactive elements  
+  #   Tab 3.  Topic Modelling
   
+  
+
   # Users selects number of topic sizes K
-  # selectedK <- callModule(topicNum, "id2a", 
-  #                         inputData = optimalSettings)
-  
-  # dt <- reactive({
-  #   #selectedK() # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
-  #   dt_all
-  # })
-  
-  # # Json required for LDAvis
-  # jsonviz <- reactive({
-  #   selectedK() # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
-  #   outputData[[selectedK()]][['jsonviz']]
-  # })
-  # 
-  # # Words with highest probability for each topic
-  # topWords <- reactive({
-  #   force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
-  #   outputData[[selectedK()]][['top_words']]
-  # })
-  # 
-  # # Topic Probabilities in long format
-  # topicProbs <- reactive({
-  #   force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
-  #   outputData[[selectedK()]][['outputMolten']]
-  # })
-  # 
+  selectedK <- callModule(topicNum, "id2a",
+                          inputData = optimalSettings)
+
+  jsonviz <- reactive({
+    selectedK() # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
+    outputData[[selectedK()]][['jsonviz']]
+  })
+
+  # Words with highest probability for each topic
+  topWords <- reactive({
+    force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
+    outputData[[selectedK()]][['top_words']]
+  })
+
+  # Topic Probabilities in long format
+  topicProbs <- reactive({
+    force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
+    outputData[[selectedK()]][['outputMolten']]
+  })
+
 
 
   

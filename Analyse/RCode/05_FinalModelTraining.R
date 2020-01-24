@@ -94,18 +94,8 @@ stopCluster(cluster)
 
 names(fitted_many_p) <- hyperparams$k
 
-# save results
-identifier <- paste(field_name, "iterations", iterFit, sep = "_") %>% gsub(" ", "_", .)
 
-# save for future use
-save(fitted_many_p,
-     identifier,
-     optimalSettings,
-     hyperparams,
-     dt_all,
-     file = file.path(dirRData,paste0('05_',identifier,'.RData')))
-
-# save for immediate use
+# save
 save(fitted_many_p,
      identifier,
      optimalSettings,

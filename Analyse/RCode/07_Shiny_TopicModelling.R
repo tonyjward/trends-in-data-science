@@ -1,28 +1,16 @@
-# 05e Visualisation.R
-# Author: Tony Ward
-# Date: 17 September 2018
+# 07_Shiny_TopicModelling.R
 
 # Purpose: To produce visualisations and predicted topic probabilities for a series of topic models
 #           that were generated from 05g fitting models with optimal settings.R
 
 
-# Outstanding
-# Turn posterior propability export into a function for training and test data
-
-
 #---------------------------------------------------------------------
 #   _. Load data required
-
-# To use the most recently run models use 
-# identifier <- '05g_models'
-# Alternatively specify the complete identifier such as 
-# identifier <- '05g_directorate_Network_Operations_yearQtr_2018Q12018Q22018Q3_allImprovements_iterations_10000'
-# identifier <- '05g_directorate_Network_Operations_yearQtr_2018Q12018Q22018Q3_description_iterations_10000'
 
 # LDA
 identifier <- '05_models'
 
-load(file = file.path(dirRData,paste0(identifier,'.RData')))
+load(file = file.path(dirRData, '05_models.RData'))
 load(file = file.path(dirRData,'03_txtCorpus.RData'))
 load(file = file.path(dirRData,'03_txtDtm.RData'))
 load(file = file.path(dirRData,'03_dt_all.RData'))
