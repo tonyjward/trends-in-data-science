@@ -21,7 +21,8 @@ include <- c("doc_id",
              "Salary",
              "salaryMax",
              "Location",
-             "Posted Date")
+             "Posted Date",
+             "Tools")
 
 #---------------------------------------------------------------------
 #   2. Save for use in shiny app

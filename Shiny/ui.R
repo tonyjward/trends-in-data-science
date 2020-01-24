@@ -26,31 +26,29 @@ navbarPage(id = "nav-page",
                       tabPanel("Probabilities",
                                topicProbUI("id2c")),
                       tabPanel("Top Words",
-                               topicWordsUI("id2d")))
+                               topicWordsUI("id2d"))),
 
            #-----------------------------------------------------------------------
            #   3.  Contract vs Perm
 
-           # navbarMenu(title = "Contract vs Perm",
-           #            tabPanel("Tools",
-           #                     toolsUI("id3a")),
-           #            tabPanel("Topics",
-           #                     topicsUI("id3b")),
-           #            tabPanel("Pay",
-           #                     payUI("id3c")),
-           #            tabPanel("Roles",
-           #                     rolesUI("id3d")))
+           navbarMenu(title = "Contract vs Perm",
+                      tabPanel("Tools",
+                               toolsUI("id3a")),
+                      tabPanel("Pay",
+                               payUI("id3c")),
+                      tabPanel("Roles",
+                               rolesUI("id3d"))),
 
-           # #-----------------------------------------------------------------------
-           # #   4.  Time Series
-           # 
-           # navbarMenu(title = "Time Series",
-           #            tabPanel("Overall",
-           #                     toolsUI("id4a")),
-           #            tabPanel("Job Type",
-           #                     toolsUI("id4b")),
-           #            tabPanel("Tools",
-           #                     toolsUI("id4c")))
+           #-----------------------------------------------------------------------
+           #   4.  Time Series
+
+           navbarMenu(title = "Time Series",
+                      tabPanel("Overall",
+                               timeSeriesOverallUI("id4a")),
+                      tabPanel("Job Type",
+                               timeSeriesJobUI("id4b")),
+                      tabPanel("Tools",
+                               timeSeriesToolsUI("id4c")))
 )  
 
 

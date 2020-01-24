@@ -10,16 +10,12 @@
 
   # Topic Modelling
   outputData <- readRDS(file = "RData/07_OutputData.RData")
-  # 
-  # # Time Series plots
-  # month <- readRDS(file = 'RData/08_month.RData')
-  # month_job_type <- readRDS(file = 'RData/08_month_job_type.RData')
-  # month_tools <- readRDS(file = 'RData/08_month_tools.RData')
+   
+  # Time Series plots
+  month <- readRDS(file = 'RData/08_month.RData')
+  month_job_type <- readRDS(file = 'RData/08_month_job_type.RData')
+  month_tools <- readRDS(file = 'RData/08_month_tools.RData')
   
-  # DEBUGGING
-  # outputData <- readRDS(file = file.path(dirShiny, '07_OutputData.RData'))
- 
-
 server <- function(input, output, session) {
   
   #-----------------------------------------------------------------------
@@ -55,19 +51,16 @@ server <- function(input, output, session) {
   #-----------------------------------------------------------------------
   #   3.  Contract vs Perm
 
-  # callModule(tools,  "id3a", inputData = dt)
-  # callModule(topics, "id3b", inputData = dt)
-  # callModule(pay,    "id3c", inputData = dt)
-  # callModule(roles,  "id3d", inputData = dt)
+  callModule(tools,  "id3a", inputData = dt)
+  callModule(pay,    "id3c", inputData = dt)
+  callModule(roles,  "id3d", inputData = dt)
 
-  # #-----------------------------------------------------------------------
-  # #   4.  Time Series
-  # 
-  # callModule(timeSeriesOverall, "id4a", inputData = month)
-  # 
-  # callModule(timeSeriesJob, "id4b", inputData = month_job_type)
-  # 
-  # callModule(timeSeriesTools, "id4c", inputData = month_tools)
+  #-----------------------------------------------------------------------
+  #   4.  Time Series
+
+  callModule(timeSeriesOverall, "id4a", inputData = month)
+  callModule(timeSeriesJob,     "id4b", inputData = month_job_type)
+  callModule(timeSeriesTools,   "id4c", inputData = month_tools)
 } 
 
 
