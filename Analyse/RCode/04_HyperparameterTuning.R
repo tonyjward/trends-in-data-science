@@ -47,13 +47,12 @@ clusterEvalQ(cluster, library(topicmodels))
 folds <- 5
 splitfolds <- sample(1:folds, n, replace = TRUE)
 
-<<<<<<< HEAD
 # create grid of alpha/delta to test
-candidateK <- c(10,20,30,40,50)
-candidateBurnin <- c(50)
-candidateIter <- c(200)
-candidateAlpha <- runif(20, 0.001, 0.2)
-candidateDelta <- runif(20, 0.001, 0.2)
+candidateK <- c(4,5) # c(10,20,30,40,50)
+candidateBurnin <- c(5)
+candidateIter <- c(5)
+candidateAlpha <- runif(2, 0.001, 0.2)
+candidateDelta <- runif(2, 0.001, 0.2)
 plot(candidateAlpha, candidateDelta)
 
 hyperparams <- data.table(k = candidateK,

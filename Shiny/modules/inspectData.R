@@ -6,12 +6,9 @@ inspectData <- function(input, output, session, jobData){
   
   output$tbl <- DT::renderDataTable({
 
-    datatable(jobData()[job_type == input$job_type][order(-`Posted Date`),c( "doc_id", "Title",
-                                                 "text_field",
-                                                 "Salary",
-                                                  "salaryMax",
-                                                 "Location", # if you want country as well, use location
-                                                 "Posted Date"), with = FALSE],
+    datatable(jobData)
+    
+    datatable(jobData[job_type == input$job_type],
               filter = "top",
               options = list(
                 autoWidth = TRUE,
@@ -21,12 +18,12 @@ inspectData <- function(input, output, session, jobData){
               ), rownames = FALSE,
               colnames = c("ID" = "doc_id",
                            "Title" = "Title",
-                           "Description" = "text_field",
+                           "Description" = "text",
                            "Salary" = "Salary",
                            "Salary (Max)" = "salaryMax",
                            "Location" = "Location",
                            "Posted Date" = "Posted Date")) %>% formatDate("Posted Date",
-                                                  method = "toLocaleString")
+                                                                          method = "toLocaleString")
   } 
 )
 }

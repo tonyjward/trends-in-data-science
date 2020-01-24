@@ -3,7 +3,7 @@ topicProb <- function(input, output, session, inputData){
     
     # rename column names e.g. Topic1 becomes "1"
     #topicNames <- grep("Topic", colnames(inputData()),value = TRUE)
-
+    
     
     #displayNames <- c("text_field",topicNames)
     
@@ -22,5 +22,3 @@ topicProb <- function(input, output, session, inputData){
     )
   }) 
 }
-
-

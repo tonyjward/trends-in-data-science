@@ -45,9 +45,9 @@ codes <- c("00_LibrariesAndPackages.R",
            "03_DocumentTermMatrix.R",
            "04_HyperparameterTuning.R",
            "05_FinalModelTraining.R",
-           #06 is placeholder for glmnet
-           "07_Visualisation.R",
-           "08_TimeSeries.R")
+           "06_Shiny_InspectData.R",
+           "07_Shiny_TopicModelling.R",
+           "08_Shiny_TimeSeries.R")
 
 runCode <- function(path, codeName){
   print(codeName)

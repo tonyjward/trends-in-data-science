@@ -35,7 +35,7 @@ gc()
 seed <- 2018
 keep <- 50
 burninFit <- 50
-iterFit <- 2000
+iterFit <- 20
 
 
 #---------------------------------------------------------------------
@@ -94,20 +94,9 @@ stopCluster(cluster)
 
 names(fitted_many_p) <- hyperparams$k
 
-# save results
-identifier <- paste(field_name, "iterations", iterFit, sep = "_") %>% gsub(" ", "_", .)
 
-# save for future use
+# save
 save(fitted_many_p,
-     identifier,
-     optimalSettings,
-     hyperparams,
-     dt_all,
-     file = file.path(dirRData,paste0('05_',identifier,'.RData')))
-
-# save for immediate use
-save(fitted_many_p,
-     identifier,
      optimalSettings,
      hyperparams,
      dt_all,
