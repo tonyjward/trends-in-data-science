@@ -44,10 +44,10 @@ codes <- c("00_LibrariesAndPackages.R",
            "02_ManipulateData.R",
            "03_DocumentTermMatrix.R",
            "04_HyperparameterTuning.R",
-           "05_FinalModelTraining.R",
+           "05_FinalModelTraining.R")
            #06 is placeholder for glmnet
-           "07_Visualisation.R",
-           "08_TimeSeries.R")
+           #"07_Visualisation.R",
+           #"08_TimeSeries.R")
 
 runCode <- function(path, codeName){
   print(codeName)
