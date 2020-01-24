@@ -1,8 +1,6 @@
-# 04 Tuning Hyperparameters using perplexity.R
-# Author: Tony Ward
-# Date: 21 June 2016
+# 04_HypterparamterTuning.R
 
-# Purpose: Grid search finding optimal values for Alpha, Delta and also testing effect of K, Burnin and Iterations
+# Purpose: Random search finding optimal values for Alpha, Delta
 #          We use a reduced number of iterations here, since the optional choice of alpha and delta is pretty much the same
 #          if we chose iter = 400 vs iter = 10000
 
@@ -50,13 +48,6 @@ folds <- 5
 splitfolds <- sample(1:folds, n, replace = TRUE)
 
 # create grid of alpha/delta to test
-# candidateK <- c(10, 20, 40)
-# candidateBurnin <- c(200)
-# candidateIter <- c(500)
-# candidateAlpha <- runif(20, 0.001, 0.2)
-# candidateDelta <- runif(20, 0.001, 0.2)
-# plot(candidateAlpha, candidateDelta)
-
 candidateK <- c(4,5)
 candidateBurnin <- c(0)
 candidateIter <- c(20)

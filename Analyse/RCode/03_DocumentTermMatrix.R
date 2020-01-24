@@ -1,8 +1,8 @@
-# 05a_DocumentTermMatrix.R
-# Author: Tony Ward
-# Date: 21 June 2016
+# 03_DocumentTermMatrix.R
 
-# Purpose: Filter data priot to Topic Modelling - e.g. keep only AD claims
+# Purpose: Produce corpus and document term matrix for use in topic modelling
+
+# Talk about how we un-stem to make the ldavis plots look nicer
 
 # Contents:
 #   1. Define Macro Variables
@@ -13,12 +13,6 @@
 #   6. Adjust Document Term Matrix to Remove Documents with no contents
 #   7. Create corpus required for supervised LDA
 #   8. Partitioning into Train/Test
-
-
-# Notes
-# Steve Perkins - change lines 119 - 129 to make more efficient - don't need to 
-# recreate dtm
-
 
 # TODO - IF THERE ARE NO DOCUS REMOVED THEN THE SAVE DOESN'T WORK
 #---------------------------------------------------------------------
@@ -49,13 +43,14 @@ txtCorpus = Corpus(DataframeSource(dt_all[,c("doc_id", "text"), with = FALSE]))
 txtCorpus = tm_map(txtCorpus, content_transformer(tolower))
 
 # convert bigrams to unigrams
-# txtCorpus <- tm_map(txtCorpus,
-#                     content_transformer(gsub),
-#                     pattern = "sat nav|tomtom| tom tom", replacement = "satnav")
+txtCorpus <- tm_map(txtCorpus,
+                    content_transformer(gsub),
+                    pattern = "big data", replacement = "big_data")
 
+# remove stopwords, punctation etc
 txtCorpus <- tm_map(txtCorpus, stripWhitespace) 
 txtCorpus <- tm_map(txtCorpus, removeWords, stopwords("english")) 
-txtCorpus <- tm_map(txtCorpus, removeWords, c("data", "science", "scientist", "will", "work", "â", "experience"))
+txtCorpus <- tm_map(txtCorpus, removeWords, c("data", "science", "scientist", "will", "work", "â", "Â", "experience"))
 txtCorpus <- tm_map(txtCorpus, removePunctuation)
 txtCorpus <- tm_map(txtCorpus, removeNumbers)
 

@@ -45,7 +45,7 @@ codes <- c("00_LibrariesAndPackages.R",
            "03_DocumentTermMatrix.R",
            "04_HyperparameterTuning.R",
            "05_FinalModelTraining.R",
-           "06_SalaryPrediction.R",
+           #06 is placeholder for glmnet
            "07_Visualisation.R",
            "08_TimeSeries.R")
 
