@@ -7,17 +7,14 @@
 #---------------------------------------------------------------------
 #   _. Load data required
 
-# LDA
-identifier <- '05_models'
-
 load(file = file.path(dirRData, '05_models.RData'))
-load(file = file.path(dirRData,'03_txtCorpus.RData'))
-load(file = file.path(dirRData,'03_txtDtm.RData'))
-load(file = file.path(dirRData,'03_dt_all.RData'))
+load(file = file.path(dirRData, '03_txtCorpus.RData'))
+load(file = file.path(dirRData, '03_txtDtm.RData'))
+load(file = file.path(dirRData, '03_dt_all.RData'))
 
+#---------------------------------------------------------------------
+#   _. Load data required
 
-# if you want to limit the number of rows that can scored with predicted probabilities
-maxRows <- 9999999
 
 
 outputData<- lapply(names(fitted_many_p), function(x) {
@@ -31,37 +28,21 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   
   print(LDA_fit@k)
   topicsizes <- LDA_fit@k
-  directory <- paste(dirROutput,"/",identifier,"_size_",topicsizes,sep="")
+
   jsonviz <- topicJson(LDA_fit, txtCorpus, txtDtm)
   x <- fromJSON(jsonviz)
-  # serVis(jsonviz, out.dir=directory, open.browser = FALSE,as.gist=FALSE)
+
   
   # OBTAIN TOPIC PROBABILITIES
   # Note that we score the entire data (both training and validation datasets) and then
   # add a column indicating whether the row is in the training or validation set
   
-  # obtain posterior term/topic probabilities
-  posterior_All = posterior(LDA_fit,
-                            newdata = txtDtm)
-  
-  # grab topic probabilities
-  topic_probsAll <- posterior_All$topics
+  # posterior topic probabilities
+  topic_probsAll <- posterior(LDA_fit,newdata = txtDtm)$topics # or use LDA_fit@gamma which "should" give same results but doesn't
   
   # re-order the topic probabilities to match the visualisation
   topic_probsAll <- topic_probsAll[,x$topic.order] 
   colnames(topic_probsAll) <- paste0("Topic",c(1:topicsizes))
-  
-  # assign a topic to each document
-  topic_temp <- apply(topic_probsAll,1,function(x) colnames(topic_probsAll)[which(x==max(x))])
-  flatten <- function(x){paste(x,collapse=" ")}
-  topic_flat <- lapply(topic_temp, flatten)
-  topic_list_df <- lapply(topic_flat, data.frame, stringsAsFactors = FALSE)
-  topic_classAll <- rbind.fill(topic_list_df)
-  colnames(topic_classAll) <- "topic_pred"
-  
-  # identify duplicate classifications
-  dup_idx <- sapply(topic_classAll, function(x){nchar(x)>8})
-  topic_classAll$topic_pred[dup_idx] <- "Multiple"
   
   # top topic words
   top_words <- tidy(LDA_fit, matrix = "beta") %>%
@@ -82,36 +63,22 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   
   # rename columns to be more informative i.e. rather than Topic1 rename as top words followed by (Topic1)
   topicNames <- grep("Topic", colnames(topic_probsAll), value = TRUE)
+  colnames(topic_probsAll) <- paste0(top_words$topWords," (", topicNames, ")")
   
-  newNames <- paste0(top_words$topWords," (", topicNames, ")")
-  
-  colnames(topic_probsAll) <- newNames
-  
-
   # export topic probabilities, topic assignments and raw text field to csv file
-  outputAll=data.table(round(100*topic_probsAll), 
-                       topic=topic_classAll[[1]],
+  outputAll=data.table(round(100*topic_probsAll),
+                       doc_id = dt_all[,doc_id],
                        text_field = dt_all[,text], 
-                       partition = ifelse(dt_all[["fold"]] %in% train_folds,"TRAIN","VALID")
-  )
-  
-  
-  # join top words onto topic probs
-  outputAll[top_words, topWords := i.topWords, on = "topic"]
-  outputAll[is.na(topWords), topWords := "NA - Multiple Topics"]
-  
-  # for debugging
-  outputAll[,wordsUsed := dt_all$wordsUsed]
-  outputAll <- cbind(outputAll, dt_all[,-c("text", "wordsUsed")])
+                       partition = ifelse(dt_all[["fold"]] %in% train_folds,"TRAIN","VALID"))
   
   
   # replace line endings for all character variables so we can export
-  characterIdx <- sapply(outputAll, is.character)
-  characterNames <- names(characterIdx)[characterIdx]
-  
-  outputAll[, (characterNames):= lapply(.SD, function(x){
-    gsub("[\r\n]", "", x)
-  }), .SDcols = characterNames]
+  # characterIdx <- sapply(outputAll, is.character)
+  # characterNames <- names(characterIdx)[characterIdx]
+  # 
+  # outputAll[, (characterNames):= lapply(.SD, function(x){
+  #   gsub("[\r\n]", "", x)
+  # }), .SDcols = characterNames]
   
   outputMolten <- melt(outputAll, 
                        id.vars = c("doc_id", "text_field"), 
@@ -119,30 +86,22 @@ outputData<- lapply(names(fitted_many_p), function(x) {
                        value.name = "Probability",
                        variable.name = "Topic")
   
-  # save as data.frame 
-  
   # create data.frame to re-order topics
   topicReorder <- data.frame(topic = x$topic.order,
                              newTopic = 1:topicsizes)
-  
-  directory <- paste(dirROutput,"/",identifier,"_size_",topicsizes,sep="")
   
   # give nicer column names for shiny app
   setnames(top_words,
            old = c("topic", "topWords"),
            new = c("Topic", "Top Words"))
   
-  list(outputAll = outputAll,
-       jsonviz = jsonviz, 
+  list(jsonviz = jsonviz, 
        top_words = top_words, 
        outputMolten = outputMolten)
 })
 
 names(outputData) <- hyperparams$k  
 
-# save for immediate use
-save(outputData,
-     file = file.path(dirRData,paste0('07_OutputData.RData')))
 
 # save for use in shiny app
 saveRDS(outputData,

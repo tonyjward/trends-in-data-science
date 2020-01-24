@@ -12,3 +12,6 @@ month_tools <- readRDS(file = 'RData/08_month_tools.RData')
 
 # DEBUGGING
 dt<- readRDS(file = file.path(dirShiny, '06_dt_all.RData'))
+
+
+outputData <- readRDS(file = file.path(dirShiny, '07_OutputData.RData'))

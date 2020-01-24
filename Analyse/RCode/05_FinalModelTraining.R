@@ -97,7 +97,6 @@ names(fitted_many_p) <- hyperparams$k
 
 # save
 save(fitted_many_p,
-     identifier,
      optimalSettings,
      hyperparams,
      dt_all,

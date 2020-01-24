@@ -27,10 +27,10 @@ navbarPage(id = "nav-page",
                                topicProbUI("id2c")),
                       tabPanel("Top Words",
                                topicWordsUI("id2d")))
-           # 
-           # #-----------------------------------------------------------------------
-           # #   3.  Contract vs Perm
-           # 
+
+           #-----------------------------------------------------------------------
+           #   3.  Contract vs Perm
+
            # navbarMenu(title = "Contract vs Perm",
            #            tabPanel("Tools",
            #                     toolsUI("id3a")),
@@ -39,8 +39,8 @@ navbarPage(id = "nav-page",
            #            tabPanel("Pay",
            #                     payUI("id3c")),
            #            tabPanel("Roles",
-           #                     rolesUI("id3d"))),
-           # 
+           #                     rolesUI("id3d")))
+
            # #-----------------------------------------------------------------------
            # #   4.  Time Series
            # 

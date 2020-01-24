@@ -9,7 +9,7 @@
   dt <- readRDS(file = "RData/06_dt_all.RData")
 
   # Topic Modelling
-  # outputData <- readRDS(file = "RData/07_OutputData.RData")
+  outputData <- readRDS(file = "RData/07_OutputData.RData")
   # 
   # # Time Series plots
   # month <- readRDS(file = 'RData/08_month.RData')
@@ -33,53 +33,33 @@ server <- function(input, output, session) {
   #-----------------------------------------------------------------------
   #   Tab 3.  Topic Modelling
   
-  
-
-  # Users selects number of topic sizes K
+  # Users selects number of topics
   selectedK <- callModule(topicNum, "id2a",
                           inputData = optimalSettings)
 
+  # Create reactive elements
   jsonviz <- reactive({
-    selectedK() # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
     outputData[[selectedK()]][['jsonviz']]
   })
-
-  # Words with highest probability for each topic
   topWords <- reactive({
-    force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
     outputData[[selectedK()]][['top_words']]
   })
-
-  # Topic Probabilities in long format
   topicProbs <- reactive({
-    force(selectedK()) # we insert this to ensure reactive dependency on selectedK (shouldn't need it though?)
     outputData[[selectedK()]][['outputMolten']]
   })
 
-
-
+  callModule(topicViz,   "id2b", json = jsonviz)
+  callModule(topicProb,  "id2c", inputData = topicProbs)
+  callModule(topicWords, "id2d", inputData = topWords)
   
-
   #-----------------------------------------------------------------------
-  #   2.  Topic Modelling
-  
-  # callModule(topicViz, "id2b", json = jsonviz)
-  # 
-  # callModule(topicProb, "id2c", inputData = topicProbs)
-  # 
-  # callModule(topicWords, "id2d", inputData = topWords)
-  # 
-  # #-----------------------------------------------------------------------
-  # #   3.  Contract vs Perm
-  # 
-  # callModule(tools, "id3a", inputData = dt)
-  # 
+  #   3.  Contract vs Perm
+
+  # callModule(tools,  "id3a", inputData = dt)
   # callModule(topics, "id3b", inputData = dt)
-  # 
-  # callModule(pay, "id3c", inputData = dt)
-  # 
-  # callModule(roles, "id3d", inputData = dt)
-  # 
+  # callModule(pay,    "id3c", inputData = dt)
+  # callModule(roles,  "id3d", inputData = dt)
+
   # #-----------------------------------------------------------------------
   # #   4.  Time Series
   # 
