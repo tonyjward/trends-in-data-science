@@ -1,4 +1,4 @@
-toolsUI <- function(id){
+overallUI <- function(id){
   ns <- shiny::NS(id)
   
   tagList(

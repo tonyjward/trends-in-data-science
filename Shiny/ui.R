@@ -32,17 +32,17 @@ navbarPage(id = "nav-page",
            #   3.  Contract vs Perm
 
            navbarMenu(title = "Contract vs Perm",
-                      tabPanel("Tools",
+                      tabPanel("Overall",
                                toolsUI("id3a")),
                       tabPanel("Pay",
-                               payUI("id3c")),
+                               payUI("id3b")),
                       tabPanel("Roles",
-                               rolesUI("id3d"))),
+                               rolesUI("id3c"))),
 
            #-----------------------------------------------------------------------
            #   4.  Time Series
 
-           navbarMenu(title = "Time Series",
+           navbarMenu(title = "Trends",
                       tabPanel("Overall",
                                timeSeriesOverallUI("id4a")),
                       tabPanel("Job Type",

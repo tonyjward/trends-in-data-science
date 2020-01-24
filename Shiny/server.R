@@ -51,9 +51,9 @@ server <- function(input, output, session) {
   #-----------------------------------------------------------------------
   #   3.  Contract vs Perm
 
-  callModule(tools,  "id3a", inputData = dt)
-  callModule(pay,    "id3c", inputData = dt)
-  callModule(roles,  "id3d", inputData = dt)
+  callModule(overall,  "id3a", inputData = dt)
+  callModule(pay,      "id3b", inputData = dt)
+  callModule(roles,    "id3c", inputData = dt)
 
   #-----------------------------------------------------------------------
   #   4.  Time Series
