@@ -2,17 +2,14 @@
 
 # Purpose: Provide data to be used in Shiny App (Inspect Data and Contract vs Perm tabs)
 
-# Contents:
-#   1. Define Macro Variables
 
-# TODO - IF THERE ARE NO DOCUS REMOVED THEN THE SAVE DOESN'T WORK
 #---------------------------------------------------------------------
-#   _. Load data required
+#   1. Load data required
 
 load(file = file.path(dirRData,'03_dt_all.RData'))
 
 #---------------------------------------------------------------------
-#   1. Specify variables to include in Inspect Data tab
+#   2. Specify variables to include in Inspect Data tab
 
 include <- c("doc_id",
              "Title",
@@ -21,14 +18,16 @@ include <- c("doc_id",
              "Salary",
              "salaryMax",
              "Location",
-             "Posted Date",
+             "PostedDate",
              "Tools",
              "London")
 
 #---------------------------------------------------------------------
-#   2. Save for use in shiny app
+#   3. Save for use in shiny app
 
-saveRDS(dt_all[, include, with = FALSE][order(-`Posted Date`)],
+dt_all[, doc_id := as.character(doc_id)]
+
+saveRDS(dt_all[, include, with = FALSE][order(-PostedDate)],
         file = file.path(dirShiny, '06_dt_all.RData')) 
 
 cleanUp(functionNames)

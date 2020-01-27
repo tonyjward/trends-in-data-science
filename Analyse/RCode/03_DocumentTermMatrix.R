@@ -2,34 +2,41 @@
 
 # Purpose: Produce corpus and document term matrix for use in topic modelling
 
-# Talk about how we un-stem to make the ldavis plots look nicer
+# In order to get readable output in the ldaVIs plot, we "unstem" the stemmed words
+# i.e. the stemming process is required for topic modelling (machine >> machin) but for plotting we want to 
+# go back the other way. 
+# In order to do this we take the most likely choice based on frequency count of stemmed/unstemmed terms
 
 # Contents:
-#   1. Define Macro Variables
-#   2. Create Document Term Matrix
-#   3. (Optional) Remove most frequent terms using TF-IDF  
-#   4. (Optional) Remove sparse terms
-#   5. Remove Custom Stopwords
-#   6. Adjust Document Term Matrix to Remove Documents with no contents
-#   7. Create corpus required for supervised LDA
-#   8. Partitioning into Train/Test
+#  0. Settings
+#  1. Load data required
+#  2. Create Corpus
+#  3. Process data
+#  4. Remove cases where text is NA or missing 
+#  5. Stem
+#  6. Document term matrix
+#  7. Replace Stemmed words with the most likely unstemmed equivilant
+#  8. 'Undo stem' the document term matrix to get meaningful column names
+#  9. Use document term matrix to create job descriptions using unstemmed words
+#  10. Identify words selected to be used in document term matrix
+#  11. Partitioning into Train/Validation
+#  DONE. Save results and gc()
 
-# TODO - IF THERE ARE NO DOCUS REMOVED THEN THE SAVE DOESN'T WORK
-#---------------------------------------------------------------------
-#   _. Load data required
-dt_all <- readRDS(dt, file = file.path(dirRData, "02_dt_all.RData"))
+# ----------------------------------------------------------
+#  0. Settings
 
-#---------------------------------------------------------------------
-#  1. Define Macro Variables
-field_name <- "Skills"
+text_field <- "Skills"
 
-# Partitioning
 train_folds <- 1:8
 val_folds   <- 9:10
 
 #---------------------------------------------------------------------
+#  1. Load data required
+dt_all <- readRDS(dt, file = file.path(dirRData, "02_dt_all.RData"))
+
+#---------------------------------------------------------------------
 #  2. Create Corpus
-setnames(dt_all,field_name,"text")
+setnames(dt_all,text_field,"text")
 
 # remove all punctuation
 dt_all[, text := gsub("[[:punct:]]|–"," ", text)]
@@ -74,7 +81,6 @@ if(sum(idx_empty >0))
   txtCorpus <- txtCorpus[!idx_empty]
   dt_removed <- dt_all[idx_empty]
   dt_all <- dt_all[!idx_empty]
-  
 }
 
 #---------------------------------------------------------------------
@@ -212,7 +218,7 @@ if (exists("dt_removed")){
        file = file.path(dirRData,'03_dt_all.RData'))
 }
 
-save(field_name,
+save(text_field,
      file = file.path(dirRData,'03_settings.RData'))
 
 save(dt_train, 
@@ -236,12 +242,12 @@ save(txtDtm,
 save(txtDtm_train,
      dtmRows,
      dtmCols,
-     field_name,
+     text_field,
      filter,
      file = file.path(dirRData,'03_txtDtm_train.RData'))
 
 save(txtDtm_valid,
-     field_name,
+     text_field,
      filter,
      file = file.path(dirRData,'03_txtDtm_valid.RData'))
 

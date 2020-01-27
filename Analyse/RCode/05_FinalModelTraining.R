@@ -7,36 +7,35 @@
 # This is becaues we are not so interested in proving that the model generalises well
 # We want to just show how the model performs on the whole data
 # this is especially important when we don't have much data
-# we take the optimal settings for alpha and delta for each k from code 05f
+# we take the optimal settings for alpha and delta for each k from code 04_HyperparameterTuning
 
 # Contents:
-#   1. Topic Model Parameters
+#   0. Settings
+#   1. Load data required
 #   2. Prepare hyperparameters object
 #   3. Run topic models with optimal settings and save LDA models
+#   4. Save models
 
 #---------------------------------------------------------------------
-#   _. Load data required
-
-load(file = file.path(dirRData,'03_dt_all.RData'))
-load(file = file.path(dirRData,'03_txtDtm.RData'))
-load(file = file.path(dirRData,'04_optimalSettings.RData'))
-load(file = file.path(dirRData,'03_settings.RData'))
-
-# rename document term matrix for ease
-
-full_data  <- txtDtm
-n <- nrow(full_data)
-rm(txtDtm)
-gc()
-
-#---------------------------------------------------------------------
-#   1. Topic Model Parameters
+#   0. Settings
 
 seed <- 2018
 keep <- 50
 burninFit <- 50
 iterFit <- 20
 
+#---------------------------------------------------------------------
+#   1. Load data required
+
+load(file = file.path(dirRData,'03_dt_all.RData'))
+load(file = file.path(dirRData,'03_txtDtm.RData'))
+load(file = file.path(dirRData,'04_optimalSettings.RData'))
+load(file = file.path(dirRData,'03_settings.RData'))
+
+full_data  <- txtDtm
+n <- nrow(full_data)
+rm(txtDtm)
+gc()
 
 #---------------------------------------------------------------------
 #   2. Prepare hyperparameters object
@@ -94,8 +93,9 @@ stopCluster(cluster)
 
 names(fitted_many_p) <- hyperparams$k
 
+#---------------------------------------------------------------------
+#   4. Save models
 
-# save
 save(fitted_many_p,
      optimalSettings,
      hyperparams,

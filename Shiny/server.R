@@ -11,11 +11,13 @@
   # Topic Modelling
   outputData <- readRDS(file = "RData/07_OutputData.RData")
    
+  # Location
+  job_type_Location <- dt[, .N, .(job_type,London)]
+  
   # Trends
   month <- readRDS(file = 'RData/08_month.RData')
   month_job_type <- readRDS(file = 'RData/08_month_job_type.RData')
   month_tools <- readRDS(file = 'RData/08_month_tools.RData')
-  
   
 server <- function(input, output, session) {
   
@@ -59,7 +61,7 @@ server <- function(input, output, session) {
   #-----------------------------------------------------------------------
   #   4.  Location
   
-  callModule(locationSplit, "id4a", inputData = dt)
+  callModule(locationSplit, "id4a", inputData = dt, aggData = job_type_Location)
 
   #-----------------------------------------------------------------------
   #   5.  Trends

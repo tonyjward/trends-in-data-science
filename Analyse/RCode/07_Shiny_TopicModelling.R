@@ -5,7 +5,7 @@
 
 
 #---------------------------------------------------------------------
-#   _. Load data required
+#   1. Load data required
 
 load(file = file.path(dirRData, '05_models.RData'))
 load(file = file.path(dirRData, '03_txtCorpus.RData'))
@@ -13,9 +13,7 @@ load(file = file.path(dirRData, '03_txtDtm.RData'))
 load(file = file.path(dirRData, '03_dt_all.RData'))
 
 #---------------------------------------------------------------------
-#   _. Load data required
-
-
+#   2. Produce LDAvis output and posterior probabilities, for each saved model
 
 outputData<- lapply(names(fitted_many_p), function(x) {
   # LDA_fit <- fitted_many_p[[1]] 
@@ -68,6 +66,7 @@ outputData<- lapply(names(fitted_many_p), function(x) {
                        value.name = "Probability",
                        variable.name = "Topic")
   setorder(outputMolten, -doc_id, -Probability)
+  outputMolten[, doc_id := as.character(doc_id)]
   
   # obtain representative job description for each topic
   top_words[, Topic := paste0(topWords, " (", topic, ")")]
@@ -95,8 +94,9 @@ outputData<- lapply(names(fitted_many_p), function(x) {
 
 names(outputData) <- hyperparams$k  
 
+#---------------------------------------------------------------------
+#   3. Save for use in shiny app
 
-# save for use in shiny app
 saveRDS(outputData,
      file = file.path(dirShiny, '07_OutputData.RData'))
 

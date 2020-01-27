@@ -3,13 +3,26 @@
 # Purpose: Manipulate data as needed
 
 # Contents:
-#   1. 
-#   2.
-#   3.
-#   4. 
+#   0. Settings
+#   1. Load data required
+#   2. Change column names
+#   3. Add Fold for partitioning 
+#   4. Date Formatting
+#   5. Unique identifier
+#   6. Tools (Python vs R)
+#   7. Grab Max Salary and clean data
+#   8. Add London Flag
+#   9. Remove redundant fields
+#   10. Save results and gc()
+
+# ----------------------------------------------------------
+#  0. Settings
+
+set.seed(2017)
+nfolds <- 10
 
 #---------------------------------------------------------------------
-#   _. Load data required
+#  1. Load data required
 
 dt_all <- readRDS(dt, file = file.path(dirRData, "01_dt_all.RData"))
 
@@ -30,36 +43,29 @@ setnames(dt_all,
                  "Type",
                  "Link",
                  "Skills",
-                 "Posted Date"))
+                 "PostedDate"))
 
 #---------------------------------------------------------------------
 #  3. Add Fold for partitioning 
 
-set.seed(2017)
-
-dt_all[,fold := sample(10, size = nrow(dt_all), replace = TRUE)]
+dt_all[,fold := sample(nfolds, size = nrow(dt_all), replace = TRUE)]
 
 #---------------------------------------------------------------------
 #  4. Date Formatting
 
-dt_all[ ,`Posted Date` :=  as.POSIXct(dt_all$`Posted Date`, format="%d/%m/%Y %T", 'GMT')]
+dt_all[ ,PostedDate :=  as.POSIXct(dt_all$PostedDate, format="%d/%m/%Y %T", 'GMT')]
 
-dt_all[, month:= as.Date(cut(`Posted Date`, breaks = "month"))]
+dt_all[, month:= as.Date(cut(PostedDate, breaks = "month"))]
 
 #---------------------------------------------------------------------
-#  6. Create uniuqe string identifier for each row
+#  5. Unique identifier
 
-setorder(dt_all, 'Posted Date')
+setorder(dt_all, 'PostedDate')
 dt_all[,doc_id := 1:nrow(dt_all)]
-setorder(dt_all, -'Posted Date')
+setorder(dt_all, -'PostedDate')
 
 #---------------------------------------------------------------------
-#  7. Clean up data
-
-dt_all[, Salary := gsub('Â','',Salary)]
-
-#---------------------------------------------------------------------
-#  8. Tools
+#  6. Tools (Python vs R)
 
 dt_all[, Python := grepl("[P|p]ython", Skills)]
 dt_all[, R := grepl("R[ [:punct:]]", Skills)]
@@ -70,7 +76,7 @@ dt_all[, Tools := ifelse(Python_R == "TRUE_TRUE", "Python or R",
                                    ifelse(Python_R == "FALSE_TRUE", "R but not Python","Neither Language")))]
 
 #---------------------------------------------------------------------
-#  9. Grab Max Salary
+#  7. Grab Max Salary and clean data
 
 # remove comma's so that 31,850 is treated as 31850 and can be detected as a whole word
 dt_all[, Salary := gsub(',','',Salary)]
@@ -131,17 +137,17 @@ dt_all[job_type == "Contract" & salaryMax < 40, salaryMax := NA]
 
 
 #---------------------------------------------------------------------
-#  7. Add London Flag
+#  8. Add London Flag
 dt_all[, London := grepl('london', tolower(dt_all$Location))]
 
 table(dt_all$London)
 #---------------------------------------------------------------------
-#  7. Remove redundant fields
+#  9. Remove redundant fields
 
 dt_all[,Type:= NULL]
 
 #--------------------------------------------------------------
-# DONE. Save results and gc()
+# 10. Save results and gc()
 
 saveRDS(dt_all, file = file.path(dirRData, "02_dt_all.RData"))
 

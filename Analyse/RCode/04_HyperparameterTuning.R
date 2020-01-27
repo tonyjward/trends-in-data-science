@@ -5,31 +5,39 @@
 #          if we chose iter = 400 vs iter = 10000
 
 # Contents:
-#   1. Topic Model Parameters
-#   2. 5-fold cross-validation, different numbers of topics
-#   3. save output
+#   0. Settings
+#   1. Load data
+#   2. Hyperparemter Tuning
+#   3. Suggest number of topics
+#   4. save output
+
+# ----------------------------------------------------------
+#  0. Settings
+
+seed=2017
+
+# hyperparameter tuning
+folds <- 5
+candidateK <- c(4,5) # c(10,20,30,40,50)
+candidateBurnin <- c(5)
+candidateIter <- c(5)
+candidateAlpha <- runif(2, 0.001, 0.2)
+candidateDelta <- runif(2, 0.001, 0.2)
+keep = 50
 
 #---------------------------------------------------------------------
-#   _. Load data required
+#  1.. Load data 
 
 load(file = file.path(dirRData,'03_txtDtm.RData'))
 load(file = file.path(dirRData,'03_settings.RData'))
-
-
-# rename document term matrix for ease
 
 full_data  <- txtDtm
 n <- nrow(full_data)
 rm(txtDtm)
 gc()
-#---------------------------------------------------------------------
-#   1. Topic Model Parameters
-
-seed=2018
-keep = 50
 
 #---------------------------------------------------------------------
-#   2. 5-fold cross-validation, different numbers of topics
+#   2. Hyperparemter Tuning
 
 # set up a cluster for parallel processing
 
@@ -44,16 +52,7 @@ registerDoSNOW(cluster)
 # send data and packages to multicores 
 clusterEvalQ(cluster, library(topicmodels)) 
 
-folds <- 5
 splitfolds <- sample(1:folds, n, replace = TRUE)
-
-# create grid of alpha/delta to test
-candidateK <- c(4,5) # c(10,20,30,40,50)
-candidateBurnin <- c(5)
-candidateIter <- c(5)
-candidateAlpha <- runif(2, 0.001, 0.2)
-candidateDelta <- runif(2, 0.001, 0.2)
-plot(candidateAlpha, candidateDelta)
 
 hyperparams <- data.table(k = candidateK,
                           alpha = rep(candidateAlpha, length(candidateK)),
@@ -118,9 +117,10 @@ ggplot(optimalSettings, aes(x = k, y = perplexity)) + geom_line() + labs(title =
                                                                          x = "No. Topics",
                                                                          y = "Perplexity")
 #---------------------------------------------------------------------
-#   4. Find optimal number of topics
+#   3. Suggest number of topics
 
-# calculate acceleration as per https://pdfs.semanticscholar.org/8353/09966a880c656d59fe29664ae03db09d56ab.pdf
+# calculate acceleration as per
+# https://pdfs.semanticscholar.org/8353/09966a880c656d59fe29664ae03db09d56ab.pdf
 optimalSettings[, perplexityLag := shift(perplexity, type = "lag")]
 optimalSettings[, perplexityLead := shift(perplexity, type = "lead")]
 optimalSettings[, acceleration := round((perplexityLead - perplexity) - (perplexity - perplexityLag),2)]
@@ -129,10 +129,9 @@ optimalSettings[, acceleration := round((perplexityLead - perplexity) - (perplex
 optimalK <- optimalSettings[which.max(acceleration), k]
 
 #---------------------------------------------------------------------
-#   3. save output
+#   4. save output
 
-identifier <- paste(field_name, sep = "_") %>% gsub(" ", "_", .)
-
+identifier <- paste(text_field, sep = "_") %>% gsub(" ", "_", .)
 
 write.table(optimalSettings,
             file = file.path(dirROutput, paste0('04_', 'optimalSettings_', identifier,'.csv')),

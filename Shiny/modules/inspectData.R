@@ -6,9 +6,7 @@ inspectData <- function(input, output, session, jobData){
   
   output$tbl <- DT::renderDataTable({
 
-    datatable(jobData)
-    
-    datatable(jobData[job_type == input$job_type],
+    datatable(jobData[job_type == input$job_type, .(doc_id, Title, text, Salary, salaryMax, Location, PostedDate)],
               filter = "top",
               options = list(
                 autoWidth = TRUE,
@@ -22,7 +20,7 @@ inspectData <- function(input, output, session, jobData){
                            "Salary" = "Salary",
                            "Salary (Max)" = "salaryMax",
                            "Location" = "Location",
-                           "Posted Date" = "Posted Date")) %>% formatDate("Posted Date",
+                           "Posted Date" = "PostedDate")) %>% formatDate("Posted Date",
                                                                           method = "toLocaleString")
   } 
 )

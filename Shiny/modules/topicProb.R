@@ -1,8 +1,6 @@
 topicProb <- function(input, output, session, inputData){
   output$table <- DT::renderDataTable({
     
-    inputData()[, doc_id := as.character(doc_id)]
-
     datatable(
       inputData()[, .(doc_id, text_field, Topic, Probability)],
       filter = "top",
