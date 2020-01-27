@@ -67,7 +67,7 @@ outputData<- lapply(names(fitted_many_p), function(x) {
                        measure.vars = grep(pattern = 'Topic', colnames(outputAll), value = TRUE),
                        value.name = "Probability",
                        variable.name = "Topic")
-  
+  setorder(outputMolten, -doc_id, -Probability)
   
   # obtain representative job description for each topic
   top_words[, Topic := paste0(topWords, " (", topic, ")")]

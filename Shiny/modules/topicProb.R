@@ -1,19 +1,16 @@
 topicProb <- function(input, output, session, inputData){
   output$table <- DT::renderDataTable({
     
-    # rename column names e.g. Topic1 becomes "1"
-    #topicNames <- grep("Topic", colnames(inputData()),value = TRUE)
-    
-    
-    #displayNames <- c("text_field",topicNames)
-    
+    inputData()[, doc_id := as.character(doc_id)]
+
     datatable(
-      inputData()[order(-Probability), .(doc_id, text_field, Topic, Probability)],
+      inputData()[, .(doc_id, text_field, Topic, Probability)],
       filter = "top",
       options = list(
         autoWidth = TRUE,
         scrollX = TRUE, # required to change column length https://github.com/rstudio/DT/issues/29
-        columnDefs = list(list(width = '200px', targets = 3))),
+        columnDefs = list(list(width = '200px', targets = 2),
+                          list(width = '80px', targets = 0))),
       rownames = FALSE,
       colnames = c("ID" = "doc_id",
                    "Description" = "text_field",

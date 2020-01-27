@@ -49,7 +49,9 @@ dt_all[, month:= as.Date(cut(`Posted Date`, breaks = "month"))]
 #---------------------------------------------------------------------
 #  6. Create uniuqe string identifier for each row
 
+setorder(dt_all, 'Posted Date')
 dt_all[,doc_id := 1:nrow(dt_all)]
+setorder(dt_all, -'Posted Date')
 
 #---------------------------------------------------------------------
 #  7. Clean up data
