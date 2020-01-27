@@ -152,7 +152,6 @@ wordsUsedList2 <-  apply(txtDtmStemmed, 1, function(x){
   # sum(x>0)
 })
 
-wordsUsedList2[[2]]
 jumbled_sentence <- unlist(wordsUsedList2)
 
 bag_of_words <- data.table(doc_id = seq(1, length(jumbled_sentence)),
