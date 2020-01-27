@@ -18,11 +18,11 @@ seed=2017
 
 # hyperparameter tuning
 folds <- 5
-candidateK <- c(4,5) # c(10,20,30,40,50)
-candidateBurnin <- c(5)
-candidateIter <- c(5)
-candidateAlpha <- runif(2, 0.001, 0.2)
-candidateDelta <- runif(2, 0.001, 0.2)
+candidateK <- c(10,20,30,40,50) # candidateK <- c(4,5) 
+candidateBurnin <- c(50)
+candidateIter <- c(400)
+candidateAlpha <- runif(20, 0.001, 0.2)
+candidateDelta <- runif(20, 0.001, 0.2)
 keep = 50
 
 #---------------------------------------------------------------------
@@ -55,8 +55,8 @@ clusterEvalQ(cluster, library(topicmodels))
 splitfolds <- sample(1:folds, n, replace = TRUE)
 
 hyperparams <- data.table(k = candidateK,
-                          alpha = rep(candidateAlpha, length(candidateK)),
-                          delta = rep(candidateDelta, length(candidateK)),
+                          alpha = rep(candidateAlpha, each = length(candidateK)),
+                          delta = rep(candidateDelta, each = length(candidateK)),
                           burnin = candidateBurnin,
                           iter = candidateIter)
 
