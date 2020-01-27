@@ -68,7 +68,18 @@ outputData<- lapply(names(fitted_many_p), function(x) {
                        value.name = "Probability",
                        variable.name = "Topic")
   
-  # create data.frame to re-order topics
+  
+  # obtain representative job description for each topic
+  top_words[, Topic := paste0(topWords, " (", topic, ")")]
+  outputMolten <- top_words[outputMolten, on = c("Topic" = "Topic")]
+  representative <- outputMolten[outputMolten[, .I[which.max(Probability)], by=topic]$V1]
+  representative[, doc_id := NULL]
+  representative[, Topic := NULL]
+  setnames(representative,
+           old = c("topic", "topWords", "text_field"),
+           new = c("Topic", "Top Words", "Representative Job Description"))
+  
+  # create data.frame to re-order topics (delete?????????????????????????????????????)
   topicReorder <- data.frame(topic = x$topic.order,
                              newTopic = 1:topicsizes)
   
@@ -78,7 +89,7 @@ outputData<- lapply(names(fitted_many_p), function(x) {
            new = c("Topic", "Top Words"))
   
   list(jsonviz = jsonviz, 
-       top_words = top_words, 
+       top_words = representative, 
        outputMolten = outputMolten)
 })
 
