@@ -1,7 +1,7 @@
 version: '2'
 services:
   rstudio:
-    image: tonyjward/rstudio:scraping 
+    image: tonyjward/trends-in-data-science:scraping 
     links:
       - selenium:selenium
     volumes:

@@ -1,2 +1,2 @@
 #!/bin/sh
-sudo docker build -f DockerfileShiny -t tonyjward/rstudio:shiny .
+sudo docker build -f DockerfileShiny -t tonyjward/trends-in-data-science:shiny .

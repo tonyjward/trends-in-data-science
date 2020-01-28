@@ -1,7 +1,7 @@
 version: '2'
 services:
   rstudio:
-    image: tonyjward/rstudio:scraping 
+    image: tonyjward/trends-in-data-science:scraping 
     ports:
       - "3838:8787"
     links:
@@ -9,7 +9,7 @@ services:
     volumes:
       - ".:/home/rstudio"
     environment:
-      - PASSWORD=letmein 
+      - PASSWORD=yourpassword 
   selenium:
     image: selenium/standalone-chrome-debug:3.14
     ports:

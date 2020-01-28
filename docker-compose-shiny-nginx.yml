@@ -13,7 +13,7 @@ services:
       - /home/ubuntu/ssl:/ssl/
 
   shiny:
-    image: tonyjward/rstudio:shiny
+    image: tonyjward/trends-in-data-science:shiny
     container_name: shiny
     restart: unless-stopped
     expose:
