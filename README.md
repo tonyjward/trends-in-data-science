@@ -18,7 +18,21 @@ The main goal of this project is to monitor the trends in the UK data science jo
 * Linux
 
 ## Project Description
-(Provide more detailed overview of the project.  Talk a bit about your data sources and what questions and hypothesis you are exploring. What specific data analysis/visualization and modelling work are you using to solve the problem? What blockers and challenges are you facing?  Feel free to number or bullet point things here)
+The data source for this project is the [jobserve website](https://www.jobserve.com/gb/en/Job-Search/). Each day we scrape the website using the search term 'Data Scientist'. Once we have imported and cleaned the data, several visualisations and topic models are produced. These are then presented in here http://apps.statcore.co.uk/
+
+## Project Struture
+
+There are three distinct tasks. Each task has its own folder and docker image.
+
+* Scraping - collects the data
+* Analyse - data processing, visualisation and machine learning
+* Shiny - web application 
+
+In addition we have
+* Docker - used to build docker images
+* Nginx - configuration file for reverse proxy
+
+Lastly there are a number of helper shell scripts in the root directory which automate some of the repetitive tasks (docker run, docker compose up etc)
 
 ## Getting Started
 
