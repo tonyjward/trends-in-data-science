@@ -30,6 +30,9 @@ text_field <- "Skills"
 train_folds <- 1:8
 val_folds   <- 9:10
 
+# minimum occurances of the word required to be included in document term matrix
+min_bound <- 30
+
 #---------------------------------------------------------------------
 #  1. Load data required
 dt_all <- readRDS(dt, file = file.path(dirRData, "02_dt_all.RData"))
@@ -100,7 +103,7 @@ dtm_control <- list(stemming = F,
                     wordLengths = c(1, Inf), 
                     removeNumbers = T,
                     removePunctuation = F,
-                    bounds = list(global = c(30, Inf)))
+                    bounds = list(global = c(min_bound, Inf)))
 
 dtm_control_no_bounds <- list(stemming = F,
                               stopwords = F, 
