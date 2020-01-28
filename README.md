@@ -16,6 +16,7 @@ The main goal of this project is to monitor the trends in the UK data science jo
 * Selenium
 * Docker
 * Linux
+* Azure
 
 ## Project Description
 The data source for this project is the [jobserve website](https://www.jobserve.com/gb/en/Job-Search/). On a schedule (daily) we perform the following
@@ -25,9 +26,9 @@ The data source for this project is the [jobserve website](https://www.jobserve.
 
 The three distinct tasks each have their own folder 
 
-* Scraping - collect data
-* Analyse - data processing, visualisation and machine learning
-* Shiny - web application 
+* Scraping 
+* Analyse 
+* Shiny
 
 Each task has its own docker image, and is launched on a schedule using cron.
 
@@ -39,7 +40,7 @@ Lastly there are a number of helper shell scripts in the root directory which au
 
 Follow setup [instructions](Link to file)
 
-## Featured Notebooks/Analysis/Deliverables
+## Featured Write-up
 * Medium Article (TBC)
 
 ## Contact
