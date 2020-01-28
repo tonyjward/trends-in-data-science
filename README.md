@@ -1,5 +1,5 @@
 # Trends in Data Science
-The main goal of this project is to monitor the trends in the UK data science job market. I originally started this project in 2018 to help me decide whether to learn Python or not. I now use it as motiviation too keep learning Python! 
+The main goal of this project is to monitor the trends in the UK data science job market. I originally started this project in 2018 to help me decide whether to learn Python or not. I now use it as motivation to keep learning Python! 
 
 #### -- Project Status: Completed
 
