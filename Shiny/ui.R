@@ -23,11 +23,10 @@ navbarPage(id = "nav-page",
                                           selected = optimalK)),
                       tabPanel("Visualisation",
                                topicVizUI("id2b")),
-                      tabPanel("Probabilities",
-                               topicProbUI("id2c")),
                       tabPanel("Top Words",
-                               topicWordsUI("id2d"))),
-
+                               topicWordsUI("id2c")),
+                      tabPanel("Probabilities",
+                               topicProbUI("id2d"))),
            #-----------------------------------------------------------------------
            #   3.  Contract vs Perm
 

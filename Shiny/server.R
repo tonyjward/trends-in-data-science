@@ -48,8 +48,9 @@ server <- function(input, output, session) {
   })
 
   callModule(topicViz,   "id2b", json = jsonviz)
-  callModule(topicProb,  "id2c", inputData = topicProbs)
-  callModule(topicWords, "id2d", inputData = topWords)
+  callModule(topicWords, "id2c", inputData = topWords)
+  callModule(topicProb,  "id2d", inputData = topicProbs)
+  
   
   #-----------------------------------------------------------------------
   #   3.  Contract vs Perm

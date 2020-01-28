@@ -1,31 +1,45 @@
 homeUI <- function(){
   tagList(
-    h1("Data Science: Market Trends"),
+    h1("Trends in Data Science"),
+    "This web application tracks trends in the permanent and contract data science job market.",
+    tags$br(),
+    tags$br(),
     img(src = "datascience.png", width = 500, height = 400),
     tags$hr(),
-    
-    "This web application tracks trends in the permanent and contract data science job market",
-    h2("Instructions"),
-    "First select the number of topics from the Topic Modelling drop down, then explore the rest of the application!",
-    h2("How does it work?"),
-    "Each night we scrape the jobserve website using the search term 'Data Scientist'.",
-    "We store the results and allow the user to interact with the data in a number of different ways.",
-    tags$ul(
-      tags$li("Inspect Data"), 
-      tags$li("Topic Modelling"), 
-      tags$li("Contract vs Perm"),
-      tags$li("Time Series")
+    h2("Instructions & Source Code"),
+    "Instructions on how to use the app can be found at this",
+    tags$a(href="https://github.com/tonyjward/trends-in-data-science", "medium article"),
+    tags$br(),
+    "Full source code available at this ",
+    tags$a(href="https://github.com/tonyjward/trends-in-data-science", "github repo"),
+    tags$br(),
+    "If you find this app useful please give some stars/claps :)",
+    tags$hr(),
+    h2("Project Description"),
+    "The data source for this project is jobserve.co.uk. On a schedule (daily) we perform the following",
+    tags$ol(
+      tags$li("Scrape all 'Data Scientist' jobs from jobserve"),
+      tags$li("Pre-process data, produce visualisations and build topic models on the job description"),
+      tags$li("Present output using an interactive web application")
     ),
-    h4("Inspect Data"),
-    "We can explore all historical job postings using the filters at the top of the data.",
-    "This is a useful feature since jobserve only stores the last 7 days worth of jobs",
+    tags$hr(),
+    h2("App Navigation"),
+    h4("Data"),
+    "Select between Permanent and Contract roles then explore historical job postings.",
+    "Use the filters at the top to perform keyword search, or use arrows to sort data by salary or posted date.",
     h4("Topic Modelling"),
-    "We use a machine learning algorithm called Latent Dirichlet Allocation to uncover the underlying topics present in the job description.",
-    "Each night we re-train the algorithm , meaning that the insights are as upto date as possible.",
+    tags$ol(
+      tags$li("Select Number of Topics"),
+      tags$li("Visualisation: Explore each topic interactively using LDAVis"),
+      tags$li("Top Words: Understand all topics at a glance"),
+      tags$li("Probabilities: Filter using ID to understand a given job descriptions (posterior) topic probabilities, or filter using Topic and Probability to bring back examples of certain topics")
+    ),
     h4("Contract vs Perm"),
-    "A comparison between Contract and Permanent employment using a number of metrics.",
-    h4("Time Series"),
-    "Time Series analysis showing the frequency of job posting over time split by job type."
+    "A comparison between Contract and Permanent employment.",
+    h4("Location"),
+    "A comparison between London and the rest of the UK.",
+    h4("Trends"),
+    "Monitor the monthly trends for both job type (Perm/Contract) and tools (Python/R)."
     
   )
 }
