@@ -18,11 +18,11 @@ seed=2017
 
 # hyperparameter tuning
 folds <- 5
-candidateK <- c(10,20,30,40,50) # candidateK <- c(4,5) 
+candidateK <- c(10,20,30,40,50,60) # candidateK <- c(4,5) 
 candidateBurnin <- c(50)
-candidateIter <- c(400)
-candidateAlpha <- runif(20, 0.001, 0.2)
-candidateDelta <- runif(20, 0.001, 0.2)
+candidateIter <- c(600)
+candidateAlpha <- runif(30, 0.001, 0.2)
+candidateDelta <- runif(30, 0.001, 0.2)
 keep = 50
 
 #---------------------------------------------------------------------
