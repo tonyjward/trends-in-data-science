@@ -21,7 +21,7 @@ The main goal of this project is to monitor the trends in the UK data science jo
 The data source for this project is the [jobserve website](https://www.jobserve.com/gb/en/Job-Search/). On a schedule (daily) we perform the following
 1. Scrape all 'Data Scientist' jobs from jobserve
 2. Pre-process data, produce visualisations and build topic models on the job description
-3. Present output at http://apps.statcore.co.uk/
+3. Present output using interactive web application at http://apps.statcore.co.uk/
 
 The three distinct tasks each have their own folder 
 
@@ -31,13 +31,9 @@ The three distinct tasks each have their own folder
 
 Each task has its own docker image, and is launched on a schedule using cron.
 
-We containerise the three tasks using separate docker images. 
+We use Nginx as a reverse proxy and to encrypt all traffic using SSL. The Nginx folder contains the required config file.
 
-In addition we have
-* Docker - used to build docker images
-* Nginx - configuration file for reverse proxy
-
-Lastly there are a number of helper shell scripts in the root directory which automate some of the repetitive tasks (docker run, docker compose up etc)
+Lastly there are a number of helper shell scripts in the root directory which automate some of the repetitive tasks (docker run, docker compose up etc).
 
 ## Getting Started
 
