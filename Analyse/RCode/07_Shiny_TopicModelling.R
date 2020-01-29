@@ -68,27 +68,13 @@ outputData<- lapply(names(fitted_many_p), function(x) {
   setorder(outputMolten, -doc_id, -Probability)
   outputMolten[, doc_id := as.character(doc_id)]
   
-  # obtain representative job description for each topic
-  top_words[, Topic := paste0(topWords, " (", topic, ")")]
-  outputMolten <- top_words[outputMolten, on = c("Topic" = "Topic")]
-  representative <- outputMolten[outputMolten[, .I[which.max(Probability)], by=topic]$V1]
-  representative[, doc_id := NULL]
-  representative[, Topic := NULL]
-  setnames(representative,
-           old = c("topic", "topWords", "text_field"),
-           new = c("Topic", "Top Words", "Representative Job Description"))
-  
-  # create data.frame to re-order topics (delete?????????????????????????????????????)
-  topicReorder <- data.frame(topic = x$topic.order,
-                             newTopic = 1:topicsizes)
-  
   # give nicer column names for shiny app
   setnames(top_words,
            old = c("topic", "topWords"),
            new = c("Topic", "Top Words"))
   
   list(jsonviz = jsonviz, 
-       top_words = representative, 
+       top_words = top_words, 
        outputMolten = outputMolten)
 })
 
