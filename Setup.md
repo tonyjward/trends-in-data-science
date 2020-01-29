@@ -1,31 +1,34 @@
-# Set up Linux machine
+## Clone repo and set up directories
 
-First install docker and docker-compose if they are not already installed
-It is important to install docker-compose using the official instructions as done below rather than sudo apt-get install to avoid conflicts with docker login.
-
-```bash
-sudo apt-get update
-sudo apt-get install docker
-sudo apt-get install docker-compose
-```
-
-Then clone the repos
+Clone the repos
 ```
 git clone https://github.com/tonyjward/trends-in-data-science.git
 ```
-
 Then creates some directories in the folder
 ```
 cd trends-in-data-science
 mkdir Analyse/Logs Analyse/RData Analyse/ROutput Scraping/Logs Scraping/ROutput Shiny/Logs Shiny/RData
 ```
+## Docker
+Install docker as per the documentation https://docs.docker.com/install/linux/docker-ce/ubuntu/.
 
-Download images for dockerhub
-(You may need to consult 
+Install docker-compose as per https://docs.docker.com/compose/install/
+
+It is important to install docker-compose using the official instructions above rather than sudo apt-get install to avoid conflicts when logging into docker hub.
+
+
+Log in to docker hub. If you haven't got a dockerhub account create one here https://hub.docker.com/
 ```
-./build-scraping.sh && ./build-analyse.sh && ./build-shiny.sh
+sudo docker login --username=<your_username>
 ```
 
+Pull images for dockerhub
+```
+sudo docker pull tonyjward/trends-in-data-science:scraping
+sudo docker pull tonyjward/trends-in-data-science:analyseinteractive
+sudo docker pull tonyjward/trends-in-data-science:analyse
+sudo docker pull tonyjward/trends-in-data-science:shiny
+```
 # Scraping jobserve.com
 
 # First Build Dockerfile with R and required libraries installed (RSelenium). 
