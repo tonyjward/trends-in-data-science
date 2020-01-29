@@ -1,6 +1,7 @@
 # Set up Linux machine
 
 First install docker and docker-compose if they are not already installed
+It is important to install docker-compose using the official instructions as done below rather than sudo apt-get install to avoid conflicts with docker login.
 
 ```bash
 sudo apt-get update
@@ -16,10 +17,11 @@ git clone https://github.com/tonyjward/trends-in-data-science.git
 Then creates some directories in the folder
 ```
 cd trends-in-data-science
-mkdir Logs RData App/RData
+mkdir Analyse/Logs Analyse/RData Analyse/ROutput Scraping/Logs Scraping/ROutput Shiny/Logs Shiny/RData
 ```
 
-And build the containers
+Download images for dockerhub
+(You may need to consult 
 ```
 ./build-scraping.sh && ./build-analyse.sh && ./build-shiny.sh
 ```
