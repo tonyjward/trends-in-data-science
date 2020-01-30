@@ -8,7 +8,7 @@ overall <- function(input, output, session, inputData){
     ggplot(data = plotData,
            aes(x = job_type, y = N))  + geom_bar(stat = "identity",
                                                  fill = "blue",
-                                                 alpha = 0.7) + labs(y = "Job Count")
+                                                 alpha = 0.7) + labs(y = "Job Count", x = "Job Type")
   })
   
   
