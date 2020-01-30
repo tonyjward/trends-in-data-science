@@ -1,4 +1,6 @@
-homeUI <- function(){
+homeUI <- function(id){
+  ns <- shiny::NS(id)
+  
   tagList(
     h1("Trends in Data Science"),
     img(src = "datascience.png", width = 500, height = 400),
@@ -11,6 +13,7 @@ homeUI <- function(){
       tags$li("Pre-process data, produce visualisations and build topic models on the job description"),
       tags$li("Present output using an this interactive Shiny application")
     ),
+    textOutput(ns("job_count")),
     tags$hr(),
     h2("Navigating the App"),
     h4("Data"),

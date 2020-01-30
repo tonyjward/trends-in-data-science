@@ -5,7 +5,7 @@ navbarPage(id = "nav-page",
            #   Tab 1.  Home
            
            tabPanel(title = "Home",
-                    homeUI()),
+                    homeUI("id1")),
            
            #-----------------------------------------------------------------------
            #   Tab 2.  Data

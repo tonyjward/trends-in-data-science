@@ -7,6 +7,8 @@
   
   # Data
   dt <- readRDS(file = "RData/06_dt_all.RData")
+  
+  job_count <- nrow(dt)
 
   # Topic Modelling
   outputData <- readRDS(file = "RData/07_OutputData.RData")
@@ -23,6 +25,8 @@ server <- function(input, output, session) {
   
   #-----------------------------------------------------------------------
   #   Tab 1.  Home
+  
+  callModule(home, "id1", n = job_count)
   
   #-----------------------------------------------------------------------
   #   Tab 2.  Data
