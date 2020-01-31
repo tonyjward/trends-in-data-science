@@ -11,7 +11,7 @@ homeUI <- function(id){
     tags$ol(
       tags$li("Scrape all 'Data Scientist' jobs from jobserve.co.uk"),
       tags$li("Pre-process data, produce visualisations and build topic models on the job description"),
-      tags$li("Present output using an this interactive Shiny application")
+      tags$li("Present output using this interactive Shiny application")
     ),
     textOutput(ns("job_count")),
     tags$hr(),
