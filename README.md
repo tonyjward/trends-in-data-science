@@ -38,7 +38,7 @@ Lastly there are a number of helper shell scripts in the root directory which au
 
 ## Getting Started
 
-Follow setup [instructions](https://github.com/tonyjward/trends-in-data-science/blob/master/Setup.md)
+Follow the setup [instructions](https://github.com/tonyjward/trends-in-data-science/blob/master/Setup.md)
 
 ## Featured Write-up
 * Medium Article (TBC)
