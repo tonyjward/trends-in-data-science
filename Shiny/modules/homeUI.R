@@ -37,9 +37,14 @@ homeUI <- function(id){
     "Full source code available on ",
     tags$a(href="https://github.com/tonyjward/trends-in-data-science", "github"),
     tags$hr(),
+    h2("Write-up"),
+    "Medium article: ",
+    tags$a(href="https://medium.com/p/python-vs-r-what-i-learned-from-4-000-job-advertisements-ab41661b7f28?source=email-b557f284be98--writer.postDistributed&sk=47772a3ea916263ada1e461f2088422e", 
+           "Python vs R: How to Analyse 4000 Job Advertisements Using Shiny and Machine Learning"),
+    tags$hr(),
     h2("App Author"),
     "Tony Ward -  ",
-    tags$a(href="https://statcore.co.uk/", "freelance data science consultant")
+    tags$a(href="https://statcore.co.uk/", "Data Science Consultant")
     
   )
 }
