@@ -1,5 +1,7 @@
 # Trends in Data Science
-The main goal of this project is to monitor the trends in the UK data science job market. I originally started this project in 2018 to help me decide whether to learn Python or not. I now use it as motivation to keep learning Python! 
+The main goal of this project is to monitor the trends in the UK data science job market. Users can view all trends at this Shiny App https://apps.statcore.co.uk/trends-in-data-science/. For a write-up see this Medium article [Python vs R: How to Analyse 4000 Job Advertisements Using Shiny & Machine Learning](https://medium.com/p/python-vs-r-what-i-learned-from-4-000-job-advertisements-ab41661b7f28?source=email-b557f284be98--writer.postDistributed&sk=47772a3ea916263ada1e461f2088422e)
+
+I originally started this project in 2018 to help me decide whether to learn Python or not. I now use it as motivation to keep learning Python! 
 
 #### -- Project Status: Completed
 
@@ -39,9 +41,6 @@ Lastly there are a number of helper shell scripts in the root directory which au
 ## Getting Started
 
 Follow the setup [instructions](https://github.com/tonyjward/trends-in-data-science/blob/master/Setup.md)
-
-## Featured Write-up
-* Medium Article (TBC)
 
 ## Contact
 * tony@statcore.co.uk
