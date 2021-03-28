@@ -7,7 +7,7 @@ homeUI <- function(id){
     tags$hr(),
     h2("About"),
     "This web application tracks trends in the permanent and contract data science job market.",
-    "On a schedule (currently daily) we perform the following",
+    "Every weekday we perform the following:",
     tags$ol(
       tags$li("Scrape all 'Data Scientist' jobs from jobserve.co.uk"),
       tags$li("Pre-process data, produce visualisations and build topic models on the job description"),
